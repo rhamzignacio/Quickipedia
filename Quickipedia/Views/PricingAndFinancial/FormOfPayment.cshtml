@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Form of Payment";
+}
+
+<div class="" role="main" ng-controller="pricingAndFinancialController as vm" ng-init="initFormOfPayment()">
+    <div class="x_content">
+
+        <h3>Form of Payment</h3>    
+        
+        <div ng-show="vm.FormOfPayment.ShowModifiedBy != ' '">
+            <small>Modified By: {{vm.FormOfPayment.ShowModifiedBy}} - {{vm.FormOfPayment.ShowModifiedDate}}</small>
+        </div>  
+
+        <div class="x_content">
+            <div class="form-group">
+                <label>FOP</label>
+                <select class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-options="item.value as item.label for item in FOPDropdown" ng-model="vm.FormOfPayment.FOP"></select>
+            </div>
+
+            <div class="form-group">
+                <label>Billing Currency</label>
+                <select class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-options="item.value as item.label for item in BillingCurrency" ng-model="vm.FormOfPayment.Currency"></select>
+            </div>
+
+            <div class="form-group" ng-show="vm.FormOfPayment.Currency == 'OTH'">
+                <label>Other Billing Currency</label>
+                <textarea rows="2" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'" maxlength="500" ng-model="vm.FormOfPayment.OtherCurrency" />
+            </div>
+
+            <div class="form-group" ng-show="CheckIfCreditCard(vm.FormOfPayment.FOP)">
+                <label>Merchant Fee</label>
+                <select class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-options="item.value as item.label for item in MerchantDropdown" ng-model="vm.FormOfPayment.MerchantFee"></select>
+            </div>
+
+            <div class="form-group" ng-show="vm.FormOfPayment.FOP == 'Others'">
+                <label>FOP Others</label>
+                <textarea rows="2" class="form-control" ng-model="vm.FormOfPayment.FOP_Others"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Issued Card</label>
+                <select type="text" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-options="item.value as item.label for item in IssuedCardDropDown"  ng-model="vm.FormOfPayment.IssuedCard" ></select>
+            </div>
+
+            <div class="form-group" ng-show="vm.FormOfPayment.IssuedCard == 'Others'">
+                <label>Issued Card Others</label>
+                <textarea rows="2" class="form-control" ng-model="vm.FormOfPayment.IssuedCard_Others"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>CC Liquidation Process</label>
+                <select type="text" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-options="item.value as item.label for item in CCLiquidationDropDown" ng-model="vm.FormOfPayment.CCLiquidationProcess"></select>
+            </div>
+
+            <div class="form-group" ng-show="vm.FormOfPayment.CCLiquidationProcess == 'Others'">
+                <label>CC Liquidation Process Others</label>
+                <textarea rows="2" class="form-control" ng-model="vm.FormOfPayment.CCLiquidation_Others"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Tax Type</label>
+                <select type="text" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-options="item.value as item.label for item in TaxTypeDropDown" ng-model="vm.FormOfPayment.TaxType"></select>
+            </div>
+
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" ng-click="saveFormOfPayment(vm.FormOfPayment)">
+                    <span ng-show="main.CurrentClient.ClientCode == 'NewClient' || vm.FormOfPayment.ClientCode == null">Save</span>
+                    <span ng-show="main.CurrentClient.ClientCode != 'NewClient' && vm.FormOfPayment.ClientCode != null">Update</span>
+                </button>
+            </div>
+        </div>
+        </div>
+</div>
+

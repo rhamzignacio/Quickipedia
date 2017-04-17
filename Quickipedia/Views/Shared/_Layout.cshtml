@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    @Styles.Render("~/Content/css")
+
+    <title>Quickipedia | @ViewBag.Title</title>
+</head>
+<body class="nav-md" ng-controller="mainController as main" ng-init="init()">
+
+    <div class="container body">
+    <div growl class="fading"></div>
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border:0;">
+                        <a href="/Home/Index" class="site_title"><i class="fa fa-cloud"></i><span> Quickipedia</span></a>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="profile">
+                        <div class="profile_pic">
+                            <img src="~/Src/Images/blank-profile-picture.png" alt="Profile Picture" class="img-circle profile_img"/>
+                        </div>
+                        <div class="profile_info">
+                            <span>Welcome,</span>
+                            <h2>{{main.CurrentUser.FirstName}} {{main.CurrentUser.LastName}}</h2>
+                        </div>
+                    </div><!--profile-->
+
+                    <br />
+                    
+                    <!--sidebar menu-->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <h3 ng-show="main.CurrentUser.AccessLevel == 'U'">Travel Consultant</h3>
+                            <h3 ng-show="main.CurrentUser.AccessLevel == 'A'">Admin</h3>
+
+                            <ul class="nav side-menu" ng-show="main.CurrentClient.ClientCode == null || main.CurrentClient.ClientCode == ''">
+                                <li><a href="/Home/Index"><i class="fa fa-newspaper-o"></i> Advisory </a></li>
+                                <li><a href="/User/UserList"><i class="fa fa-users" ng-show="main.CurrentUser.AccessLevel == 'A'"></i> User Accounts </a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#ClientModal"><i class="fa fa-warning"></i>No Client Selected</a></li>
+                            </ul>
+
+                            <ul class="nav side-menu" ng-show="main.CurrentClient.ClientCode != null && main.CurrentClient.ClientCode == 'NewClient'">
+                                <li><a href="/Home/Index"><i class="fa fa-newspaper-o"></i> Advisory </a></li>
+                                <li><a href="/User/UserList"><i class="fa fa-users" ng-show="main.CurrentUser.AccessLevel == 'A'"></i> User Accounts </a></li>
+                                <li><a href="/BasicInfo/Index"><i class="fa fa-ellipsis-v"></i>Basic Info </a></li>
+                            </ul>
+
+                            <ul class="nav side-menu" ng-show="main.CurrentClient.ClientCode != null && main.CurrentClient.ClientCode != 'NewClient'">
+                                <li><a href="/Home/Index"><i class="fa fa-newspaper-o"></i> Advisory </a></li>
+                                <!--<li><a href="#" data-toggle="modal" data-target="#ClientModal"><i class="fa fa-users"></i>Select Client</a></li>-->
+                                <li><a href="/BasicInfo/Index"><i class="fa fa-ellipsis-v"></i>Basic Info </a></li>
+                                <li>
+                                    <a href="/VIP/VIPList"><i class="fa fa-institution"></i>VIP</a>
+                                </li><!--VIP List-->
+                                <li><a href="/ClientBookerApprover/Index"><i class="fa fa-user"></i>Client Booker/Approver </a></li>
+                                <li>
+                                    <a><i class="fa fa-external-link"></i>Booking Process <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/BookingProcess/International">International</a></li>
+                                        <li><a href="/BookingProcess/Domestic">Domestic</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="/ProfileManagement/Index"><i class="fa fa-archive"></i>Profile Management </a></li>
+                                <li>
+                                    <a><i class="fa fa-money"></i>Pricing & Financial <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/PricingAndFinancial/PricingModel">Pricing Model</a></li>
+                                        <li><a href="/PricingAndFinancial/FormOfPayment">Form of Payment</a></li>
+                                        <li><a href="/Ancillaries/Index">Ancillaries Fees</a></li>
+                                        <li><a href="/PricingAndFinancial/TableOfFees">Table of Fees</a></li>
+                                        <li><a href="/PricingAndFinancial/InvoiceAttachment">Invoice Attachments</a></li>
+                                        <li><a href="/PricingAndFinancial/BillingCollectionFinance">Billing/Collection/Finance Manager</a></li>
+                                        <li><a href="/PricingAndFinancial/ScheduleOfInvoice">Shedule of Invoice Receiving</a></li>
+                                        <li><a href="/PricingAndFinancial/RefundProcess">Refund Process</a></li>
+                                        <li><a href="/PricingAndFinancial/Others">Others</a></li>
+                                    </ul>
+                                </li><!--Pricing & Financial -->
+                                <li>
+                                    <a><i class="fa fa-plane"></i>Air <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/Air/SLA">SLA</a></li>
+                                        <li><a href="/Air/TripAuthorizerProcess">Trip Authorizer Process</a></li>
+                                        <li><a href="/Air/TravelPolicy">Travel Policy</a></li>
+                                        <li><a href="/Air/PreferredAirlines">Preferred Airlines</a></li>
+                                        <li><a href="/Air/DisallowedAirlines">Disallowed Airlines</a></li>
+                                        <li><a href="/Air/TravelSecurity">Travel Security</a></li>
+                                        <li><a href="/Air/Others">Others</a></li>
+                                    </ul>
+                                </li>  <!--AIR-->
+                                <li>
+                                    <a><i class="fa fa-building"></i>Hotel <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/Hotel/HotelPolicy">Policy</a></li>
+                                        <li><a href="/Hotel/HotelCorporateCode">Hotel Corporate Code</a></li>
+                                        <li><a href="/Hotel/Program">Program</a></li>
+                                    </ul>
+                                </li><!--HOTEL-->
+                                <li>
+                                    <a><i class="fa fa-car"></i>Car <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/Car/CarPolicy">Policy</a></li>
+                                        <li><a href="/Car/CarCorporateCode">Car Corporate Code</a></li>
+                                        <li><a href="/Car/Program">Program</a></li>
+                                    </ul>
+                                </li><!--HOTEL-->
+                                <li>
+                                    <a><i class="fa fa-arrows"></i>Rail <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/Rail/RailPolicy">Policy</a></li>
+                                        <li><a href="/Rail/RailCorporateCode">Rail Corporate Code</a></li>
+                                        <li><a href="/Rail/Program">Program</a></li>
+                                    </ul>
+                                </li><!--RAIL-->
+                                <li>
+                                    <a><i class="fa fa-file"></i>VISA & Documentation <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/VisaDocumentation/VisaDocumentation">Process Flow/Policy</a></li>
+                                    </ul>
+                                </li><!--Visa & Documentation-->
+                                <li>
+                                    <a><i class="fa fa-cubes"></i>MICE <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/Mice/MicePolicy">MICE Policy</a></li>
+                                        <li><a href="/Mice/SMMPForMSD">SMMP</a></li>
+                                        <li><a href="/Mice/MiceGroupBookingPolicy">Group Booking Policy</a></li>
+                                        <li><a href="/Mice/Pricing">MICE Pricing</a></li>
+                                        <li><a href="/Mice/TicketingApproval">Ticketing/Approval/Billing Requirements</a></li>
+                                    </ul>
+                                </li><!--MICE-->
+                            </ul>
+</div><!--menu-section-->
+                    </div><!--sidebar-menu-->
+                    <!--menu footer buttons-->
+                    <div class="sidebar-footer hidden-small">
+
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Logout">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                        </a>
+                    </div><!--menu footer buttons-->
+                </div><!--left_col scroll-view-->
+            </div><!--col-md-3 left_col-->
+            
+            <!--Top Navigation-->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <nav>
+                        <div class="nav toggle">
+                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                        </div>
+                            <ul class="nav navbar navbar-right">                                                       
+                                <li class="">                                   
+                                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        <img src="~/Src/Images/blank-profile-picture.png" alt="">{{main.CurrentUser.FirstName}} {{main.CurrentUser.LastName}}
+                                        <span class="fa fa-angle-down"></span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                        <li><a href="#"><span class="badge bg-red pull-right">5</span> Advisory</a></li>
+                                        <li><a ng-click="Logout()"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                    </ul>
+                                </li>
+                                <li class="">
+                                    <a href="#" class="user-profile dropdown-toggle" data-toggle="modal" data-target="#ClientModal">
+                                    <img ng-show="main.CurrentClient.ClientCode != 'NewClient'" src="~/Src/Images/Clients-icon.png" />
+                                    <img ng-show="main.CurrentClient.ClientCode == 'NewClient'" src="~/Src/Images/Actions-contact-new-icon.png" />
+                                    <span>
+                                        {{main.CurrentClient.ClientName}}</span>
+                                    <span ng-show="main.CurrentClient.ClientName == null || main.CurrentClient.ClientName == ''">
+                                        Please Select Client</span></a>
+                                </li>
+                                
+                            </ul>                       
+                    </nav>
+                </div><!--nav_menu-->
+            </div><!--top_nav-->
+            <!--Top Navigation-->
+
+            <!-- page content -->
+            <div class="right_col" role="main">
+                @RenderBody()
+                <div class="clearfix"></div>
+            </div>
+            <!-- /page content -->
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    Quickipedia v1.8 by Philscan Travel and Tours Inc
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+        </div><!--main_container-->
+    </div><!--container body-->
+
+    <!--Select Client Modal-->
+    <div class="modal fade" id="ClientModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Select Client</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Name</label>
+                            <select ng-required="main.SelectedClient" ng-model="main.SelectedClient" class="select2_single form-control" style="width:100%">
+                                <option></option>                                
+                                <option ng-if="main.CurrentUser.AccessLevel == 'A'" value="NewClient">New Client</option>
+                                <option ng-repeat="client in main.ClientDropdown" value="{{client.ClientCode}}">{{client.ClientName}}</option>
+                            </select>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default" ng-click="SaveSelectedClient(main.SelectedClient)" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+    <!--./Select Client Modal-->
+    
+    @Scripts.Render("~/bundles/scripts")
+    @Scripts.Render("~/bundles/angular")
+   
+    <script>
+        $(document).ready(function () {
+            $(".select2_single").select2({
+                placeholder: "Please Select",
+                allowClear: true,
+            });
+        });
+    </script>
+</body>
+
+</html>

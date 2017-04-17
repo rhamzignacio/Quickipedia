@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Others";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div role="main" ng-controller="pricingAndFinancialController as vm" ng-init="initOther()">
+    <div class="x_content">
+        <h3>Others</h3>
+
+        <div ng-show="vm.Other.ShowModifiedBy != ''">
+            <small>Modified By: {{vm.Other.ShowModifiedBy}} - {{vm.Other.ShowModifiedDate}}</small>
+        </div>
+
+        <div class="form-group">
+            <textarea rows="30" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'"
+                      ng-model="vm.Other.Value"></textarea>
+        </div>
+
+        <div class="form-group" ng-show="main.CurrentUser.AccessLevel=='A'">
+            <button type="button" class="btn btn-primary" ng-click="SaveOther(vm.Other)">
+                <span ng-show="main.CurrentClient.ClientCode == 'NewClient' || vm.Other.ClientCode == null">Save</span>
+                <span ng-show="main.CurrentClient.ClientCode != 'NewClient' && vm.Other.ClientCode != null">Update</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewBag.Title = "Program";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="" ng-controller="railController as rail" ng-init="initProgram()">
+    <div class="form-group">
+        <button type="button" class="btn btn-success" ng-click="saveRailProgram(rail.Links, rail.FileUploads)">Save</button>
+    </div>
+
+    <div class="x_panel">
+        <div class="x_title">
+            <h2><i class="fa fa-file"></i>File(s)</h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a class="" ng-click="uploadClick()"><i class="fa fa-plus"></i></a>
+                </li>
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+            </ul>
+
+            <div class="clearfix"></div>
+        </div><!--/x_title-->
+        
+        <div class="x_content">
+            <input type="file" ngf-select="uploadFiles($files, $invalidFiles)" id="Files" multiple style="display:none">
+
+            <div class="form-group" ng-repeat="file in rail.FileUploads | filter: {Status: '!X'}">
+                <button type="button" class="btn btn-danger btn-xs" style="width:25px;" ng-if="main.CurrentUser.AccessLevel != 'U'"
+                        ng-click="delete(file)">
+                    <i class="fa fa-close"></i>
+                </button>
+                <a href="~/FileUploads/{{file.Path}}" download="{{file.FileName}}">{{file.FileName}} - {{file.FileSize}}KB <small>Modified By: {{file.ShowModifiedBy}} - {{file.ShowModifiedDate}}</small></a>
+            </div>
+
+            <div class="form-group" ng-repeat="file in rail.ForUpload | filter: {Status: '!X'}">
+                <button type="button" class="btn btn-danger btn-xs" style="width:25px;" ng-if="main.CurrentUser.AccessLevel != 'U'"
+                        ng-click="delete(file)">
+                    <i class="fa fa-close"></i>
+                </button>
+                <a href="#">{{file.name}} - {{file.size}}Bytes</a>
+            </div>
+        </div><!--/x_content-->
+    </div><!--./x_panel-->
+
+    <div class="x_panel">
+        <div class="x_title">
+            <h2><i class="fa fa-link"></i>Link(s)</h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a class="" data-toggle="modal" data-target="#linkModal"><i class="fa fa-plus"></i></a>
+                </li>
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div><!--/x_title-->
+        
+        <div class="x_content">
+            <div class="form-group" ng-repeat="item in rail.Links | filter: {Status: '!X'}">
+                <button type="button" class="btn btn-info btn-xs" style="width:25px;" data-target="#linkModal" data-toggle="modal" ng-click="openLink(item)">
+                    <i class="fa fa-eye" ng-if="main.CurrentUser.AccessLevel == 'U'"></i>
+                    <i class="fa fa-pencil" ng-if="main.CurrentUser.AccessLevel != 'U'"></i>
+                </button>
+                <button type="button" class="btn btn-danger btn-xs" style="width:25px;" ng-if="main.CurrentUser.AccessLevel != 'U'"
+                        ng-click="delete(item)"><i class="fa fa-close"></i></button>
+                <a href="http://{{item.Link}}">{{item.Title}} <small>Modified By: {{item.ShowModifiedBy}} - {{item.ShowModifiedDate}}</small></a>
+            </div>
+        </div><!--/x_content-->
+    </div><!--/x_panel-->
+
+    <!--link modal-->
+    <div class="modal fade" id="linkModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Link</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control" ng-model="rail.Modal.Title" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Link</label>
+                        <input type="text" class="form-control" ng-model="rail.Modal.Link" />
+                    </div>
+
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" ng-click="addLink(rail.Modal)" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

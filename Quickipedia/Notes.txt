@@ -1,0 +1,10 @@
+﻿===Model Status===
+U = Updated
+X = Deleted
+Y = Active
+N = New
+
+
+===User Status===
+Y = Active
+N = Inactive

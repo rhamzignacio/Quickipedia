@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "SMMP For MSD";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="" role="main" ng-controller="miceController as vm" ng-init="initSMMPForMSD()">
+    <div class="x_content">
+        <h3>SMMP</h3>
+
+        <div ng-show="vm.SMMPForMSD.ShowModifiedBy != ' '">
+            <small>Modified By: {{vm.SMMPForMSD.ShowModifiedBy}} - {{vm.SMMPForMSD.ShowModifiedDate}}</small>
+        </div>
+
+        <div class="form-group">
+            <textarea rows="30" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'"
+                      ng-model="vm.SMMPForMSD.SMMPForMSD">
+            </textarea>
+        </div>
+
+        <div class="form-group" ng-show="main.CurrentUser.AccessLevel == 'A'">
+            <button type="button" class="btn btn-primary" ng-click="saveSMMP(vm.SMMPForMSD)">
+                <span ng-show="main.CurrentClient.ClientCode == 'NewClient' || vm.SMMPForMSD.ClientCode == null">Save</span>
+                <span ng-show="main.CurrentClient.ClientCode != 'NewClient' && vm.SMMPForMSD.ClientCode != null">Update</span>
+            </button>
+        </div>
+    </div>
+</div>

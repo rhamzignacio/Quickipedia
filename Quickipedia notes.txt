@@ -1,0 +1,25 @@
+
+***Form Of Payment***
+CC Airplus - merchant 2%
+CC visa & mastercard - merchant 2.8%
+CC Amex - merchant 3.5%
+Add Others - Exceptions (free field) for merchant fee
+
+
+Merge Corporate code to program
+
+Advisory per client
+
+
+- Freeze table header in table of fees if doable
+
+- Check uploading of Car and Hotel
+
+
+* Air/ Preferred Airlines - please add the following:
+         > corporate codes
+         > Contract start date
+         > contract end date
+
+
+Let us know if you have clarifications Joey. Thank you!

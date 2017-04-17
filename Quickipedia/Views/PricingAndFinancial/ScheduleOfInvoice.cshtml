@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "ScheduleOfInvoice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="" role="main" ng-controller="pricingAndFinancialController as vm" ng-init="initSchedule()">
+    <div class="x_content">
+        <h3>Schedule of Invoice</h3>
+
+        <div ng-show="vm.ScheduleOfInvoice.ShowModifiedBy != ' '">
+            <small>Modified By: {{vm.ScheduleOfInvoice.ShowModifiedBy}} - {{vm.ScheduleOfInvoice.ShowModifiedDate}}</small>
+        </div>  
+
+        <div class="form-group">
+            <textarea rows="30" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'"
+                      ng-model="vm.ScheduleOfInvoice.Value"></textarea>
+        </div>
+
+        <div class="form-group" ng-show="main.CurrentUser.AccessLevel == 'A'">
+            <button type="button" class="btn btn-primary" ng-click="saveSchedule(vm.ScheduleOfInvoice)">
+                <span ng-show="main.CurrentClient.ClientCode == 'NewClient' || vm.ScheduleOfInvoice.ClientCode == null">Save</span>
+                <span ng-show="main.CurrentClient.ClientCode != 'NewClient' && vm.ScheduleOfInvoice.ClientCode != null">Update</span>
+            </button>
+        </div>
+    </div>
+</div>

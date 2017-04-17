@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Profile Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div role="main" ng-controller="profileManagementController as vm" ng-init="initProfile()">
+    <div class="x_content">
+        <h3>Profile Management</h3>
+
+        <div ng-show="vm.Profile.ShowModifiedBy != ' '">
+            <small>Modified By: {{vm.Profile.ShowModifiedBy}} - {{vm.Profile.ShowModifiedDate}}</small>
+        </div>
+
+        <div class="form-group">
+            <label>Profile Type</label>
+            <select class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-model="vm.Profile.ProfileType"
+                    ng-options="item.value as item.label for item in ProfileTypeDropDown"></select>
+        </div>
+
+        <div class="form-group" ng-show="vm.Profile.ProfileType == 'OTHER'">
+            <label>Other Profile Type</label>
+            <textarea rows="3" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-model="vm.Profile.OtherProfileType"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Booking Type</label>
+            <select class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-model="vm.Profile.BookingType"
+                    ng-options="item.value as item.label for item in BookingType"></select>
+        </div>
+
+        <div class="form-group" ng-show="vm.Profile.BookingType =='OTHER'">
+            <label>Other Booking Type</label>
+            <textarea rows="3" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-model="vm.Profile.OtherBookingType"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Special Instructions</label>
+            <textarea rows="3" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-model="vm.Profile.SpecialInstruction"></textarea>
+        </div>
+
+        <div class="form-group">
+            <button type="button" class="btn btn-primary" ng-click="saveProfile(vm.Profile)">
+                <span ng-show="main.CurrentClient.ClientCode == 'NewClient' || vm.Profile.ClientCode == null">Save</span>
+                <span ng-show="main.CurrentClient.ClientCode != 'NewClient' && vm.Profile.ClientCode != null">Update</span>
+            </button>
+        </div>
+    </div>
+</div>

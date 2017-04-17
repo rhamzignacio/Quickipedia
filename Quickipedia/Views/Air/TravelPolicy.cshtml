@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Travel Policy";
+}
+
+<div class="" role="main" ng-controller="airController as vm" ng-init="initTravelPolicy()">
+    <div class="x_content">
+        <h3>Travel Policy</h3>
+
+        <div ng-show="vm.TravelPolicy.ShowModifiedBy != ' '">
+            <small>Modified By: {{vm.TravelPolicy.ShowModifiedBy}} - {{vm.TravelPolicy.ShowModifiedDate}}</small>
+        </div>
+
+        <div class="form-group">
+            <label>LLF</label>
+            <textarea rows="3" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'"  ng-model="vm.TravelPolicy.LLF"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Class of Service</label>
+            <textarea rows="3" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'"  ng-model="vm.TravelPolicy.ClassOfService"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Flight Window</label>
+            <textarea rows="3" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-model="vm.TravelPolicy.FlightWindow"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Advance Purchase</label>
+            <textarea rows="3" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'"  ng-model="vm.TravelPolicy.AdvancePurchase"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>LCC Condition</label>
+            <textarea rows="3" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'"  ng-model="vm.TravelPolicy.LCCCondition"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Seat Selection</label>
+            <textarea rows="3" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'"  ng-model="vm.TravelPolicy.SeatSelection"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Baggage Allowance</label>
+            <textarea rows="3" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'"  ng-model="vm.TravelPolicy.BaggageAllowance"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Group Booking Policy</label>
+            <textarea rows="3" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'"  ng-model="vm.TravelPolicy.GroupBookingPolicy"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Companion / HCP / Personal Travel</label>
+            <textarea rows="3" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'"  ng-model="vm.TravelPolicy.CompanionHCPersonalTravel"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Travel Insurance</label>
+            <textarea rows="3" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'"  ng-model="vm.TravelPolicy.TravelInsurance"></textarea>
+        </div>
+
+        <div class="form-group" ng-show="main.CurrentUser.AccessLevel == 'A'">
+            <button type="button" class="btn btn-primary" ng-click="saveTravelPolicy(vm.TravelPolicy)">
+                <span ng-show="main.CurrentClient.ClientCode == 'NewClient' || vm.TravelPolicy.ClientCode == null">Save</span>
+                <span ng-show="main.CurrentClient.ClientCode != 'NewClient' && vm.TravelPolicy.ClientCode != null">Update</span>
+            </button>
+        </div>
+    </div>
+</div>

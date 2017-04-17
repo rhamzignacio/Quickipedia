@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Pricing";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="" role="main" ng-controller="miceController as vm" ng-init="initMicePricing()">
+    <div class="x_content">
+        <h3>Mice Pricing</h3>
+
+        <div ng-show="vm.MicePricing.ShowModifiedBy != ' '">
+            <small>Modified By: {{vm.MicePricing.ShowModifiedBy}} - {{vm.MicePricing.ShowModifiedDate}}</small>
+        </div>
+
+        <div class="form-group">
+            <textarea rows="30" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'"
+                       ng-model="vm.MicePricing.Pricing">
+            </textarea>
+        </div>
+
+        <div class="form-group" ng-show="main.CurrentUser.AccessLevel == 'A'">
+            <button type="button" class="btn btn-primary" ng-click="savePricing(vm.MicePricing)">
+                <span ng-show="main.CurrentClient.ClientCode == 'NewClient' || vm.MicePricing.ClientCode == null">Save</span>
+                <span ng-show="main.CurrentClient.ClientCode != 'NewClient' && vm.MicePricing.ClientCode != null">Update</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,1878 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="QuickipediaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Advisory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Message" Type="varchar(max)" />
+          <Property Name="Title" Type="varchar" MaxLength="300" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AdvisoryRead">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AdvisoryID" Type="uniqueidentifier" />
+          <Property Name="UserID" Type="uniqueidentifier" />
+          <Property Name="ReadDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Airlines">
+          <Key>
+            <PropertyRef Name="AirlineCode" />
+          </Key>
+          <Property Name="AirlineName" Type="varchar" MaxLength="250" />
+          <Property Name="AirlineCode" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="AirlineNo" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="AncillariesFees">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Category" Type="varchar" MaxLength="100" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="PHPAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="USDAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="BillingCollectionFinanceManager">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="Name" Type="varchar" MaxLength="250" />
+          <Property Name="Position" Type="varchar" MaxLength="100" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="ContactNo" Type="varchar" MaxLength="100" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CarCorporateCode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CorporateCode" Type="varchar" MaxLength="250" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CarPolicy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="Policy" Type="varchar(max)" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CarProgramAttachment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="30" />
+          <Property Name="FileName" Type="varchar" MaxLength="100" />
+          <Property Name="Path" Type="varchar(max)" />
+          <Property Name="Extension" Type="varchar" MaxLength="50" />
+          <Property Name="FileSize" Type="varchar" MaxLength="50" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CarProgramLink">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="50" />
+          <Property Name="Link" Type="varchar(max)" />
+          <Property Name="Title" Type="varchar" MaxLength="100" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ClientBookerApprover">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="50" />
+          <Property Name="Value" Type="varchar(max)" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ClientContactPerson">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" />
+          <Property Name="Position" Type="varchar" MaxLength="100" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="ContactNo" Type="varchar" MaxLength="100" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ClientDomesticTC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="AgentID" Type="uniqueidentifier" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ClientInternationalTC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="AgentID" Type="uniqueidentifier" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ClientProfile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="ClientType" Type="varchar" MaxLength="20" />
+          <Property Name="ClientName" Type="varchar" MaxLength="250" />
+          <Property Name="Address" Type="varchar" MaxLength="500" />
+          <Property Name="Biller" Type="varchar" MaxLength="250" />
+          <Property Name="AccountOfficer" Type="varchar" MaxLength="250" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="BillerID" Type="uniqueidentifier" />
+          <Property Name="ContractStartDate" Type="date" />
+          <Property Name="ContractEndDate" Type="date" />
+        </EntityType>
+        <EntityType Name="DisallowedAirlines">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="AirlineCode" Type="varchar" MaxLength="2" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="CorporateCodes" Type="varchar" MaxLength="100" />
+          <Property Name="ContractStart" Type="datetime" />
+          <Property Name="ContractEnd" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DomesticBookingProcess">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="Value" Type="varchar(max)" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FormOfPayment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="FOP" Type="varchar" MaxLength="100" />
+          <Property Name="IssuedCard" Type="varchar" MaxLength="100" />
+          <Property Name="CCLiquidationProcess" Type="varchar" MaxLength="100" />
+          <Property Name="TaxType" Type="varchar" MaxLength="100" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="FOP_Others" Type="varchar(max)" />
+          <Property Name="IssuedCard_Others" Type="varchar(max)" />
+          <Property Name="CCLiquidation_Others" Type="varchar(max)" />
+          <Property Name="MerchantFee" Type="varchar" MaxLength="100" />
+          <Property Name="Currency" Type="varchar" MaxLength="3" />
+          <Property Name="Other_Currency" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="HotelCorporateCode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="CorporateCode" Type="varchar" MaxLength="250" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="HotelPolicy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Policy" Type="varchar(max)" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="HotelProgramAttachement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="30" />
+          <Property Name="FileName" Type="varchar" MaxLength="100" />
+          <Property Name="Path" Type="varchar(max)" />
+          <Property Name="Extension" Type="varchar" MaxLength="50" />
+          <Property Name="FileSize" Type="varchar" MaxLength="50" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="HotelProgramLink">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="30" />
+          <Property Name="Link" Type="varchar(max)" />
+          <Property Name="Title" Type="varchar" MaxLength="100" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="InternationalBookingProcess">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Value" Type="varchar(max)" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="InvoiceAttachment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Value" Type="varchar(max)" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MICEGroupBookingPolicy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="GroupPolicy" Type="varchar(max)" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MICEPolicy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Policy" Type="varchar(max)" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MICEPricing">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Pricing" Type="varchar(max)" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MICETicketingApproval">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="TicketingApproval" Type="varchar(max)" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="OtherAir">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Value" Type="varchar(max)" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="OtherPricingAndFinancial">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Value" Type="varchar(max)" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="PreferredAirlines">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="AirlineCode" Type="varchar" MaxLength="2" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="CorporateCodes" Type="varchar" MaxLength="100" />
+          <Property Name="ContractStart" Type="datetime" />
+          <Property Name="ContractEnd" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PricingModel">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BundleFlag" Type="bit" />
+          <Property Name="UnbundledFlag" Type="bit" />
+          <Property Name="RetainFlag" Type="bit" />
+          <Property Name="ReturnFlag" Type="bit" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ProfileManagement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProfileType" Type="varchar" MaxLength="50" />
+          <Property Name="OtherProfileType" Type="varchar(max)" />
+          <Property Name="SpecialInstructions" Type="varchar(max)" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="BookingType" Type="varchar" MaxLength="50" />
+          <Property Name="OtherBookingType" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="RailCorporateCode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="CorporateCode" Type="varchar" MaxLength="250" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RailPolicy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Policy" Type="varchar(max)" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RailProgramAttachment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="50" />
+          <Property Name="Path" Type="varchar(max)" />
+          <Property Name="FileName" Type="varchar" MaxLength="250" />
+          <Property Name="Extension" Type="varchar" MaxLength="20" />
+          <Property Name="FileSize" Type="varchar" MaxLength="20" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RailProgramLink">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="50" />
+          <Property Name="Link" Type="varchar(max)" />
+          <Property Name="Title" Type="varchar" MaxLength="100" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RefundProcess">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RefundProcess" Type="varchar(max)" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ScheduleOfInvoiceReceiving">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="50" />
+          <Property Name="Value" Type="varchar(max)" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SLA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="ResponseTime" Type="varchar" MaxLength="200" />
+          <Property Name="NoOfQuotationOptions" Type="int" />
+          <Property Name="QuotationFormat" Type="varchar" MaxLength="150" />
+          <Property Name="AuthorityToTicket" Type="varchar" MaxLength="100" />
+          <Property Name="FareAudit" Type="varchar" MaxLength="100" />
+          <Property Name="AOHReminder" Type="varchar" MaxLength="300" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="QuotationFormat_Other" Type="varchar(max)" />
+          <Property Name="Remarks" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="SMMPForMSD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="SMMPForMSD" Type="varchar(max)" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TableOfFees">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="30" />
+          <Property Name="Category" Type="varchar" MaxLength="100" />
+          <Property Name="PHPTraditionalGDS" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PHPNonGDS" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PHPMice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PHPOnline" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="USDTraditionalGDS" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="USDNonGDS" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="USDMice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="USDOnline" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TravelPolicy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LLF" Type="varchar(max)" />
+          <Property Name="ClassOfService" Type="varchar(max)" />
+          <Property Name="FlightWindow" Type="varchar(max)" />
+          <Property Name="AdvancePurchase" Type="varchar(max)" />
+          <Property Name="LCCCondition" Type="varchar(max)" />
+          <Property Name="SeatSelection" Type="varchar(max)" />
+          <Property Name="BaggageAllowance" Type="varchar(max)" />
+          <Property Name="GroupBookingPolicy" Type="varchar(max)" />
+          <Property Name="CompanionHCPPersonalTravel" Type="varchar(max)" />
+          <Property Name="TravelInsurance" Type="varchar(max)" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TravelSecurity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TravelSecurity" Type="varchar(max)" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TripAuthorizerProcess">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="TripAuthorizer" Type="varchar(max)" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserAccount">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="80" />
+          <Property Name="MiddleInitial" Type="varchar" MaxLength="5" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="Type" Type="varchar" MaxLength="2" />
+          <Property Name="AgentNo1A" Type="varchar" MaxLength="20" />
+          <Property Name="AccessLevel" Type="varchar" MaxLength="2" />
+          <Property Name="AgentNo1B" Type="varchar" MaxLength="20" />
+          <Property Name="AgentNo5J" Type="varchar" MaxLength="20" />
+          <Property Name="Status" Type="varchar" MaxLength="1" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserClient">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="VIP">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="200" />
+          <Property Name="VIPList" Type="varchar(max)" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="Name" Type="varchar" MaxLength="300" />
+          <Property Name="Position" Type="varchar" MaxLength="150" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="ContactNo" Type="varchar" MaxLength="50" />
+          <Property Name="Remarks" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="VisaAndDocumentation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProcessFlow" Type="varchar(max)" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityContainer Name="QuickipediaModelStoreContainer">
+          <EntitySet Name="Advisory" EntityType="Self.Advisory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AdvisoryRead" EntityType="Self.AdvisoryRead" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Airlines" EntityType="Self.Airlines" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AncillariesFees" EntityType="Self.AncillariesFees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BillingCollectionFinanceManager" EntityType="Self.BillingCollectionFinanceManager" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarCorporateCode" EntityType="Self.CarCorporateCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarPolicy" EntityType="Self.CarPolicy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarProgramAttachment" EntityType="Self.CarProgramAttachment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarProgramLink" EntityType="Self.CarProgramLink" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientBookerApprover" EntityType="Self.ClientBookerApprover" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientContactPerson" EntityType="Self.ClientContactPerson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientDomesticTC" EntityType="Self.ClientDomesticTC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientInternationalTC" EntityType="Self.ClientInternationalTC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientProfile" EntityType="Self.ClientProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DisallowedAirlines" EntityType="Self.DisallowedAirlines" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DomesticBookingProcess" EntityType="Self.DomesticBookingProcess" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FormOfPayment" EntityType="Self.FormOfPayment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HotelCorporateCode" EntityType="Self.HotelCorporateCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HotelPolicy" EntityType="Self.HotelPolicy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HotelProgramAttachement" EntityType="Self.HotelProgramAttachement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HotelProgramLink" EntityType="Self.HotelProgramLink" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InternationalBookingProcess" EntityType="Self.InternationalBookingProcess" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvoiceAttachment" EntityType="Self.InvoiceAttachment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MICEGroupBookingPolicy" EntityType="Self.MICEGroupBookingPolicy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MICEPolicy" EntityType="Self.MICEPolicy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MICEPricing" EntityType="Self.MICEPricing" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MICETicketingApproval" EntityType="Self.MICETicketingApproval" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OtherAir" EntityType="Self.OtherAir" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OtherPricingAndFinancial" EntityType="Self.OtherPricingAndFinancial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PreferredAirlines" EntityType="Self.PreferredAirlines" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PricingModel" EntityType="Self.PricingModel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProfileManagement" EntityType="Self.ProfileManagement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RailCorporateCode" EntityType="Self.RailCorporateCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RailPolicy" EntityType="Self.RailPolicy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RailProgramAttachment" EntityType="Self.RailProgramAttachment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RailProgramLink" EntityType="Self.RailProgramLink" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RefundProcess" EntityType="Self.RefundProcess" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScheduleOfInvoiceReceiving" EntityType="Self.ScheduleOfInvoiceReceiving" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SLA" EntityType="Self.SLA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SMMPForMSD" EntityType="Self.SMMPForMSD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableOfFees" EntityType="Self.TableOfFees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TravelPolicy" EntityType="Self.TravelPolicy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TravelSecurity" EntityType="Self.TravelSecurity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TripAuthorizerProcess" EntityType="Self.TripAuthorizerProcess" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserClient" EntityType="Self.UserClient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VIP" EntityType="Self.VIP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VisaAndDocumentation" EntityType="Self.VisaAndDocumentation" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QuickipediaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="QuickipediaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Advisory" EntityType="QuickipediaModel.Advisory" />
+          <EntitySet Name="AdvisoryRead" EntityType="QuickipediaModel.AdvisoryRead" />
+          <EntitySet Name="Airlines" EntityType="QuickipediaModel.Airlines" />
+          <EntitySet Name="AncillariesFees" EntityType="QuickipediaModel.AncillariesFees" />
+          <EntitySet Name="BillingCollectionFinanceManager" EntityType="QuickipediaModel.BillingCollectionFinanceManager" />
+          <EntitySet Name="CarCorporateCode" EntityType="QuickipediaModel.CarCorporateCode" />
+          <EntitySet Name="CarPolicy" EntityType="QuickipediaModel.CarPolicy" />
+          <EntitySet Name="CarProgramAttachment" EntityType="QuickipediaModel.CarProgramAttachment" />
+          <EntitySet Name="CarProgramLink" EntityType="QuickipediaModel.CarProgramLink" />
+          <EntitySet Name="ClientBookerApprover" EntityType="QuickipediaModel.ClientBookerApprover" />
+          <EntitySet Name="ClientContactPerson" EntityType="QuickipediaModel.ClientContactPerson" />
+          <EntitySet Name="ClientDomesticTC" EntityType="QuickipediaModel.ClientDomesticTC" />
+          <EntitySet Name="ClientInternationalTC" EntityType="QuickipediaModel.ClientInternationalTC" />
+          <EntitySet Name="ClientProfile" EntityType="QuickipediaModel.ClientProfile" />
+          <EntitySet Name="DisallowedAirlines" EntityType="QuickipediaModel.DisallowedAirlines" />
+          <EntitySet Name="DomesticBookingProcess" EntityType="QuickipediaModel.DomesticBookingProcess" />
+          <EntitySet Name="FormOfPayment" EntityType="QuickipediaModel.FormOfPayment" />
+          <EntitySet Name="HotelCorporateCode" EntityType="QuickipediaModel.HotelCorporateCode" />
+          <EntitySet Name="HotelPolicy" EntityType="QuickipediaModel.HotelPolicy" />
+          <EntitySet Name="HotelProgramAttachement" EntityType="QuickipediaModel.HotelProgramAttachement" />
+          <EntitySet Name="HotelProgramLink" EntityType="QuickipediaModel.HotelProgramLink" />
+          <EntitySet Name="InternationalBookingProcess" EntityType="QuickipediaModel.InternationalBookingProcess" />
+          <EntitySet Name="InvoiceAttachment" EntityType="QuickipediaModel.InvoiceAttachment" />
+          <EntitySet Name="MICEGroupBookingPolicy" EntityType="QuickipediaModel.MICEGroupBookingPolicy" />
+          <EntitySet Name="MICEPolicy" EntityType="QuickipediaModel.MICEPolicy" />
+          <EntitySet Name="MICEPricing" EntityType="QuickipediaModel.MICEPricing" />
+          <EntitySet Name="MICETicketingApproval" EntityType="QuickipediaModel.MICETicketingApproval" />
+          <EntitySet Name="OtherAir" EntityType="QuickipediaModel.OtherAir" />
+          <EntitySet Name="OtherPricingAndFinancial" EntityType="QuickipediaModel.OtherPricingAndFinancial" />
+          <EntitySet Name="PreferredAirlines" EntityType="QuickipediaModel.PreferredAirlines" />
+          <EntitySet Name="PricingModel" EntityType="QuickipediaModel.PricingModel" />
+          <EntitySet Name="ProfileManagement" EntityType="QuickipediaModel.ProfileManagement" />
+          <EntitySet Name="RailCorporateCode" EntityType="QuickipediaModel.RailCorporateCode" />
+          <EntitySet Name="RailPolicy" EntityType="QuickipediaModel.RailPolicy" />
+          <EntitySet Name="RailProgramAttachment" EntityType="QuickipediaModel.RailProgramAttachment" />
+          <EntitySet Name="RailProgramLink" EntityType="QuickipediaModel.RailProgramLink" />
+          <EntitySet Name="RefundProcess" EntityType="QuickipediaModel.RefundProcess" />
+          <EntitySet Name="ScheduleOfInvoiceReceiving" EntityType="QuickipediaModel.ScheduleOfInvoiceReceiving" />
+          <EntitySet Name="SLA" EntityType="QuickipediaModel.SLA" />
+          <EntitySet Name="SMMPForMSD" EntityType="QuickipediaModel.SMMPForMSD" />
+          <EntitySet Name="TableOfFees" EntityType="QuickipediaModel.TableOfFees" />
+          <EntitySet Name="TravelPolicy" EntityType="QuickipediaModel.TravelPolicy" />
+          <EntitySet Name="TravelSecurity" EntityType="QuickipediaModel.TravelSecurity" />
+          <EntitySet Name="TripAuthorizerProcess" EntityType="QuickipediaModel.TripAuthorizerProcess" />
+          <EntitySet Name="UserAccount" EntityType="QuickipediaModel.UserAccount" />
+          <EntitySet Name="UserClient" EntityType="QuickipediaModel.UserClient" />
+          <EntitySet Name="VIP" EntityType="QuickipediaModel.VIP" />
+          <EntitySet Name="VisaAndDocumentation" EntityType="QuickipediaModel.VisaAndDocumentation" />
+        </EntityContainer>
+        <EntityType Name="Advisory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="AdvisoryRead">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="AdvisoryID" Type="Guid" />
+          <Property Name="UserID" Type="Guid" />
+          <Property Name="ReadDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Airlines">
+          <Key>
+            <PropertyRef Name="AirlineCode" />
+          </Key>
+          <Property Name="AirlineName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="AirlineCode" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="AirlineNo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="AncillariesFees">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PHPAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="USDAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="BillingCollectionFinanceManager">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Position" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CarCorporateCode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="CorporateCode" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CarPolicy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Policy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CarProgramAttachment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="FileName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Extension" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FileSize" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CarProgramLink">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ClientBookerApprover">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ClientContactPerson">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Position" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ClientDomesticTC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AgentID" Type="Guid" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ClientInternationalTC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AgentID" Type="Guid" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ClientProfile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ClientType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ClientName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Biller" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="AccountOfficer" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="BillerID" Type="Guid" />
+          <Property Name="ContractStartDate" Type="DateTime" Precision="0" />
+          <Property Name="ContractEndDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="DisallowedAirlines">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AirlineCode" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="CorporateCodes" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ContractStart" Type="DateTime" Precision="3" />
+          <Property Name="ContractEnd" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="DomesticBookingProcess">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="FormOfPayment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FOP" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IssuedCard" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CCLiquidationProcess" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TaxType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="FOP_Others" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IssuedCard_Others" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CCLiquidation_Others" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MerchantFee" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Currency" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Other_Currency" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="HotelCorporateCode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CorporateCode" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="HotelPolicy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Policy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="HotelProgramAttachement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="FileName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Extension" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FileSize" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="HotelProgramLink">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="InternationalBookingProcess">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="InvoiceAttachment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ClientCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MICEGroupBookingPolicy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="GroupPolicy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="MICEPolicy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Policy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="MICEPricing">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Pricing" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="MICETicketingApproval">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TicketingApproval" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="OtherAir">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="OtherPricingAndFinancial">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PreferredAirlines">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AirlineCode" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="CorporateCodes" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ContractStart" Type="DateTime" Precision="3" />
+          <Property Name="ContractEnd" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="PricingModel">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="BundleFlag" Type="Boolean" />
+          <Property Name="UnbundledFlag" Type="Boolean" />
+          <Property Name="RetainFlag" Type="Boolean" />
+          <Property Name="ReturnFlag" Type="Boolean" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ProfileManagement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ProfileType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OtherProfileType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SpecialInstructions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="BookingType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OtherBookingType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="RailCorporateCode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CorporateCode" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="RailPolicy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Policy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="RailProgramAttachment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FileName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Extension" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FileSize" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="RailProgramLink">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="RefundProcess">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="RefundProcess1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClientCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ScheduleOfInvoiceReceiving">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="SLA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ResponseTime" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="NoOfQuotationOptions" Type="Int32" />
+          <Property Name="QuotationFormat" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="AuthorityToTicket" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FareAudit" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AOHReminder" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="QuotationFormat_Other" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SMMPForMSD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SMMPForMSD1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TableOfFees">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PHPTraditionalGDS" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PHPNonGDS" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PHPMice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PHPOnline" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="USDTraditionalGDS" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="USDNonGDS" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="USDMice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="USDOnline" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TravelPolicy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="LLF" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClassOfService" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FlightWindow" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AdvancePurchase" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LCCCondition" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SeatSelection" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="BaggageAllowance" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="GroupBookingPolicy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CompanionHCPPersonalTravel" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TravelInsurance" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TravelSecurity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="TravelSecurity1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TripAuthorizerProcess">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TripAuthorizer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UserAccount">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleInitial" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="AgentNo1A" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AccessLevel" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="AgentNo1B" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AgentNo5J" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UserClient">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="VIP">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="VIPList" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="Name" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Position" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="VisaAndDocumentation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ProcessFlow" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QuickipediaModelStoreContainer" CdmEntityContainer="QuickipediaEntities">
+          <EntitySetMapping Name="Advisory">
+            <EntityTypeMapping TypeName="QuickipediaModel.Advisory">
+              <MappingFragment StoreEntitySet="Advisory">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdvisoryRead">
+            <EntityTypeMapping TypeName="QuickipediaModel.AdvisoryRead">
+              <MappingFragment StoreEntitySet="AdvisoryRead">
+                <ScalarProperty Name="ReadDate" ColumnName="ReadDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AdvisoryID" ColumnName="AdvisoryID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Airlines">
+            <EntityTypeMapping TypeName="QuickipediaModel.Airlines">
+              <MappingFragment StoreEntitySet="Airlines">
+                <ScalarProperty Name="AirlineNo" ColumnName="AirlineNo" />
+                <ScalarProperty Name="AirlineCode" ColumnName="AirlineCode" />
+                <ScalarProperty Name="AirlineName" ColumnName="AirlineName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AncillariesFees">
+            <EntityTypeMapping TypeName="QuickipediaModel.AncillariesFees">
+              <MappingFragment StoreEntitySet="AncillariesFees">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="USDAmount" ColumnName="USDAmount" />
+                <ScalarProperty Name="PHPAmount" ColumnName="PHPAmount" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BillingCollectionFinanceManager">
+            <EntityTypeMapping TypeName="QuickipediaModel.BillingCollectionFinanceManager">
+              <MappingFragment StoreEntitySet="BillingCollectionFinanceManager">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarCorporateCode">
+            <EntityTypeMapping TypeName="QuickipediaModel.CarCorporateCode">
+              <MappingFragment StoreEntitySet="CarCorporateCode">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="CorporateCode" ColumnName="CorporateCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarPolicy">
+            <EntityTypeMapping TypeName="QuickipediaModel.CarPolicy">
+              <MappingFragment StoreEntitySet="CarPolicy">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Policy" ColumnName="Policy" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarProgramAttachment">
+            <EntityTypeMapping TypeName="QuickipediaModel.CarProgramAttachment">
+              <MappingFragment StoreEntitySet="CarProgramAttachment">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="FileSize" ColumnName="FileSize" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarProgramLink">
+            <EntityTypeMapping TypeName="QuickipediaModel.CarProgramLink">
+              <MappingFragment StoreEntitySet="CarProgramLink">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientBookerApprover">
+            <EntityTypeMapping TypeName="QuickipediaModel.ClientBookerApprover">
+              <MappingFragment StoreEntitySet="ClientBookerApprover">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientContactPerson">
+            <EntityTypeMapping TypeName="QuickipediaModel.ClientContactPerson">
+              <MappingFragment StoreEntitySet="ClientContactPerson">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientDomesticTC">
+            <EntityTypeMapping TypeName="QuickipediaModel.ClientDomesticTC">
+              <MappingFragment StoreEntitySet="ClientDomesticTC">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientInternationalTC">
+            <EntityTypeMapping TypeName="QuickipediaModel.ClientInternationalTC">
+              <MappingFragment StoreEntitySet="ClientInternationalTC">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientProfile">
+            <EntityTypeMapping TypeName="QuickipediaModel.ClientProfile">
+              <MappingFragment StoreEntitySet="ClientProfile">
+                <ScalarProperty Name="ContractEndDate" ColumnName="ContractEndDate" />
+                <ScalarProperty Name="ContractStartDate" ColumnName="ContractStartDate" />
+                <ScalarProperty Name="BillerID" ColumnName="BillerID" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="AccountOfficer" ColumnName="AccountOfficer" />
+                <ScalarProperty Name="Biller" ColumnName="Biller" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="ClientType" ColumnName="ClientType" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DisallowedAirlines">
+            <EntityTypeMapping TypeName="QuickipediaModel.DisallowedAirlines">
+              <MappingFragment StoreEntitySet="DisallowedAirlines">
+                <ScalarProperty Name="ContractEnd" ColumnName="ContractEnd" />
+                <ScalarProperty Name="ContractStart" ColumnName="ContractStart" />
+                <ScalarProperty Name="CorporateCodes" ColumnName="CorporateCodes" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="AirlineCode" ColumnName="AirlineCode" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DomesticBookingProcess">
+            <EntityTypeMapping TypeName="QuickipediaModel.DomesticBookingProcess">
+              <MappingFragment StoreEntitySet="DomesticBookingProcess">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FormOfPayment">
+            <EntityTypeMapping TypeName="QuickipediaModel.FormOfPayment">
+              <MappingFragment StoreEntitySet="FormOfPayment">
+                <ScalarProperty Name="Other_Currency" ColumnName="Other_Currency" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="MerchantFee" ColumnName="MerchantFee" />
+                <ScalarProperty Name="CCLiquidation_Others" ColumnName="CCLiquidation_Others" />
+                <ScalarProperty Name="IssuedCard_Others" ColumnName="IssuedCard_Others" />
+                <ScalarProperty Name="FOP_Others" ColumnName="FOP_Others" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="TaxType" ColumnName="TaxType" />
+                <ScalarProperty Name="CCLiquidationProcess" ColumnName="CCLiquidationProcess" />
+                <ScalarProperty Name="IssuedCard" ColumnName="IssuedCard" />
+                <ScalarProperty Name="FOP" ColumnName="FOP" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HotelCorporateCode">
+            <EntityTypeMapping TypeName="QuickipediaModel.HotelCorporateCode">
+              <MappingFragment StoreEntitySet="HotelCorporateCode">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CorporateCode" ColumnName="CorporateCode" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HotelPolicy">
+            <EntityTypeMapping TypeName="QuickipediaModel.HotelPolicy">
+              <MappingFragment StoreEntitySet="HotelPolicy">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="Policy" ColumnName="Policy" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HotelProgramAttachement">
+            <EntityTypeMapping TypeName="QuickipediaModel.HotelProgramAttachement">
+              <MappingFragment StoreEntitySet="HotelProgramAttachement">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="FileSize" ColumnName="FileSize" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HotelProgramLink">
+            <EntityTypeMapping TypeName="QuickipediaModel.HotelProgramLink">
+              <MappingFragment StoreEntitySet="HotelProgramLink">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InternationalBookingProcess">
+            <EntityTypeMapping TypeName="QuickipediaModel.InternationalBookingProcess">
+              <MappingFragment StoreEntitySet="InternationalBookingProcess">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceAttachment">
+            <EntityTypeMapping TypeName="QuickipediaModel.InvoiceAttachment">
+              <MappingFragment StoreEntitySet="InvoiceAttachment">
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MICEGroupBookingPolicy">
+            <EntityTypeMapping TypeName="QuickipediaModel.MICEGroupBookingPolicy">
+              <MappingFragment StoreEntitySet="MICEGroupBookingPolicy">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="GroupPolicy" ColumnName="GroupPolicy" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MICEPolicy">
+            <EntityTypeMapping TypeName="QuickipediaModel.MICEPolicy">
+              <MappingFragment StoreEntitySet="MICEPolicy">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Policy" ColumnName="Policy" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MICEPricing">
+            <EntityTypeMapping TypeName="QuickipediaModel.MICEPricing">
+              <MappingFragment StoreEntitySet="MICEPricing">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="Pricing" ColumnName="Pricing" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MICETicketingApproval">
+            <EntityTypeMapping TypeName="QuickipediaModel.MICETicketingApproval">
+              <MappingFragment StoreEntitySet="MICETicketingApproval">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="TicketingApproval" ColumnName="TicketingApproval" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OtherAir">
+            <EntityTypeMapping TypeName="QuickipediaModel.OtherAir">
+              <MappingFragment StoreEntitySet="OtherAir">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OtherPricingAndFinancial">
+            <EntityTypeMapping TypeName="QuickipediaModel.OtherPricingAndFinancial">
+              <MappingFragment StoreEntitySet="OtherPricingAndFinancial">
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PreferredAirlines">
+            <EntityTypeMapping TypeName="QuickipediaModel.PreferredAirlines">
+              <MappingFragment StoreEntitySet="PreferredAirlines">
+                <ScalarProperty Name="ContractEnd" ColumnName="ContractEnd" />
+                <ScalarProperty Name="ContractStart" ColumnName="ContractStart" />
+                <ScalarProperty Name="CorporateCodes" ColumnName="CorporateCodes" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="AirlineCode" ColumnName="AirlineCode" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PricingModel">
+            <EntityTypeMapping TypeName="QuickipediaModel.PricingModel">
+              <MappingFragment StoreEntitySet="PricingModel">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ReturnFlag" ColumnName="ReturnFlag" />
+                <ScalarProperty Name="RetainFlag" ColumnName="RetainFlag" />
+                <ScalarProperty Name="UnbundledFlag" ColumnName="UnbundledFlag" />
+                <ScalarProperty Name="BundleFlag" ColumnName="BundleFlag" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProfileManagement">
+            <EntityTypeMapping TypeName="QuickipediaModel.ProfileManagement">
+              <MappingFragment StoreEntitySet="ProfileManagement">
+                <ScalarProperty Name="OtherBookingType" ColumnName="OtherBookingType" />
+                <ScalarProperty Name="BookingType" ColumnName="BookingType" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="SpecialInstructions" ColumnName="SpecialInstructions" />
+                <ScalarProperty Name="OtherProfileType" ColumnName="OtherProfileType" />
+                <ScalarProperty Name="ProfileType" ColumnName="ProfileType" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RailCorporateCode">
+            <EntityTypeMapping TypeName="QuickipediaModel.RailCorporateCode">
+              <MappingFragment StoreEntitySet="RailCorporateCode">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CorporateCode" ColumnName="CorporateCode" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RailPolicy">
+            <EntityTypeMapping TypeName="QuickipediaModel.RailPolicy">
+              <MappingFragment StoreEntitySet="RailPolicy">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="Policy" ColumnName="Policy" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RailProgramAttachment">
+            <EntityTypeMapping TypeName="QuickipediaModel.RailProgramAttachment">
+              <MappingFragment StoreEntitySet="RailProgramAttachment">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="FileSize" ColumnName="FileSize" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RailProgramLink">
+            <EntityTypeMapping TypeName="QuickipediaModel.RailProgramLink">
+              <MappingFragment StoreEntitySet="RailProgramLink">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RefundProcess">
+            <EntityTypeMapping TypeName="QuickipediaModel.RefundProcess">
+              <MappingFragment StoreEntitySet="RefundProcess">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="RefundProcess1" ColumnName="RefundProcess" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScheduleOfInvoiceReceiving">
+            <EntityTypeMapping TypeName="QuickipediaModel.ScheduleOfInvoiceReceiving">
+              <MappingFragment StoreEntitySet="ScheduleOfInvoiceReceiving">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SLA">
+            <EntityTypeMapping TypeName="QuickipediaModel.SLA">
+              <MappingFragment StoreEntitySet="SLA">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="QuotationFormat_Other" ColumnName="QuotationFormat_Other" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="AOHReminder" ColumnName="AOHReminder" />
+                <ScalarProperty Name="FareAudit" ColumnName="FareAudit" />
+                <ScalarProperty Name="AuthorityToTicket" ColumnName="AuthorityToTicket" />
+                <ScalarProperty Name="QuotationFormat" ColumnName="QuotationFormat" />
+                <ScalarProperty Name="NoOfQuotationOptions" ColumnName="NoOfQuotationOptions" />
+                <ScalarProperty Name="ResponseTime" ColumnName="ResponseTime" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SMMPForMSD">
+            <EntityTypeMapping TypeName="QuickipediaModel.SMMPForMSD">
+              <MappingFragment StoreEntitySet="SMMPForMSD">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="SMMPForMSD1" ColumnName="SMMPForMSD" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableOfFees">
+            <EntityTypeMapping TypeName="QuickipediaModel.TableOfFees">
+              <MappingFragment StoreEntitySet="TableOfFees">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="USDOnline" ColumnName="USDOnline" />
+                <ScalarProperty Name="USDMice" ColumnName="USDMice" />
+                <ScalarProperty Name="USDNonGDS" ColumnName="USDNonGDS" />
+                <ScalarProperty Name="USDTraditionalGDS" ColumnName="USDTraditionalGDS" />
+                <ScalarProperty Name="PHPOnline" ColumnName="PHPOnline" />
+                <ScalarProperty Name="PHPMice" ColumnName="PHPMice" />
+                <ScalarProperty Name="PHPNonGDS" ColumnName="PHPNonGDS" />
+                <ScalarProperty Name="PHPTraditionalGDS" ColumnName="PHPTraditionalGDS" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TravelPolicy">
+            <EntityTypeMapping TypeName="QuickipediaModel.TravelPolicy">
+              <MappingFragment StoreEntitySet="TravelPolicy">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="TravelInsurance" ColumnName="TravelInsurance" />
+                <ScalarProperty Name="CompanionHCPPersonalTravel" ColumnName="CompanionHCPPersonalTravel" />
+                <ScalarProperty Name="GroupBookingPolicy" ColumnName="GroupBookingPolicy" />
+                <ScalarProperty Name="BaggageAllowance" ColumnName="BaggageAllowance" />
+                <ScalarProperty Name="SeatSelection" ColumnName="SeatSelection" />
+                <ScalarProperty Name="LCCCondition" ColumnName="LCCCondition" />
+                <ScalarProperty Name="AdvancePurchase" ColumnName="AdvancePurchase" />
+                <ScalarProperty Name="FlightWindow" ColumnName="FlightWindow" />
+                <ScalarProperty Name="ClassOfService" ColumnName="ClassOfService" />
+                <ScalarProperty Name="LLF" ColumnName="LLF" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TravelSecurity">
+            <EntityTypeMapping TypeName="QuickipediaModel.TravelSecurity">
+              <MappingFragment StoreEntitySet="TravelSecurity">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="TravelSecurity1" ColumnName="TravelSecurity" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TripAuthorizerProcess">
+            <EntityTypeMapping TypeName="QuickipediaModel.TripAuthorizerProcess">
+              <MappingFragment StoreEntitySet="TripAuthorizerProcess">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="TripAuthorizer" ColumnName="TripAuthorizer" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAccount">
+            <EntityTypeMapping TypeName="QuickipediaModel.UserAccount">
+              <MappingFragment StoreEntitySet="UserAccount">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AgentNo5J" ColumnName="AgentNo5J" />
+                <ScalarProperty Name="AgentNo1B" ColumnName="AgentNo1B" />
+                <ScalarProperty Name="AccessLevel" ColumnName="AccessLevel" />
+                <ScalarProperty Name="AgentNo1A" ColumnName="AgentNo1A" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleInitial" ColumnName="MiddleInitial" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserClient">
+            <EntityTypeMapping TypeName="QuickipediaModel.UserClient">
+              <MappingFragment StoreEntitySet="UserClient">
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VIP">
+            <EntityTypeMapping TypeName="QuickipediaModel.VIP">
+              <MappingFragment StoreEntitySet="VIP">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="VIPList" ColumnName="VIPList" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VisaAndDocumentation">
+            <EntityTypeMapping TypeName="QuickipediaModel.VisaAndDocumentation">
+              <MappingFragment StoreEntitySet="VisaAndDocumentation">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ProcessFlow" ColumnName="ProcessFlow" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

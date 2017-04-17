@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "ClientBookerApprovel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="" role="main" ng-controller="clientBookerContoller as vm" ng-init="initClientBooker()">
+    <div class="x_content">
+        <h3>Client Booker Approver</h3>
+
+        <div ng-show="vm.ClientBookerApprover.ShowModifiedBy != ' '">
+            <small>Modified By: {{vm.ClientBookerApprover.ShowModifiedBy}} - {{vm.ClientBookerApprover.ShowModifiedDate}}</small>
+        </div>
+
+        <div class="form-group">
+            <textarea rows="30" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'"
+                      ng-model="vm.ClientBookerApprover.Value"></textarea>
+        </div>
+
+        <div class="form-group">
+            <button  type="button" class="btn btn-primary" ng-click="saveClientBooker(vm.ClientBookerApprover)">
+                <span ng-show="main.CurrentClientCode == 'NewClient' || vm.ClientBookerApprover.ClientCode == null">Save</span>
+                <span ng-show="main.CurrentClientCode != 'NewClient' && vm.ClientBookerApprover.ClientCode != null">Update</span>
+            </button>
+        </div>
+    </div>
+</div>

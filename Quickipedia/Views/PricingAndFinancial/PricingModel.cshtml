@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "PricingModel";
+}
+
+<div class="" role="main" ng-controller="pricingAndFinancialController as vm" ng-init="initPricingModel()">
+    <div class="x_content">
+        <h3>Pricing Model</h3>      
+
+        <div ng-show="vm.PricingModel.ShowModifiedBy != ' '">
+            <small>Modified By: {{vm.PricingModel.ShowModifiedBy}} - {{vm.PricingModel.ShowModifiedDate}}</small>
+        </div>  
+         
+        <div class="x_content">
+            <div class="form-group">
+                <input type="checkbox" class="" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-model="vm.PricingModel.BundleFlag" /><label>Bundle</label>
+            </div>    
+                
+            <div class="form-group">
+                <input type="checkbox" class="" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-model="vm.PricingModel.UnbundledFlag" /><label>Unbundled</label>
+            </div>     
+
+            <div class="form-group">
+                <input type="checkbox" class="" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-model="vm.PricingModel.RetainFlag" /><label>Retain</label>
+            </div>
+
+            <div class="form-group">
+                <input type="checkbox" class="" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-model="vm.PricingModel.ReturnFlag" /><label>Return</label>
+            </div>
+            
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" ng-click="savePricingModel(vm.PricingModel, main.CurrentClient.ClientCode)">
+                    <span ng-show="main.CurrentClient.ClientCode == 'NewClient' || vm.PricingModel.ClientCode == null">Save</span>
+                    <span ng-show="main.CurrentClient.ClientCode != 'NewClient' && vm.PricingModel.ClientCode != null">Update</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

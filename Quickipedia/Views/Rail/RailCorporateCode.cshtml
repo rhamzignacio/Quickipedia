@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Rail Corporate Code";
+}
+
+<div class="" role="main" ng-controller="railController as vm" ng-init="initRailCorporateCode()">
+    <div class="x_content">
+        <h3>Rail Corporate Code</h3>
+
+        <div ng-show="vm.RailCorporateCode.ShowModifiedBy != ' '">
+            <small>Modified By: {{vm.RailCorporateCode.ShowModifiedBy}} - {{vm.RailCorporateCode.ShowModifiedDate}}</small>
+        </div>
+
+        <div class="form-group">
+            <label>Corporate Code</label>
+            <input type="text" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'" 
+                   ng-model="vm.RailCorporateCode.CorporateCode" />
+        </div>
+
+        <div class="form-group" ng-show="main.CurrentUser.AccessLevel == 'A'">
+            <button type="button" class="btn btn-primary" ng-click="saveRailCorporateCode(vm.RailCorporateCode)">
+                <span ng-show="main.CurrentClient.ClientCode == 'NewClient' || vm.RailCorporateCode.ClientCode == null">Save</span>
+                <span ng-show="main.CurrentClient.ClientCode != 'NewClient' && vm.RailCorporateCode.ClientCode != null">Update</span>
+            </button>
+        </div>
+    </div>
+</div>
