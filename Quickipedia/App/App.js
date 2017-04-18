@@ -1,4 +1,4 @@
-﻿var app = angular.module("app", ["angular-growl","basicInfo", "pricingAndFinancial", "air", "hotel", "car", "rail", "visaDocumentation", "mice", "vip", "login", "clientBooker", "user", "advisory", "profileManagement","bookingProcess", "ancillaries"])
+﻿var app = angular.module("app", ["angular-growl", "basicInfo", "pricingAndFinancial", "air", "hotel", "car", "rail", "visaDocumentation", "mice", "vip", "login", "clientBooker", "user", "advisory", "profileManagement", "bookingProcess", "ancillaries"])
 
 .controller("mainController", ['$scope','$location','$http','growl',function ($scope, $location, $http, growl) {
     var main = this;

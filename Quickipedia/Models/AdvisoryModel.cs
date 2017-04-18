@@ -24,15 +24,6 @@ namespace Quickipedia.Models
             }
         }
         public string Status { get; set; }
-    }
-
-    public class AdvisoryReadModel
-    {
-        public Guid ID { get; set; }
-        public Guid? AdvisoryID { get; set; }
-        public Guid? UserID { get; set; }
-        public DateTime? ReadDate { get; set; }
-        public string ShowReadDate { get; set; }
-        public string ShowUser { get; set; }
+        public string ClientCode { get; set; }
     }
 }

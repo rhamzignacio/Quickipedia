@@ -9,71 +9,7 @@ namespace Quickipedia.Services
 {
     public class AdvisoryService
     {
-        public static List<AdvisoryModel> GetTop5Advisory(out string message)
-        {
-            try
-            {
-                message = "";
-
-                using (var db = new QuickipediaEntities())
-                {
-                    var query = from a in db.Advisory
-                                join u in db.UserAccount on a.ModifiedBy equals u.ID into qU
-                                from user in qU.DefaultIfEmpty()
-                                orderby a.ModifiedDate descending
-                                select new AdvisoryModel
-                                {
-                                    ID = a.ID,
-                                    Message = a.Message,
-                                    ModifiedBy = a.ModifiedBy,
-                                    ModifiedDate = a.ModifiedDate,
-                                    ShowModifiedBy = user.FirstName + " " + user.LastName,
-                                    Status = "Y",
-                                    Title = a.Title
-                                };
-
-                    return query.Take(5).ToList();
-                }
-            }
-            catch (Exception error)
-            {
-                message = error.Message;
-
-                return null;
-            }
-        }
-
-        public static List<AdvisoryReadModel> GetReads(Guid advisoryID, out string message)
-        {
-            try
-            {
-                message = "";
-
-                using (var db = new QuickipediaEntities())
-                {
-                    var query = from r in db.AdvisoryRead
-                                join u in db.UserAccount on r.UserID equals u.ID into qU
-                                from user in qU.DefaultIfEmpty()
-                                where r.AdvisoryID == advisoryID
-                                select new AdvisoryReadModel
-                                {
-                                    ID = r.ID,
-                                    ReadDate = r.ReadDate,
-                                    UserID = r.UserID,
-                                    AdvisoryID = r.AdvisoryID,
-                                    ShowReadDate = r.ReadDate.ToString(),
-                                    ShowUser = user.FirstName + " " + user.LastName
-                                };
-                    return query.ToList();
-                }
-            }
-            catch(Exception error)
-            {
-                message = error.Message;
-
-                return null;
-            }
-        }
+       
         public static List<AdvisoryModel> GetAdvisory(out string message)
         {
             try
@@ -85,6 +21,7 @@ namespace Quickipedia.Services
                     var query = from a in db.Advisory
                                 join u in db.UserAccount on a.ModifiedBy equals u.ID into qU
                                 from user in qU.DefaultIfEmpty()
+                                where a.ClientCode == UniversalHelpers.SelectedClient
                                 select new AdvisoryModel
                                 {
                                     ID = a.ID,
@@ -93,7 +30,8 @@ namespace Quickipedia.Services
                                     ModifiedDate = a.ModifiedDate,
                                     ShowModifiedBy = user.FirstName + " " + user.LastName,
                                     Status = "Y",
-                                    Title = a.Title
+                                    Title = a.Title,
+                                    ClientCode = a.ClientCode
                                 };
 
                      return query.ToList();
@@ -104,35 +42,6 @@ namespace Quickipedia.Services
                 message = error.Message;
 
                 return null;
-            }
-        }
-
-        public static void ReadAdvisory(Guid advisoryID, out string message)
-        {
-            try
-            {
-                message = "";
-
-                using (var db = new QuickipediaEntities())
-                {
-                    AdvisoryRead newRead = new AdvisoryRead
-                    {
-                        ID  = Guid.NewGuid(),
-                        AdvisoryID = advisoryID,
-                        ReadDate = DateTime.Now,
-                        UserID = UniversalHelpers.CurrentUser.ID
-                    };
-
-                    db.Entry(newRead).State = EntityState.Added;
-
-                    db.SaveChanges();
-
-                    message = "Saved";
-                }
-            }
-            catch(Exception error)
-            {
-                message = error.Message;
             }
         }
 
@@ -153,7 +62,9 @@ namespace Quickipedia.Services
                             Title = model.Title,
                             Message = model.Message,
                             ModifiedBy = UniversalHelpers.CurrentUser.ID,
-                            ModifiedDate = DateTime.Now
+                            ModifiedDate = DateTime.Now,
+                            ClientCode = UniversalHelpers.SelectedClient,
+                            Status = "Y"
                         };
 
                         db.Entry(newAd).State = EntityState.Added;

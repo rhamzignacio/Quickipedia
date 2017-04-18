@@ -224,9 +224,6 @@
       <DependentUpon>QuickipediaEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AdvisoryModel.cs" />
-    <Compile Include="Models\AdvisoryRead.cs">
-      <DependentUpon>QuickipediaEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Airlines.cs">
       <DependentUpon>QuickipediaEntities.tt</DependentUpon>
     </Compile>

@@ -1,6 +1,6 @@
 ﻿angular.module("advisory", [])
 
-.controller("advisoryContoller", function ($scope, $location, $http, growl) {
+.controller("advisoryController", function ($scope, $location, $http, growl) {
     var vm = this;
 
     PopUpMessage = function (message) {
@@ -13,12 +13,12 @@
     }
 
     initAdvisory = function () {
-        http({
+        $http({
             method: "POST",
             url: "/Advisory/GetAvisory",
             arguments: { "Content-Type": "application/json" }
         }).then(function (data) {
-            vm.Advisory = data.data;
+            vm.Advisory = data.data.advisory;
         });
     }
 
@@ -27,7 +27,7 @@
     }
 
     $scope.saveAdvisory = function (value) {
-        http({
+        $http({
             method: "POST",
             url: "/Advisory/SaveAdvisory",
             data: { advisory: value }

@@ -43,7 +43,6 @@
                             <h3 ng-show="main.CurrentUser.AccessLevel == 'A'">Admin</h3>
 
                             <ul class="nav side-menu" ng-show="main.CurrentClient.ClientCode == null || main.CurrentClient.ClientCode == ''">
-                                <li><a href="/Home/Index"><i class="fa fa-newspaper-o"></i> Advisory </a></li>
                                 <li><a href="/User/UserList"><i class="fa fa-users" ng-show="main.CurrentUser.AccessLevel == 'A'"></i> User Accounts </a></li>
                                 <li><a href="#" data-toggle="modal" data-target="#ClientModal"><i class="fa fa-warning"></i>No Client Selected</a></li>
                             </ul>
@@ -55,7 +54,7 @@
                             </ul>
 
                             <ul class="nav side-menu" ng-show="main.CurrentClient.ClientCode != null && main.CurrentClient.ClientCode != 'NewClient'">
-                                <li><a href="/Home/Index"><i class="fa fa-newspaper-o"></i> Advisory </a></li>
+                                <li><a href="/Advisory/Index"><i class="fa fa-newspaper-o"></i> Advisory </a></li>
                                 <!--<li><a href="#" data-toggle="modal" data-target="#ClientModal"><i class="fa fa-users"></i>Select Client</a></li>-->
                                 <li><a href="/BasicInfo/Index"><i class="fa fa-ellipsis-v"></i>Basic Info </a></li>
                                 <li>

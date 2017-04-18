@@ -26,7 +26,6 @@ namespace Quickipedia.Models
         }
     
         public virtual DbSet<Advisory> Advisory { get; set; }
-        public virtual DbSet<AdvisoryRead> AdvisoryRead { get; set; }
         public virtual DbSet<Airlines> Airlines { get; set; }
         public virtual DbSet<AncillariesFees> AncillariesFees { get; set; }
         public virtual DbSet<BillingCollectionFinanceManager> BillingCollectionFinanceManager { get; set; }

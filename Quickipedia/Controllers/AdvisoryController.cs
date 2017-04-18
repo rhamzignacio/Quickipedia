@@ -27,16 +27,6 @@ namespace Quickipedia.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetReadAdvisory(Guid advisoryiD)
-        {
-            string serverResponse = "";
-
-            var read = AdvisoryService.GetReads(advisoryiD, out serverResponse);
-
-            return Json(new { read = read });
-        }
-
-        [HttpPost]
         public JsonResult SaveAdvisory(AdvisoryModel advisory)
         {
             string serverResponse = "";

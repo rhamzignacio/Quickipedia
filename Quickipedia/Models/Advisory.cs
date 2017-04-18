@@ -19,5 +19,7 @@ namespace Quickipedia.Models
         public string Title { get; set; }
         public Nullable<System.Guid> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public string ClientCode { get; set; }
+        public string Status { get; set; }
     }
 }
