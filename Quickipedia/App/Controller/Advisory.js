@@ -35,6 +35,24 @@
             PopUpMessage(data.data);
 
             initAdvisory();
+
+            $("#advisoryModal").modal('hide');
         });
     }
-})
+
+    $scope.selectAdvisory = function (val) {
+        vm.Modal = val;
+    }
+
+    $scope.DeleteAdvisory = function () {
+        vm.Modal.Status = "X";
+
+        $http({
+            method: "POST",
+            url: "/Advisory/SaveAdvisory",
+            data: { advisory: vm.Modal }
+        }).then(function (data) {
+            growl.success("Successfully " + "Deleted", { ttl: 2000 });
+        })
+    }
+});
