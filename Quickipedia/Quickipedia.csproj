@@ -2218,6 +2218,7 @@
     <Content Include="Content\vendors\dropzone\.bower.json" />
     <Content Include="Content\vendors\dropzone\bower.json" />
     <Content Include="Content\vendors\dropzone\dist\readme.md" />
+    <Content Include="Database\Quickipedia_LogBackup_2017-03-10_09-47-16.bak" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
