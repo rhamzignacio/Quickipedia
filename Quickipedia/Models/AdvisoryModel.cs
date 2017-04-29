@@ -25,5 +25,15 @@ namespace Quickipedia.Models
         }
         public string Status { get; set; }
         public string ClientCode { get; set; }
+        public string ShowMessage
+        {
+            get
+            {
+                if (Message != null)
+                    return Message.Replace("\n", "&#10;");
+                else
+                    return "";
+            }
+        }
     }
 }

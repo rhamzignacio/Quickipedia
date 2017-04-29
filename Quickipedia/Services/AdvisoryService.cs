@@ -21,7 +21,6 @@ namespace Quickipedia.Services
                     var query = from a in db.Advisory
                                 join u in db.UserAccount on a.ModifiedBy equals u.ID into qU
                                 from user in qU.DefaultIfEmpty()
-                                where a.ClientCode == UniversalHelpers.SelectedClient
                                 select new AdvisoryModel
                                 {
                                     ID = a.ID,
@@ -30,8 +29,7 @@ namespace Quickipedia.Services
                                     ModifiedDate = a.ModifiedDate,
                                     ShowModifiedBy = user.FirstName + " " + user.LastName,
                                     Status = "Y",
-                                    Title = a.Title,
-                                    ClientCode = a.ClientCode
+                                    Title = a.Title
                                 };
 
                      return query.ToList();
@@ -63,7 +61,6 @@ namespace Quickipedia.Services
                             Message = model.Message,
                             ModifiedBy = UniversalHelpers.CurrentUser.ID,
                             ModifiedDate = DateTime.Now,
-                            ClientCode = UniversalHelpers.SelectedClient,
                             Status = "Y"
                         };
 

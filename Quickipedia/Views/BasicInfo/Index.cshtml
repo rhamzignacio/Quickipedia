@@ -144,7 +144,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" ng-show="main.CurrentUser.AccessLevel == 'A'">
                         <button class="btn btn-primary" type="submit" ng-click="save(vm.BasicInfo, main.CurrentClient.ClientCode)">
                             <span ng-show="main.CurrentClient.ClientCode == 'NewClient'">Save</span> 
                             <span ng-show="main.CurrentClient.ClientCode != 'NewClient'">Update</span>

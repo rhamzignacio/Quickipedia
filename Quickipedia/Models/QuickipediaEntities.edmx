@@ -14,7 +14,6 @@
           <Property Name="Title" Type="varchar" MaxLength="300" />
           <Property Name="ModifiedBy" Type="uniqueidentifier" />
           <Property Name="ModifiedDate" Type="datetime" />
-          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
           <Property Name="Status" Type="varchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="Airlines">
@@ -615,7 +614,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="QuickipediaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="QuickipediaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Advisory" EntityType="QuickipediaModel.Advisory" />
           <EntitySet Name="Airlines" EntityType="QuickipediaModel.Airlines" />
           <EntitySet Name="AncillariesFees" EntityType="QuickipediaModel.AncillariesFees" />
           <EntitySet Name="BillingCollectionFinanceManager" EntityType="QuickipediaModel.BillingCollectionFinanceManager" />
@@ -662,19 +660,8 @@
           <EntitySet Name="UserClient" EntityType="QuickipediaModel.UserClient" />
           <EntitySet Name="VIP" EntityType="QuickipediaModel.VIP" />
           <EntitySet Name="VisaAndDocumentation" EntityType="QuickipediaModel.VisaAndDocumentation" />
+          <EntitySet Name="Advisory" EntityType="QuickipediaModel.Advisory" />
         </EntityContainer>
-        <EntityType Name="Advisory">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Guid" Nullable="false" />
-          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Title" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="ModifiedBy" Type="Guid" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="Airlines">
           <Key>
             <PropertyRef Name="AirlineCode" />
@@ -1219,25 +1206,23 @@
           <Property Name="ModifiedBy" Type="Guid" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="Advisory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="QuickipediaModelStoreContainer" CdmEntityContainer="QuickipediaEntities">
-          <EntitySetMapping Name="Advisory">
-            <EntityTypeMapping TypeName="QuickipediaModel.Advisory">
-              <MappingFragment StoreEntitySet="Advisory">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Airlines">
             <EntityTypeMapping TypeName="QuickipediaModel.Airlines">
               <MappingFragment StoreEntitySet="Airlines">
@@ -1824,6 +1809,18 @@
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
                 <ScalarProperty Name="ProcessFlow" ColumnName="ProcessFlow" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Advisory">
+            <EntityTypeMapping TypeName="QuickipediaModel.Advisory">
+              <MappingFragment StoreEntitySet="Advisory">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
