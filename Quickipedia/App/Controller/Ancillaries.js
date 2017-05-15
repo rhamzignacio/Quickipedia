@@ -18,7 +18,7 @@
         { value: "Loyalty Programme Booking", label: "Loyalty Programme Booking" },
         { value: "Insurance", label: "Insurance" },
         { value: "Documentation", label: "Documentation" },
-        { vale: "Pickup and Delivery", label: "Pick Up and Delivery (During Office Hour)" },
+        { value: "Pickup and Delivery", label: "Pick Up and Delivery (During Office Hour)" },
     ];
 
     $scope.init = function () {

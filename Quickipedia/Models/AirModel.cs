@@ -33,7 +33,7 @@ namespace Quickipedia.Models
         public string ClientCode { get; set; }
         public string ClientName { get; set; }
         public string ResponseTime { get; set; }
-        public int? NoOfQuotationOptions { get; set; }
+        public string NoOfQuotationOptions { get; set; }
         public string QuotationFormat { get; set; }
         public string QuotationFormat_Other { get; set; }
         public string AuthorityToTicket { get; set; }

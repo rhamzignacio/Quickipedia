@@ -49,4 +49,38 @@
             }
         });
     }
+
+    $scope.ChangePassword = function (value) {
+        if(value.ConfirmPassword != value.NewPassword){
+            growl.error("Password Not Match!", { title: "Error!", ttl: 3000 });
+
+            value.CurrentPassword = "";
+
+            value.NewPassword = "";
+
+            value.ConfirmPassword = "";
+        }
+        else {
+            $http({
+                method: "POST",
+                url: "/Home/ChangePassword",
+                data: { password: value }
+            }).then(function (data) {
+                if (data.data.errorMessage == "") {
+                    growl.success("Password successfully changed ", { ttl: 2000 });
+
+                    $("#PasswordModal").modal('hide');
+                }
+                else {
+                    growl.error(data.data.errorMessage, { title: "Error!", ttl: 3000 });
+
+                    value.CurrentPassword = "";
+
+                    value.NewPassword = "";
+
+                    value.ConfirmPassword = "";
+                }
+            })
+        }
+    }
 }]);

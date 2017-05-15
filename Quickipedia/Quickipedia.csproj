@@ -250,6 +250,7 @@
     <Compile Include="Models\CarProgramLink.cs">
       <DependentUpon>QuickipediaEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\ClientBookerApprover.cs">
       <DependentUpon>QuickipediaEntities.tt</DependentUpon>
     </Compile>

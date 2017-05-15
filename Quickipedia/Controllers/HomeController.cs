@@ -89,5 +89,16 @@ namespace Quickipedia.Controllers
             return Json(new { obj = UniversalHelpers.CurrentUser, clients = UserService.GetClientDropDown(),
                 selectedclient = clientProfile });
         }
+
+        [HttpPost]
+        public JsonResult ChangePassword(ChangePasswordModel password)
+        {
+            var serverResponse = "";
+
+            if (password != null)
+                UserService.ChangePassword(password, out serverResponse);
+
+            return Json(new { errorMessage = serverResponse });
+        }
     }
 }

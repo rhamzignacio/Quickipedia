@@ -17,7 +17,7 @@ namespace Quickipedia.Models
         public System.Guid ID { get; set; }
         public string ClientCode { get; set; }
         public string ResponseTime { get; set; }
-        public Nullable<int> NoOfQuotationOptions { get; set; }
+        public string NoOfQuotationOptions { get; set; }
         public string QuotationFormat { get; set; }
         public string AuthorityToTicket { get; set; }
         public string FareAudit { get; set; }

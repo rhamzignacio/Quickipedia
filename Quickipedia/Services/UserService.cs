@@ -9,6 +9,36 @@ namespace Quickipedia.Services
 {
     public class UserService
     {
+        public static void ChangePassword(ChangePasswordModel _pass ,out string message)
+        {
+            message = "";
+
+            try
+            {
+                using (var db = new QuickipediaEntities())
+                {
+                    var user = db.UserAccount.FirstOrDefault(r => r.ID == UniversalHelpers.CurrentUser.ID && r.Password == _pass.CurrentPassword);
+
+                    if(user != null)
+                    {
+                        user.Password = _pass.NewPassword;
+
+                        db.Entry(user).State = EntityState.Modified;
+
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        message = "Incorrect Password";
+                    }
+                }
+            }
+            catch(Exception error)
+            {
+                message = error.Message;
+            }
+        }
+
         public static List<UserModel> GetUsers(out string message)
         {
             try
