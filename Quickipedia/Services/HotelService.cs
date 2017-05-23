@@ -10,31 +10,31 @@ namespace Quickipedia.Services
 {
     public class HotelService
     {
-        public static void UpdateAttachment (List<HotelAttachmentModel> files)
+        public static void UpdateAttachment (HotelAttachmentModel item, out string message)
         {
             try
             {
+                message = "";
+
                 using (var db = new QuickipediaEntities())
                 {
-                    files.ForEach(item =>
-                    {
-                        if(item.Status == "X")
-                        {
-                            var file = db.HotelProgramAttachement.FirstOrDefault(r => r.ID == item.ID);
 
-                            if(file != null)
-                            {
-                                db.Entry(file).State = EntityState.Deleted;
-                            }
+                    if(item.Status == "X")
+                    {
+                        var file = db.HotelProgramAttachement.FirstOrDefault(r => r.ID == item.ID);
+
+                        if(file != null)
+                        {
+                            db.Entry(file).State = EntityState.Deleted;
                         }
-                    });
+                    }
 
                     db.SaveChanges();
                 }
             }
             catch(Exception error)
             {
-
+                message = error.Message;
             }
         }
 
@@ -110,7 +110,7 @@ namespace Quickipedia.Services
             }
         }
 
-        public static void SaveHotelLinks(List<HotelLinksModel> links, out string message)
+        public static void SaveHotelLinks(HotelLinksModel item, out string message)
         {
             try
             {
@@ -118,54 +118,50 @@ namespace Quickipedia.Services
 
                 using (var db = new QuickipediaEntities())
                 {
-                    links.ForEach(item =>
+                    if (item.Status == "X")
                     {
-                       if(item.Status == "X")
-                       {
-                            var link = db.HotelProgramLink.FirstOrDefault(r => r.ID == item.ID);
+                        var link = db.HotelProgramLink.FirstOrDefault(r => r.ID == item.ID);
 
-                            if (link != null)
-                                db.Entry(link).State = EntityState.Deleted;
-                       }
-                       else if(item.Status == "U")
-                       {
-                            var link = db.HotelProgramLink.FirstOrDefault(r => r.ID == item.ID);
+                        if (link != null)
+                            db.Entry(link).State = EntityState.Deleted;
+                    }
+                    else if (item.Status == "U")
+                    {
+                        var link = db.HotelProgramLink.FirstOrDefault(r => r.ID == item.ID);
 
-                            if(link != null)
-                            {
-                                link.Title = item.Title;
-                                
-                                link.Link = item.Link;
-
-                                link.ModifiedDate = DateTime.Now;
-
-                                link.ModifiedBy = UniversalHelpers.CurrentUser.ID;
-
-                                db.Entry(link).State = EntityState.Modified;
-                            }
-                       }
-                       else if(item.Status == "Y")
+                        if (link != null)
                         {
+                            link.Title = item.Title;
 
+                            link.Link = item.Link;
+
+                            link.ModifiedDate = DateTime.Now;
+
+                            link.ModifiedBy = UniversalHelpers.CurrentUser.ID;
+
+                            db.Entry(link).State = EntityState.Modified;
                         }
-                       else
-                       {
-                            HotelProgramLink newLink = new HotelProgramLink
-                            {
-                                ID = Guid.NewGuid(),
-                                ClientCode = UniversalHelpers.SelectedClient,
-                                Link = item.Link,
-                                Title = item.Title,
-                                ModifiedBy = UniversalHelpers.CurrentUser.ID,
-                                ModifiedDate = DateTime.Now
-                            };
+                    }
+                    else if (item.Status == "Y")
+                    {
 
-                            db.Entry(newLink).State = EntityState.Added;
-                       }
+                    }
+                    else
+                    {
+                        HotelProgramLink newLink = new HotelProgramLink
+                        {
+                            ID = Guid.NewGuid(),
+                            ClientCode = UniversalHelpers.SelectedClient,
+                            Link = item.Link,
+                            Title = item.Title,
+                            ModifiedBy = UniversalHelpers.CurrentUser.ID,
+                            ModifiedDate = DateTime.Now
+                        };
 
-                        db.SaveChanges();
-                    });
-                    
+                        db.Entry(newLink).State = EntityState.Added;
+                    }
+
+                    db.SaveChanges();
                 }
             }
             catch(Exception error)

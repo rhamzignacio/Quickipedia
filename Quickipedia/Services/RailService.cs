@@ -9,33 +9,33 @@ namespace Quickipedia.Services
 {
     public class RailService
     {
-        public static void UpdateAttachments (List<RailAttachmentModel> files)
+        public static void UpdateAttachments (RailAttachmentModel item, out string message)
         {
             try
             {
+                message = "";
+
                 using (var db = new QuickipediaEntities())
                 {
-                    files.ForEach(item =>
+
+                    if (item.Status == "X")
                     {
-                        if (item.Status == "X")
+
+                        var file = db.RailProgramAttachment.FirstOrDefault(r => r.ID == item.ID);
+
+                        if (file != null)
                         {
-
-                            var file = db.RailProgramAttachment.FirstOrDefault(r => r.ID == item.ID);
-
-                            if (file != null)
-                            {
-                                db.Entry(file).State = EntityState.Deleted;
-                            }
-
+                            db.Entry(file).State = EntityState.Deleted;
                         }
-                    });
+
+                    }
 
                     db.SaveChanges();
                 }
             }
             catch(Exception error)
             {
-
+                message = error.Message;
             }
         }
 
@@ -110,7 +110,7 @@ namespace Quickipedia.Services
             }
         }
 
-        public static void SaveRailLinks(List<RailLinksModel> links, out string message)
+        public static void SaveRailLinks(RailLinksModel item, out string message)
         {
             try
             {
@@ -118,53 +118,50 @@ namespace Quickipedia.Services
 
                 using (var db = new QuickipediaEntities())
                 {
-                    links.ForEach(item =>
+                    if(item.Status == "X")
                     {
-                        if(item.Status == "X")
+                        var link = db.RailProgramLink.FirstOrDefault(r => r.ID == item.ID);
+
+                        if (link != null)
+                            db.Entry(link).State = EntityState.Deleted;
+                    }
+                    else if(item.Status == "U")
+                    {
+                        var link = db.RailProgramLink.FirstOrDefault(r => r.ID == item.ID);
+
+                        if(link != null)
                         {
-                            var link = db.RailProgramLink.FirstOrDefault(r => r.ID == item.ID);
+                            link.Title = item.Title;
 
-                            if (link != null)
-                                db.Entry(link).State = EntityState.Deleted;
+                            link.Link = item.Link;
+
+                            link.ModifiedBy = UniversalHelpers.CurrentUser.ID;
+
+                            link.ModifiedDate = DateTime.Now;
+
+                            db.Entry(link).State = EntityState.Modified;
                         }
-                        else if(item.Status == "U")
+                    }
+                    else if (item.Status == "Y")
+                    {
+
+                    }
+                    else
+                    {
+                        RailProgramLink newLink = new RailProgramLink
                         {
-                            var link = db.RailProgramLink.FirstOrDefault(r => r.ID == item.ID);
+                            ID = Guid.NewGuid(),
+                            ClientCode = UniversalHelpers.SelectedClient,
+                            Link = item.Link,
+                            Title = item.Title,
+                            ModifiedDate = DateTime.Now,
+                            ModifiedBy = UniversalHelpers.CurrentUser.ID
+                        };
 
-                            if(link != null)
-                            {
-                                link.Title = item.Title;
+                        db.Entry(newLink).State = EntityState.Added;
+                    }
 
-                                link.Link = item.Link;
-
-                                link.ModifiedBy = UniversalHelpers.CurrentUser.ID;
-
-                                link.ModifiedDate = DateTime.Now;
-
-                                db.Entry(link).State = EntityState.Modified;
-                            }
-                        }
-                        else if (item.Status == "Y")
-                        {
-
-                        }
-                        else
-                        {
-                            RailProgramLink newLink = new RailProgramLink
-                            {
-                                ID = Guid.NewGuid(),
-                                ClientCode = UniversalHelpers.SelectedClient,
-                                Link = item.Link,
-                                Title = item.Title,
-                                ModifiedDate = DateTime.Now,
-                                ModifiedBy = UniversalHelpers.CurrentUser.ID
-                            };
-
-                            db.Entry(newLink).State = EntityState.Added;
-                        }
-
-                        db.SaveChanges();
-                    });
+                    db.SaveChanges();
                 }
             }
             catch(Exception error)

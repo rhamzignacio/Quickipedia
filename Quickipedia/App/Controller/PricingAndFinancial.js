@@ -58,7 +58,6 @@
         { value: "VAT Inclusive", label: "VAT Inclusive" },
         { value: "Zero Rated", label: "Zero Rated" },
         { value: "Non-VAT", label: "Non-VAT" },
-        { value: "Exempt", label: "Exemp"}
     ];
 
     $scope.FeesCategory = [

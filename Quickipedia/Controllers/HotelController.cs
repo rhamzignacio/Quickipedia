@@ -78,14 +78,18 @@ namespace Quickipedia.Controllers
         }
 
         [HttpPost]
-        public JsonResult UpdateAttachment (List<HotelAttachmentModel> files)
+        public JsonResult DeleteAttachment (HotelAttachmentModel files)
         {
+            string serverResponse = "";
+
             if(files != null)
             {
-                HotelService.UpdateAttachment(files);
+                files.Status = "X";
+
+                HotelService.UpdateAttachment(files, out serverResponse);
             }
 
-            return Json("Updated");
+            return Json(serverResponse);
         }
 
         [HttpPost]
@@ -100,11 +104,24 @@ namespace Quickipedia.Controllers
             return Json(new { links = links , attachment = attachments});
         }
         [HttpPost]
-        public JsonResult SaveHotelProgram(List<HotelLinksModel> links)
+        public JsonResult SaveHotelProgram(HotelLinksModel links)
         {
             string serverResponse = "";
 
             if (links != null)
+                HotelService.SaveHotelLinks(links, out serverResponse);
+
+            return Json(serverResponse);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteHotelProgram(HotelLinksModel links)
+        {
+            string serverResponse = "";
+
+            links.Status = "X";
+
+            if(links != null)
                 HotelService.SaveHotelLinks(links, out serverResponse);
 
             return Json(serverResponse);

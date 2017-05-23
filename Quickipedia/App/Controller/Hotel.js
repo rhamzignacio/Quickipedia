@@ -38,39 +38,97 @@
         $("#Files").click();
     }
 
-    UploadFile = function () {
-        angular.forEach(vm.ForUpload, function (file) {
-            if (file.Status != "X") {
-                file.upload = Upload.upload({
-                    url: "/Hotel/FileUpload",
-                    data: { file: file },
-                    async: true
-                });
+    $scope.uploadFiles = function (files, errFiles) {
+        $scope.files = files;
+        $scope.errFiles = errFiles;
+
+        angular.forEach(files, function (file) {
+            if (file.size >= 25600000) {
+                growl.error("Maximum file upload is 25MB", { title: "Error!", ttl: 3000 });
             }
-            });
+            else {
+                if (file.Status != "X") {
+                    file.upload = Upload.upload({
+                        url: "/Hotel/FileUpload",
+                        data: { file: file },
+                        async: true
+                    }).then(function(data){
+                        growl.success("Successfully uploaded", { ttl: 2000 });
+
+                        $scope.initProgram();
+                    });
+                }
+            }
+        });
+
+
     }
 
-    UpdateFile = function (files) {
+    $scope.AssignFileToDelete = function (value) {
+        vm.FileDelete = value;
+    }
+
+    $scope.DeleteFile = function () {
         $http({
             method: "POST",
-            url: "/Hotel/UpdateAttachment",
-            data: { files: files },
+            url: "/Hotel/DeleteAttachment",
+            data: { files: vm.FileDelete },
             async: true
         }).then(function(data){
-            
+            if (data.data == "") {
+                growl.success("Successfully deleted", { ttl: 2000 });
+
+                $scope.initProgram();
+            }
+            else {
+                growl.error(data.data, { title: "Error!", ttl: 3000 });
+            }
         });
 
     }
 
-    SaveLink = function (link) {
+    $scope.AssignDeleteLink = function (value) {
+        vm.ToBeDelete = value;
+    }
+
+    $scope.DeleteLink = function () {
+        $http({
+            method: "POST",
+            url: "/Hotel/DeleteHotelProgram",
+            data: { links: vm.ToBeDelete }
+        }).then(function (data) {
+            if (data.data == "Saved" || data.data == "Updated") {
+                growl.success("Successfully deleted", { ttl: 2000 });
+
+                vm.ToBeDelete.Status = "X";
+            }
+        });
+    }
+
+    $scope.OpenModal = function (value) {
+        vm.Modal = value;
+
+        vm.Modal.Status = "U";
+    }
+
+    $scope.SaveLink = function (link) {
         $http({
             method: "POST",
             url: "/Hotel/SaveHotelProgram",
             data: { links: link },
-            async: true
         }).then(function(data){
-            
+            if (data.data == "Saved" || data.data == "Updated") {
+                PopUpMessage(data.data);
+
+                $("#linkModal").modal('hide');
+
+                $scope.initProgram();
+            }
         });
+    }
+
+    $scope.ClearModal = function () {
+        vm.Modal = {};
     }
 
     $scope.initProgram = function () {
@@ -91,23 +149,6 @@
         });
     }
 
-    $scope.uploadFiles = function (files, errFiles) {
-        $scope.files = files;
-        $scope.errFiles = errFiles;
-
-        if (vm.ForUpload == null) {
-            vm.ForUpload = new Array();
-        }
-
-        angular.forEach(files, function (file) {
-            if (file.size >= 25600000) {
-                growl.error("Maximum file upload is 25MB", { title: "Error!", ttl: 3000 });
-            }
-            else {
-                vm.ForUpload.push(file);
-            }
-        });
-    }
 
     $scope.saveHotelProgram = function (link, files) {
         UploadFile();
@@ -121,17 +162,6 @@
         location.reload();
     }
 
-    $scope.addLink = function (value) {
-        if (vm.Links == null) {
-            vm.Links = new Array();
-        }
-
-        var ifExist = vm.Links.filter(function (o) { return o.Link == value.Link });
-
-        if (ifExist.length == 0) {
-            vm.Links.push(value);
-        }
-    }
 
     $scope.openLink = function (value) {
         vm.Modal = value;

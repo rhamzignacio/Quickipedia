@@ -50,6 +50,10 @@
         });
     }
 
+    $scope.ClearSelectedClient = function () {
+        main.CurrentClient.ClientClode = "";
+    }
+
     $scope.ChangePassword = function (value) {
         if(value.ConfirmPassword != value.NewPassword){
             growl.error("Password Not Match!", { title: "Error!", ttl: 3000 });

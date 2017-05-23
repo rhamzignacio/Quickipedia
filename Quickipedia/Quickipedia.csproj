@@ -2970,6 +2970,7 @@
     <Content Include="Src\Images\blank-profile-picture.png" />
     <Content Include="Src\Images\Clients-icon.png" />
     <Content Include="Src\Images\Philscan Logo - White.png" />
+    <Content Include="Src\Images\userlist.png" />
     <Content Include="Src\Website-Under-Construction.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

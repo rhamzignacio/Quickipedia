@@ -77,14 +77,31 @@ namespace Quickipedia.Controllers
         }
 
         [HttpPost]
-        public JsonResult UpdateAttachment(List<CarAttachmentModel> files)
+        public JsonResult UpdateAttachment(CarAttachmentModel files)
         {
+            string serverResponse = "";
+
             if(files != null)
             {
-                CarService.UpdateAttachments(files);
+                CarService.UpdateAttachments(files, out serverResponse);
             }
 
-            return Json("Updated");
+            return Json(serverResponse);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteAttachment(CarAttachmentModel file)
+        {
+            string serverResponse = "";
+
+            if(file != null)
+            {
+                file.Status = "X";
+
+                CarService.UpdateAttachments(file, out serverResponse);
+            }
+
+            return Json(serverResponse);
         }
 
         [HttpPost]
@@ -100,7 +117,20 @@ namespace Quickipedia.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveCarProgram(List<CarLinksModel> links)
+        public JsonResult DeleteHotelProgram(CarLinksModel links)
+        {
+            string serverResponse = "";
+
+            links.Status = "X";
+
+            if (links != null)
+                CarService.SaveCarLinks(links, out serverResponse);
+
+            return Json(serverResponse);
+        }
+
+        [HttpPost]
+        public JsonResult SaveCarProgram(CarLinksModel links)
         {
             string serverResponse = "";
 

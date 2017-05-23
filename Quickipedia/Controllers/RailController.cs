@@ -82,21 +82,49 @@ namespace Quickipedia.Controllers
         }
 
         [HttpPost]
-        public JsonResult UpdateAttachment(List<RailAttachmentModel> files)
+        public JsonResult UpdateAttachment(RailAttachmentModel files)
         {
-            if(files != null)
-            {
-                RailService.UpdateAttachments(files);
-            }
+            string serverResponse = "";
 
-            return Json("Updated");
+            if(files != null)
+                RailService.UpdateAttachments(files, out serverResponse);
+
+            return Json(serverResponse);
         }
 
         [HttpPost]
-        public JsonResult SaveRailProgram(List<RailLinksModel> links)
+        public JsonResult SaveRailProgram(RailLinksModel links)
         {
 
             string serverResponse = "";
+
+            if (links != null)
+                RailService.SaveRailLinks(links, out serverResponse);
+
+            return Json(serverResponse);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteAttachment (RailAttachmentModel files)
+        {
+            string serverResponse = "";
+
+            if(files != null)
+            {
+                files.Status = "X";
+
+                RailService.UpdateAttachments(files, out serverResponse);
+            }
+
+            return Json(serverResponse);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteRailProgram(RailLinksModel links)
+        {
+            string serverResponse = "";
+
+            links.Status = "X";
 
             if (links != null)
                 RailService.SaveRailLinks(links, out serverResponse);

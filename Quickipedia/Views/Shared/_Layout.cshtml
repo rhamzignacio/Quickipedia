@@ -19,7 +19,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border:0;">
-                        <a href="/Home/Index" class="site_title"><i class="fa fa-cloud"></i><span> Quickipedia</span></a>
+                        <a href="#" class="site_title" ng-click="ClearSelectedClient()"><i class="fa fa-cloud"></i><span> Quickipedia</span></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -44,13 +44,13 @@
 
                             <ul class="nav side-menu" ng-show="main.CurrentClient.ClientCode == null || main.CurrentClient.ClientCode == ''">
                                 <li><a href="/Advisory/Index"><i class="fa fa-newspaper-o"></i> Advisory </a></li>
-                                <li><a href="/User/UserList"><i class="fa fa-users" ng-show="main.CurrentUser.AccessLevel == 'A'"></i> User Accounts </a></li>
+                                <li><a href="/User/UserList" ng-show="main.CurrentUser.AccessLevel == 'A'"><i class="fa fa-users"></i> User Accounts </a></li>
                                 <li><a href="#" data-toggle="modal" data-target="#ClientModal"><i class="fa fa-warning"></i>No Client Selected</a></li>
                             </ul>
 
                             <ul class="nav side-menu" ng-show="main.CurrentClient.ClientCode != null && main.CurrentClient.ClientCode == 'NewClient'">
                                 @*<li><a href="/Home/Index"><i class="fa fa-newspaper-o"></i> Advisory </a></li>*@
-                                <li><a href="/User/UserList"><i class="fa fa-users" ng-show="main.CurrentUser.AccessLevel == 'A'"></i> User Accounts </a></li>
+                                <li><a href="/User/UserList" ng-show="main.CurrentUser.AccessLevel == 'A'"><i class="fa fa-users"></i> User Accounts </a></li>
                                 <li><a href="/BasicInfo/Index"><i class="fa fa-ellipsis-v"></i>Basic Info </a></li>
                             </ul>
 
@@ -140,11 +140,20 @@
 </div><!--menu-section-->
                     </div><!--sidebar-menu-->
                     <!--menu footer buttons-->
-                    <div class="sidebar-footer hidden-small">
+                    <div class="sidebar-footer">
+                        <a href="/Advisory/Index" data-toggle="tooltip" data-placement="top" title="Advisory">
+                            <span class="fa fa-newspaper-o"></span>
+                        </a>
+
+                        <a href="/User/UserList" data-toggle="tooltip" data-placement="top" title="User Accounts"
+                           ng-show="main.CurrentUser.AccessLevel == 'A'">
+                            <span class="glyphicon glyphicon-user"></span>
+                        </a>
 
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Logout">
                             <span class="glyphicon glyphicon-off" aria-hidden="true" ng-click="Logout()"></span>
                         </a>
+
                     </div><!--menu footer buttons-->
                 </div><!--left_col scroll-view-->
             </div><!--col-md-3 left_col-->
@@ -156,7 +165,7 @@
                         <div class="nav toggle">
                             <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                         </div>
-                            <ul class="nav navbar navbar-right">                                                       
+                            <ul class="nav navbar navbar-right hidd">                                                       
                                 <li class="">                                   
                                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                         <img src="~/Src/Images/blank-profile-picture.png" alt="">{{main.CurrentUser.FirstName}} {{main.CurrentUser.LastName}}
@@ -176,7 +185,13 @@
                                         {{main.CurrentClient.ClientName}}</span>
                                     <span ng-show="main.CurrentClient.ClientName == null || main.CurrentClient.ClientName == ''">
                                         Please Select Client</span></a>
-                                </li>
+
+                                @*<li>
+                                    <a href="/User/UserList" class="user-profile dropdown-toggle" ng-show="main.CurrentUser.AccessLevel == 'A'">
+                                        <img class="fa fa-users" src="~/Src/Images/userlist.png"/> User Accounts 
+                                    </a>
+                                </li>*@
+
                                 
                             </ul>                       
                     </nav>
@@ -193,7 +208,7 @@
             <!-- footer content -->
             <footer>
                 <div class="pull-right">
-                    Quickipedia v1.12 by Philscan Travel and Tours Inc
+                    Quickipedia v1.15 by Philscan Travel and Tours Inc
                 </div>
                 <div class="clearfix"></div>
             </footer>

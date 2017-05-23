@@ -9,9 +9,6 @@
     <div style="display:none" id="loader"></div>
 
     <div id="myDiv" class="animate-bottom">
-        <div class="form-group">
-            <button type="button" class="btn btn-success" ng-click="saveCarProgram(car.Links, car.FileUploads)">Save</button>
-        </div>
 
         <div class="x_panel">
             <div class="x_title">
@@ -32,7 +29,7 @@
 
                 <div class="form-group" ng-repeat="file in car.FileUploads | filter: {Status: '!X'}">
                     <button type="button" class="btn btn-danger btn-xs" style="width:25px;" ng-if="main.CurrentUser.AccessLevel != 'U'"
-                            ng-click="delete(file)">
+                            ng-click="AssignFileToDelete(file)" data-toggle="modal" data-target="#deleteFileModal">
                         <i class="fa fa-close"></i>
                     </button>
 
@@ -54,7 +51,7 @@
                 <h2><i class="fa fa-link"></i> Link(s)</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
-                        <a class="" data-toggle="modal" data-target="#linkModal"><i class="fa fa-plus"></i></a>
+                        <a class="" data-toggle="modal" data-target="#linkModal"><i class="fa fa-plus" ng-click="ClearModal()"></i></a>
                     </li>
                     <li>
                         <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -65,19 +62,39 @@
 
             <div class="x_content">
                 <div class="form-group" ng-repeat="item in car.Links | filter: {Status: '!X'}">
-                    <button type="button" class="btn btn-info btn-xs" style="width:25px;">
+                    <button type="button" class="btn btn-info btn-xs" style="width:25px;" ng-click="OpenModal(item)" data-toggle="modal"
+                            data-target="#linkModal">
                         <i class="fa fa-eye" ng-if="main.CurrentUser.AccessLevel == 'U'"></i>
                         <i class="fa fa-pencil" ng-if="main.CurrentUser.AccessLevel != 'U'"></i>
                     </button>
 
                     <button type="button" class="btn btn-danger btn-xs" style="width:25px;" ng-if="main.CurrentUser.AccessLevel != 'U'" \
-                            ng-click="delete(item)">
+                            ng-click="AssignDeleteLink(item)" data-toggle="modal" data-target="#deleteLinkModal">
                         <i class="fa fa-close"></i>
                     </button>
                     <a href="http://{{item.Link}}">{{item.Title}} <small>Modified By: {{item.ShowModifiedBy}} - {{item.ShowModifiedDate}}</small></a>
                 </div>
             </div><!--./x-content-->
         </div><!--./x_panel-->
+
+        <!--Upload Modal-->
+        <div class="modal fade" id="deleteFileModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Are you sure you want to delete this file?</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <button class="btn btn-danger" data-dismiss="modal" ng-click="DeleteFile()">Yes</button>
+                        <button class="btn btn-default" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/Upload Modal-->
+
         <!--link modal-->
         <div class="modal fade" id="linkModal" role="dialog">
             <div class="modal-dialog">
@@ -90,17 +107,33 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Title</label>
-                            <input type="text" class="form-control" ng-model="vm.Modal.Title" />
+                            <input type="text" class="form-control" ng-model="car.Modal.Title" />
                         </div>
 
                         <div class="form-group">
                             <label>Link</label>
-                            <input type="text" class="form-control" ng-model="vm.Modal.Link" />
+                            <input type="text" class="form-control" ng-model="car.Modal.Link" />
                         </div>
 
                         <div class="form-group">
-                            <button type="button" class="btn btn-primary" ng-click="addLink(vm.Modal)">Ok</button>
+                            <button type="button" class="btn btn-primary" ng-click="SaveLink(car.Modal)">Ok</button>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="deleteLinkModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Are you sure you want to delete this link?</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <button class="btn btn-danger" data-dismiss="modal" ng-click="DeleteLink()">Yes</button>
+                        <button class="btn btn-default" data-dismiss="modal">No</button>
                     </div>
                 </div>
             </div>

@@ -16,13 +16,14 @@
     $scope.Type = [
         { value: "I", label: "International" },
         { value: "D", label: "Domestic" },
-        { value: "B", label: "Both" }
+        { value: "B", label: "Both" },
+        { value: "AB", label: "Biller" },
+        { value: "N", label: "Non-Biller, Non-TC"}
     ];
 
     $scope.AccessLevel = [
-        { value: "U", label: "Travel Consultant" },
+        { value: "U", label: "User" },
         { value: "A", label: "Administrator"},
-        { value: "O", label: "Other" }
     ]
 
     $scope.InitUser = function () {
@@ -42,6 +43,10 @@
             data: { user: value }
         }).then(function (data) {
             PopUpMessage(data.data);
+
+            $("#userModal").modal('hide');
+
+            vm.Modal = {};
         });
     }
 

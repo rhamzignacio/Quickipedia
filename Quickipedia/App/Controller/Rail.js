@@ -73,7 +73,7 @@
         });
     }
 
-    SaveLink = function (link) {
+    $scope.SaveLink = function (link) {
         $http({
             method: "POST",
             url: "/Rail/SaveRailProgram",
@@ -82,21 +82,16 @@
             },
             async: true
         }).then(function (data) {
+            if (data.data == "Saved" || data.data == "Updated") {
+                PopUpMessage(data.data);
 
+                $("#linkModal").modal('hide');
+
+                $scope.initProgram();
+            }
         });
     }
 
-    $scope.saveRailProgram = function (link, files) {
-        UploadFile();
-
-        UpdateFile(files);
-
-        SaveLink(link);
-
-        PopUpMessage("Saved");
-
-        location.reload();
-    }
 
     $scope.uploadFiles = function (files, errFiles) {
         $scope.files = files;
@@ -112,7 +107,61 @@
                 growl.error("Maximum file upload is 25MB", { title: "Error!", ttl: 3000 });
             }
             else {
-                vm.ForUpload.push(file);
+                if (file.Status != "X") {
+                    file.upload = Upload.upload({
+                        url: "/Rail/FileUpload",
+                        data: { file: file },
+                        async: true
+                    }).then(function(data){
+                        growl.success("Successfully uploaded", { ttl: 2000 });
+
+                        $scope.initProgram();
+                    });
+                }
+            }
+        });
+    }
+
+    $scope.ClearModal = function () {
+        vm.Modal = {};
+    }
+
+    $scope.AssignFileToDelete = function (value) {
+        vm.FileDelete = value;
+    }
+
+    $scope.AssignDeleteLink = function (value) {
+        vm.ToBeDelete = value;
+    }
+
+    $scope.DeleteFile = function () {
+        $http({
+            method: "POST",
+            url: "/Rail/DeleteAttachment",
+            data: { files: vm.FileDelete },
+            async: true
+            }).then(function(data){
+                if (data.data == "") {
+                    growl.success("Successfully deleted", { ttl: 2000 });
+
+                    $scope.initProgram();
+                }
+                else {
+                    growl.error(data.data, { title: "Error!", ttl: 3000 });
+                }
+            });
+    }
+
+    $scope.DeleteLink = function () {
+        $http({
+            method: "POST",
+            url: "/Rail/DeleteRailProgram",
+            data: { links: vm.ToBeDelete }
+        }).then(function (data) {
+            if (data.data == "Saved" || data.data == "Updated") {
+                growl.success("Successfully deleted", { ttl: 2000 });
+
+                vm.ToBeDelete.Status = "X";
             }
         });
     }

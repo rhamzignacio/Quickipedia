@@ -9,29 +9,30 @@ namespace Quickipedia.Services
 {
     public class CarService
     {
-        public static void UpdateAttachments(List<CarAttachmentModel> files)
+        public static void UpdateAttachments(CarAttachmentModel item, out string message)
         {
             try
             {
+                message = "";
                 using (var db = new QuickipediaEntities())
                 {
-                    files.ForEach(item =>
+                    if (item.Status == "X")
                     {
-                        if (item.Status == "X")
-                        {
-                            var file = db.CarProgramAttachment.FirstOrDefault(r => r.ID == item.ID);
+                        var file = db.CarProgramAttachment.FirstOrDefault(r => r.ID == item.ID);
 
-                            if (file != null)
-                            {
-                                db.Entry(file).State = EntityState.Deleted;
-                            }
+                        if (file != null)
+                        {
+                            db.Entry(file).State = EntityState.Deleted;
                         }
-                    });
+                    }
 
                     db.SaveChanges();
                 }
             }
-            catch { }
+            catch(Exception error)
+            {
+                message = error.Message;
+            }
         }
 
         public static List<CarAttachmentModel> GetAttachments(out string message)
@@ -105,7 +106,7 @@ namespace Quickipedia.Services
             }
         }
 
-        public static void SaveCarLinks(List<CarLinksModel> links, out string message)
+        public static void SaveCarLinks(CarLinksModel item, out string message)
         {
             try
             {
@@ -113,53 +114,51 @@ namespace Quickipedia.Services
 
                 using (var db = new QuickipediaEntities())
                 {
-                    links.ForEach(item =>
+
+                    if(item.Status == "X")
                     {
-                        if(item.Status == "X")
+                        var link = db.CarProgramLink.FirstOrDefault(r => r.ID == item.ID);
+
+                        if (link != null)
+                            db.Entry(link).State = EntityState.Deleted;
+                    }
+                    else if(item.Status == "U")
+                    {
+                        var link = db.CarProgramLink.FirstOrDefault(r => r.ID == item.ID);
+
+                        if(link != null)
                         {
-                            var link = db.CarProgramLink.FirstOrDefault(r => r.ID == item.ID);
+                            link.Title = item.Title;
 
-                            if (link != null)
-                                db.Entry(link).State = EntityState.Deleted;
+                            link.Link = item.Link;
+
+                            link.ModifiedBy = UniversalHelpers.CurrentUser.ID;
+
+                            link.ModifiedDate = DateTime.Now;
+
+                            db.Entry(link).State = EntityState.Modified;
                         }
-                        else if(item.Status == "U")
+                    }
+                    else if(item.Status == "Y")
+                    {
+
+                    }
+                    else
+                    {
+                        CarProgramLink newLink = new CarProgramLink
                         {
-                            var link = db.CarProgramLink.FirstOrDefault(r => r.ID == item.ID);
+                            ID = Guid.NewGuid(),
+                            ClientCode = UniversalHelpers.SelectedClient,
+                            Link = item.Link,
+                            Title = item.Title,
+                            ModifiedDate = DateTime.Now,
+                            ModifiedBy = UniversalHelpers.CurrentUser.ID
+                        };
 
-                            if(link != null)
-                            {
-                                link.Title = item.Title;
+                        db.Entry(newLink).State = EntityState.Added;
+                    }
 
-                                link.Link = item.Link;
-
-                                link.ModifiedBy = UniversalHelpers.CurrentUser.ID;
-
-                                link.ModifiedDate = DateTime.Now;
-
-                                db.Entry(link).State = EntityState.Modified;
-                            }
-                        }
-                        else if(item.Status == "Y")
-                        {
-
-                        }
-                        else
-                        {
-                            CarProgramLink newLink = new CarProgramLink
-                            {
-                                ID = Guid.NewGuid(),
-                                ClientCode = UniversalHelpers.SelectedClient,
-                                Link = item.Link,
-                                Title = item.Title,
-                                ModifiedDate = DateTime.Now,
-                                ModifiedBy = UniversalHelpers.CurrentUser.ID
-                            };
-
-                            db.Entry(newLink).State = EntityState.Added;
-                        }
-
-                        db.SaveChanges();
-                    });
+                    db.SaveChanges();
                 }
             }
             catch(Exception error)

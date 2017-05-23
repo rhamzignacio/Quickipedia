@@ -21,6 +21,7 @@ namespace Quickipedia.Services
                     var query = from a in db.Advisory
                                 join u in db.UserAccount on a.ModifiedBy equals u.ID into qU
                                 from user in qU.DefaultIfEmpty()
+                                orderby a.ModifiedDate descending
                                 select new AdvisoryModel
                                 {
                                     ID = a.ID,

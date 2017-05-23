@@ -13,31 +13,48 @@
     }
 
     //==============CAR PROGRAM===================
-    UploadFile = function () {
-        angular.forEach(vm.ForUpload, function (file) {
-            if (file.Status != "X") {
-                file.upload = Upload.upload({
-                    url: "/Car/FileUpload",
-                    data: { file: file },
-                    async: true
-                });
+
+    $scope.OpenModal = function (value) {
+        vm.Modal = value;
+
+        vm.Modal.Status = "U";
+    }
+
+    inLoading = function(){
+        document.getElementById("myDiv").style.display = "none";
+
+        document.getElementById("loader").style.display = "block";
+    }
+
+    outLoading = function () {
+        document.getElementById("loader").style.display = "none";
+
+        document.getElementById("myDiv").style.display = "block";
+    }
+
+    $scope.AssignFileToDelete = function (value) {
+        vm.FileDelete = value;
+    }
+
+    $scope.DeleteFile = function () {
+        $http({
+            method: "POST",
+            url: "/Car/DeleteAttachment",
+            data: { file: vm.FileDelete },
+            async: true
+        }).then(function (data) {
+            if (data.data == "") {
+                growl.success("Successfully deleted", { ttl: 2000 });
+
+                $scope.initProgram();
+            }
+            else {
+                growl.error(data.data, { title: "Error!", ttl: 3000 });
             }
         });
     }
 
-    UpdateFile = function (files) {
-
-        $http({
-            method: "POST",
-            url: "/Car/UpdateAttachment",
-            data: { files: files },
-            async: true
-        }).then(function (data) {
-
-        });
-    }
-
-    SaveLink = function (link) {
+    $scope.SaveLink = function (link) {
         $http({
             method: "POST",
             url: "/Car/SaveCarProgram",
@@ -46,7 +63,13 @@
             },
             async: true
         }).then(function (data) {
+            if (data.data == "Saved" || data.data == "Updated") {
+                PopUpMessage(data.data)
 
+                $("#linkModal").modal('hide');
+
+                $scope.initProgram();
+            }
         });
     }
 
@@ -68,6 +91,14 @@
         });
     }
 
+    $scope.uploadClick = function () {
+        $("#Files").click();
+    }
+
+    $scope.ClearModal = function () {
+        vm.Modal = {};
+    }
+
     $scope.uploadFiles = function (files, errFiles) {
         $scope.files = files;
         $scope.errFiles = errFiles;
@@ -82,25 +113,23 @@
                 growl.error("Maximum file upload is 25MB", { title: "Error!", ttl: 3000 });
             }
             else {
-                vm.ForUpload.push(file);
+                if (file.Status != "X") {
+                    file.upload = Upload.upload({
+                        url: "/Car/FileUpload",
+                        data: { file: file },
+                        async: true
+                    }).then(function(data){
+                        growl.success("Successfully uploaded", { ttl: 2000 });
+
+                        $scope.initProgram();  
+                    });
+                }
             }
         });
-    }
 
-    $scope.uploadClick = function () {
-        $("#Files").click();
-    }
+        growl.success("Successfully uploaded", { ttl: 2000 });
 
-    inLoading = function(){
-        document.getElementById("myDiv").style.display = "none";
-
-        document.getElementById("loader").style.display = "block";
-    }
-
-    outLoading = function () {
-        document.getElementById("loader").style.display = "none";
-
-        document.getElementById("myDiv").style.display = "block";
+        $scope.initProgram();
     }
 
     $scope.saveCarProgram = function (link, files) {
@@ -132,9 +161,23 @@
     $scope.openLink = function (value) {
         vm.Modal = value;
     }
+    
+    $scope.AssignDeleteLink = function (value) {
+        vm.ToBeDelete = value;
+    }
 
-    $scope.delete = function (value) {
-        value.Status = "X";
+    $scope.DeleteLink = function () {
+        $http({
+            method: "POST",
+            url: "/Car/DeleteHotelProgram",
+            data: { links: vm.ToBeDelete }
+        }).then(function (data) {
+             if (data.data == "Saved" || data.data == "Updated") {
+                growl.success("Successfully deleted", { ttl: 2000 });
+
+                vm.ToBeDelete.Status = "X";
+            }
+        });
     }
 
     $scope.initCarPolicy = function () {
