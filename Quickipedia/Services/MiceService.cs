@@ -4,11 +4,252 @@ using System.Linq;
 using System.Web;
 using Quickipedia.Models;
 using System.Data.Entity;
+using System.IO;
 
 namespace Quickipedia.Services
 {
     public class MiceService
     {
+        public static void SaveMiceLinks (MiceLinksModel item, out string message)
+        {
+            try
+            {
+                message = "Saved";
+
+                using (var db = new QuickipediaEntities())
+                {
+                    if(item.Status == "X")
+                    {
+                        var link = db.MiceProgramLink.FirstOrDefault(r => r.ID == item.ID);
+
+                        if (link != null)
+                            db.Entry(link).State = EntityState.Deleted;
+                    }
+                    else if(item.Status == "U")
+                    {
+                        var link = db.MiceProgramLink.FirstOrDefault(r => r.ID == item.ID);
+
+                        if(link != null)
+                        {
+                            link.Title = item.Title;
+
+                            link.Link = item.Link;
+
+                            link.ModifiedBy = UniversalHelpers.CurrentUser.ID;
+
+                            link.ModifiedDate = DateTime.Now;
+
+                            db.Entry(link).State = EntityState.Modified;
+                        }
+                    }
+                    else if (item.Status == "Y")
+                    {
+
+                    }
+                    else
+                    {
+                        MiceProgramLink newLink = new MiceProgramLink
+                        {
+                            ID = Guid.NewGuid(),
+                            ClientCode = UniversalHelpers.SelectedClient,
+                            Link = item.Link,
+                            Title = item.Title,
+                            ModifiedBy = UniversalHelpers.CurrentUser.ID,
+                            ModifiedDate = DateTime.Now
+                        };
+
+                        db.Entry(newLink).State = EntityState.Added;
+                    }
+
+                    db.SaveChanges();
+                }
+            }
+            catch(Exception error)
+            {
+                message = error.Message;
+            }
+        }
+
+        public static List<MiceLinksModel> GetLinks(out string message)
+        {
+            try
+            {
+                message = "";
+
+                using (var db = new QuickipediaEntities())
+                {
+                    var query = from l in db.MiceProgramLink
+                                join u in db.UserAccount on l.ModifiedBy equals u.ID into qU
+                                from user in qU.DefaultIfEmpty()
+                                where l.ClientCode == UniversalHelpers.SelectedClient
+                                select new MiceLinksModel
+                                {
+                                    ID = l.ID,
+                                    ClientCode = l.ClientCode,
+                                    Link = l.Link,
+                                    Status = "Y",
+                                    Title = l.Title,
+                                    ModifiedBy = l.ModifiedBy,
+                                    ModifiedDate = l.ModifiedDate,
+                                    ShowModifiedBy = user.FirstName + " " + user.LastName
+                                };
+
+                    return query.ToList();
+                }
+            }
+            catch(Exception error)
+            {
+                message = error.Message;
+
+                return null;
+            }
+        }
+
+        public static List<MiceAttachmentModel> GetAttachments(out string message)
+        {
+            try
+            {
+                message = "";
+
+                using (var db = new QuickipediaEntities())
+                {
+                    var query = from a in db.MiceProgramAttachment
+                                join u in db.UserAccount on a.ModifiedBy equals u.ID into qU
+                                from user in qU.DefaultIfEmpty()
+                                where a.ClientCode == UniversalHelpers.SelectedClient
+                                select new MiceAttachmentModel
+                                {
+                                    ID = a.ID,
+                                    ClientCode = a.ClientCode,
+                                    Extension = a.Extension,
+                                    FileName = a.FileName,
+                                    FileSize = a.FileSize,
+                                    Path = a.Path,
+                                    Status = "Y",
+                                    ModifiedBy = a.ModifiedBy,
+                                    ModifiedDate = a.ModifiedDate,
+                                    ShowModifiedBy = user.FirstName + " " + user.LastName
+                                };
+
+                    return query.ToList();
+                }
+
+            }
+            catch(Exception error)
+            {
+                message = error.Message;
+
+                return null;
+            }
+        }
+
+        public static void UpdateAttachment (MiceAttachmentModel item, out string message)
+        {
+            try
+            {
+                message = "";
+
+                using (var db = new QuickipediaEntities())
+                {
+                    if(item.Status == "X")
+                    {
+                        var file = db.MiceProgramAttachment.FirstOrDefault(r => r.ID == item.ID);
+
+                        if(file != null)
+                        { 
+                            db.Entry(file).State = EntityState.Deleted;
+                        }
+                    }
+
+                    db.SaveChanges();
+                }
+            }
+            catch(Exception error)
+            {
+                message = error.Message;
+            }
+        }
+
+        public static MiceOtherModel GetOther()
+        {
+            try
+            {
+
+                using (var db = new QuickipediaEntities())
+                {
+                    var other = from o in db.OtherMice
+                                join u in db.UserAccount on o.ModifiedBy equals u.ID into qU
+                                from user in qU.DefaultIfEmpty()
+                                where o.ClientCode == UniversalHelpers.SelectedClient
+                                select new MiceOtherModel
+                                {
+                                    ID = o.ID,
+                                    ClientCode = o.ClientCode,
+                                    ModifiedBy = o.ModifiedBy,
+                                    ModifiedDate = o.ModifiedDate,
+                                    Value = o.Value,
+                                    ShowModifiedBy = user.FirstName + " " + user.LastName
+                                };
+
+                    if (other.FirstOrDefault() != null)
+                        return other.FirstOrDefault();
+                    else
+                        return new MiceOtherModel();
+                }
+            }
+            catch (Exception error)
+            {
+                return new MiceOtherModel();
+            }
+        }
+
+        public  static void SaveOther(MiceOtherModel model, out string message)
+        {
+            try
+            {
+                message = "";
+
+                using (var db = new QuickipediaEntities())
+                {
+                    var other = db.OtherMice.FirstOrDefault(r => r.ClientCode == UniversalHelpers.SelectedClient);
+
+                    if (other != null)
+                    {
+                        message = "Updated";
+
+                        other.Value = model.Value;
+
+                        other.ModifiedBy = UniversalHelpers.CurrentUser.ID;
+
+                        other.ModifiedDate = DateTime.Now;
+
+                        db.Entry(other).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        message = "Saved";
+
+                        OtherMice newOther = new OtherMice
+                        {
+                            ID = Guid.NewGuid(),
+                            Value = model.Value,
+                            ClientCode = UniversalHelpers.SelectedClient,
+                            ModifiedBy = UniversalHelpers.CurrentUser.ID,
+                            ModifiedDate = DateTime.Now
+                        };
+
+                        db.Entry(newOther).State = EntityState.Added;
+                    }
+
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception error)
+            {
+                message = error.Message;
+            }
+        }
+
         public static void SaveTicketing(MiceTicketApprovalModel model, out string message)
         {
             try

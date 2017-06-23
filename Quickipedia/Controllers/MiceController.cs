@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Quickipedia.Services;
 using Quickipedia.Models;
+using System.Data.Entity;
 
 namespace Quickipedia.Controllers
 {
@@ -35,9 +36,135 @@ namespace Quickipedia.Controllers
         {
             return View();
         }
+
+        public ActionResult Other()
+        {
+            return View();
+        }
+
+        public ActionResult Program()
+        {
+            return View();
+        }
         #endregion
 
         #region  Function
+        //=================PROGRAM======================
+        [HttpPost]
+        public ActionResult FileUpload()
+        {
+            var httpRequest = System.Web.HttpContext.Current.Request;
+            HttpFileCollection uploadFiles = httpRequest.Files;
+            var docfiles = new List<string>();
+            string newFileName = "";
+            string ext = "";
+
+            if (httpRequest.Files.Count > 0)
+            {
+                for (int i = 0; i < uploadFiles.Count; i++)
+                {
+                    HttpPostedFile postedFile = uploadFiles[i];
+
+                    ext = System.IO.Path.GetExtension(postedFile.FileName);
+
+                    newFileName = DateTime.Now.ToString("MMddyyyHHmmss");
+
+                    var filePath = Server.MapPath(@"\FileUploads\" + newFileName + ext);
+
+                    postedFile.SaveAs(filePath);
+
+                    using (var db = new QuickipediaEntities())
+                    {
+                        MiceProgramAttachment newAttachment = new MiceProgramAttachment
+                        {
+                            ID = Guid.NewGuid(),
+                            ClientCode = UniversalHelpers.SelectedClient,
+                            FileName = postedFile.FileName,
+                            FileSize = (postedFile.ContentLength / 1024).ToString(),
+                            Extension = ext,
+                            Path = newFileName + ext,
+                            ModifiedBy = UniversalHelpers.CurrentUser.ID,
+                            ModifiedDate = DateTime.Now
+                        };
+
+                        db.Entry(newAttachment).State = EntityState.Added;
+
+                        db.SaveChanges();
+                    }
+                }
+            }
+
+            return Json("");
+        }
+        
+        [HttpPost]
+        public JsonResult DeleteAttachment(MiceAttachmentModel file)
+        {
+            string serverResponse = "";
+
+            if(file != null)
+            {
+                file.Status = "X";
+
+                MiceService.UpdateAttachment(file, out serverResponse);
+            }
+
+            return Json(serverResponse);
+        }
+
+        [HttpPost]
+        public JsonResult GetMiceProgram()
+        {
+            string serverResponse = "";
+
+            var links = MiceService.GetLinks(out serverResponse);
+
+            var attachments = MiceService.GetAttachments(out serverResponse);
+
+            return Json(new { links = links, attachments = attachments });
+        }
+
+        [HttpPost]
+        public JsonResult DeleteMiceProgram(MiceLinksModel links)
+        {
+            string serverReponse = "";
+
+            links.Status = "X";
+
+            MiceService.SaveMiceLinks(links, out serverReponse);
+
+            return Json(serverReponse);
+        }
+
+        [HttpPost]
+        public JsonResult SaveMiceProgram(MiceLinksModel links)
+        {
+            string serverResponse = "";
+
+            if (links != null)
+                MiceService.SaveMiceLinks(links, out serverResponse);
+
+            return Json(serverResponse);
+        }
+
+        //==================OTHER========================
+        [HttpPost]
+        public JsonResult GetOther()
+        {
+            return Json(MiceService.GetOther());
+        }
+
+        [HttpPost]
+        public JsonResult SaveOther(MiceOtherModel other)
+        {
+            string serverResponse = "";
+
+            if (other != null)
+                MiceService.SaveOther(other, out serverResponse);
+
+            return Json(serverResponse);
+        }
+
         //==================TICKETING APPROVAL=======================
         [HttpPost]
         public JsonResult GetTicketingApproval()
@@ -130,4 +257,4 @@ namespace Quickipedia.Controllers
 
         #endregion
     }
-}
+} 

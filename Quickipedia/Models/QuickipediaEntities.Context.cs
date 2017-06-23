@@ -50,12 +50,17 @@ namespace Quickipedia.Models
         public virtual DbSet<MICEGroupBookingPolicy> MICEGroupBookingPolicy { get; set; }
         public virtual DbSet<MICEPolicy> MICEPolicy { get; set; }
         public virtual DbSet<MICEPricing> MICEPricing { get; set; }
+        public virtual DbSet<MiceProgramAttachment> MiceProgramAttachment { get; set; }
+        public virtual DbSet<MiceProgramLink> MiceProgramLink { get; set; }
         public virtual DbSet<MICETicketingApproval> MICETicketingApproval { get; set; }
         public virtual DbSet<OtherAir> OtherAir { get; set; }
+        public virtual DbSet<OtherMice> OtherMice { get; set; }
         public virtual DbSet<OtherPricingAndFinancial> OtherPricingAndFinancial { get; set; }
         public virtual DbSet<PreferredAirlines> PreferredAirlines { get; set; }
         public virtual DbSet<PricingModel> PricingModel { get; set; }
         public virtual DbSet<ProfileManagement> ProfileManagement { get; set; }
+        public virtual DbSet<ProfileTemplateAttachment> ProfileTemplateAttachment { get; set; }
+        public virtual DbSet<ProfileTemplateLink> ProfileTemplateLink { get; set; }
         public virtual DbSet<RailCorporateCode> RailCorporateCode { get; set; }
         public virtual DbSet<RailPolicy> RailPolicy { get; set; }
         public virtual DbSet<RailProgramAttachment> RailProgramAttachment { get; set; }

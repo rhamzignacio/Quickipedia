@@ -289,6 +289,30 @@
           <Property Name="ModifiedBy" Type="uniqueidentifier" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="MiceProgramAttachment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="50" />
+          <Property Name="Path" Type="varchar(max)" />
+          <Property Name="FileName" Type="varchar" MaxLength="200" />
+          <Property Name="Extension" Type="varchar" MaxLength="20" />
+          <Property Name="FileSize" Type="varchar" MaxLength="20" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MiceProgramLink">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="Link" Type="varchar(max)" />
+          <Property Name="Title" Type="varchar" MaxLength="300" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="MICETicketingApproval">
           <Key>
             <PropertyRef Name="ID" />
@@ -306,6 +330,16 @@
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Value" Type="varchar(max)" />
           <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="OtherMice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="Value" Type="varchar(max)" />
           <Property Name="ModifiedBy" Type="uniqueidentifier" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
@@ -358,6 +392,30 @@
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="BookingType" Type="varchar" MaxLength="50" />
           <Property Name="OtherBookingType" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="ProfileTemplateAttachment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="50" />
+          <Property Name="Path" Type="varchar(max)" />
+          <Property Name="FileName" Type="varchar" MaxLength="200" />
+          <Property Name="Extension" Type="varchar" MaxLength="20" />
+          <Property Name="FileSize" Type="varchar" MaxLength="20" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ProfileTemplateLink">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="50" />
+          <Property Name="Link" Type="varchar(max)" />
+          <Property Name="Title" Type="varchar" MaxLength="300" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="RailCorporateCode">
           <Key>
@@ -586,12 +644,17 @@
           <EntitySet Name="MICEGroupBookingPolicy" EntityType="Self.MICEGroupBookingPolicy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MICEPolicy" EntityType="Self.MICEPolicy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MICEPricing" EntityType="Self.MICEPricing" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MiceProgramAttachment" EntityType="Self.MiceProgramAttachment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MiceProgramLink" EntityType="Self.MiceProgramLink" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MICETicketingApproval" EntityType="Self.MICETicketingApproval" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OtherAir" EntityType="Self.OtherAir" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OtherMice" EntityType="Self.OtherMice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OtherPricingAndFinancial" EntityType="Self.OtherPricingAndFinancial" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PreferredAirlines" EntityType="Self.PreferredAirlines" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PricingModel" EntityType="Self.PricingModel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProfileManagement" EntityType="Self.ProfileManagement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProfileTemplateAttachment" EntityType="Self.ProfileTemplateAttachment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProfileTemplateLink" EntityType="Self.ProfileTemplateLink" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RailCorporateCode" EntityType="Self.RailCorporateCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RailPolicy" EntityType="Self.RailPolicy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RailProgramAttachment" EntityType="Self.RailProgramAttachment" Schema="dbo" store:Type="Tables" />
@@ -639,12 +702,17 @@
           <EntitySet Name="MICEGroupBookingPolicy" EntityType="QuickipediaModel.MICEGroupBookingPolicy" />
           <EntitySet Name="MICEPolicy" EntityType="QuickipediaModel.MICEPolicy" />
           <EntitySet Name="MICEPricing" EntityType="QuickipediaModel.MICEPricing" />
+          <EntitySet Name="MiceProgramAttachment" EntityType="QuickipediaModel.MiceProgramAttachment" />
+          <EntitySet Name="MiceProgramLink" EntityType="QuickipediaModel.MiceProgramLink" />
           <EntitySet Name="MICETicketingApproval" EntityType="QuickipediaModel.MICETicketingApproval" />
           <EntitySet Name="OtherAir" EntityType="QuickipediaModel.OtherAir" />
+          <EntitySet Name="OtherMice" EntityType="QuickipediaModel.OtherMice" />
           <EntitySet Name="OtherPricingAndFinancial" EntityType="QuickipediaModel.OtherPricingAndFinancial" />
           <EntitySet Name="PreferredAirlines" EntityType="QuickipediaModel.PreferredAirlines" />
           <EntitySet Name="PricingModel" EntityType="QuickipediaModel.PricingModel" />
           <EntitySet Name="ProfileManagement" EntityType="QuickipediaModel.ProfileManagement" />
+          <EntitySet Name="ProfileTemplateAttachment" EntityType="QuickipediaModel.ProfileTemplateAttachment" />
+          <EntitySet Name="ProfileTemplateLink" EntityType="QuickipediaModel.ProfileTemplateLink" />
           <EntitySet Name="RailCorporateCode" EntityType="QuickipediaModel.RailCorporateCode" />
           <EntitySet Name="RailPolicy" EntityType="QuickipediaModel.RailPolicy" />
           <EntitySet Name="RailProgramAttachment" EntityType="QuickipediaModel.RailProgramAttachment" />
@@ -946,6 +1014,30 @@
           <Property Name="ModifiedBy" Type="Guid" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="MiceProgramAttachment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Extension" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FileSize" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="MiceProgramLink">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="MICETicketingApproval">
           <Key>
             <PropertyRef Name="ID" />
@@ -963,6 +1055,16 @@
           <Property Name="ID" Type="Guid" Nullable="false" />
           <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="OtherMice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedBy" Type="Guid" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
         </EntityType>
@@ -1015,6 +1117,30 @@
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="BookingType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="OtherBookingType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ProfileTemplateAttachment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Extension" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FileSize" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ProfileTemplateLink">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="RailCorporateCode">
           <Key>
@@ -1532,6 +1658,32 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="MiceProgramAttachment">
+            <EntityTypeMapping TypeName="QuickipediaModel.MiceProgramAttachment">
+              <MappingFragment StoreEntitySet="MiceProgramAttachment">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="FileSize" ColumnName="FileSize" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MiceProgramLink">
+            <EntityTypeMapping TypeName="QuickipediaModel.MiceProgramLink">
+              <MappingFragment StoreEntitySet="MiceProgramLink">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="MICETicketingApproval">
             <EntityTypeMapping TypeName="QuickipediaModel.MICETicketingApproval">
               <MappingFragment StoreEntitySet="MICETicketingApproval">
@@ -1550,6 +1702,17 @@
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OtherMice">
+            <EntityTypeMapping TypeName="QuickipediaModel.OtherMice">
+              <MappingFragment StoreEntitySet="OtherMice">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1604,6 +1767,32 @@
                 <ScalarProperty Name="SpecialInstructions" ColumnName="SpecialInstructions" />
                 <ScalarProperty Name="OtherProfileType" ColumnName="OtherProfileType" />
                 <ScalarProperty Name="ProfileType" ColumnName="ProfileType" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProfileTemplateAttachment">
+            <EntityTypeMapping TypeName="QuickipediaModel.ProfileTemplateAttachment">
+              <MappingFragment StoreEntitySet="ProfileTemplateAttachment">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="FileSize" ColumnName="FileSize" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProfileTemplateLink">
+            <EntityTypeMapping TypeName="QuickipediaModel.ProfileTemplateLink">
+              <MappingFragment StoreEntitySet="ProfileTemplateLink">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

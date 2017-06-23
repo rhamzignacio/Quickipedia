@@ -30,28 +30,33 @@
         <EntityTypeShape EntityType="QuickipediaModel.MICEGroupBookingPolicy" Width="1.5" PointX="12.75" PointY="6.75" />
         <EntityTypeShape EntityType="QuickipediaModel.MICEPolicy" Width="1.5" PointX="6.75" PointY="12.75" />
         <EntityTypeShape EntityType="QuickipediaModel.MICEPricing" Width="1.5" PointX="8.75" PointY="12.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.MICETicketingApproval" Width="1.5" PointX="12.75" PointY="9.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.OtherAir" Width="1.5" PointX="10.75" PointY="12.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.OtherPricingAndFinancial" Width="1.5" PointX="12.75" PointY="12.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.PreferredAirlines" Width="1.5" PointX="2.75" PointY="13.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.PricingModel" Width="1.5" PointX="14.75" PointY="0.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.ProfileManagement" Width="1.5" PointX="14.75" PointY="4.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.RailCorporateCode" Width="1.5" PointX="14.75" PointY="8.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.RailPolicy" Width="1.5" PointX="14.75" PointY="11.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.RailProgramAttachment" Width="1.5" PointX="14.75" PointY="14.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.RailProgramLink" Width="1.5" PointX="4.75" PointY="15.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.RefundProcess" Width="1.5" PointX="6.75" PointY="15.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.ScheduleOfInvoiceReceiving" Width="1.5" PointX="8.75" PointY="15.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.SLA" Width="1.5" PointX="10.75" PointY="15.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.SMMPForMSD" Width="1.5" PointX="16.75" PointY="0.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.TableOfFees" Width="1.5" PointX="16.75" PointY="3.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.TravelPolicy" Width="1.5" PointX="16.75" PointY="8.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.TravelSecurity" Width="1.5" PointX="16.75" PointY="13.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.TripAuthorizerProcess" Width="1.5" PointX="16.75" PointY="16.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.UserAccount" Width="1.5" PointX="0.75" PointY="17.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.UserClient" Width="1.5" PointX="18.75" PointY="0.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.VIP" Width="1.5" PointX="2.75" PointY="18.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.VisaAndDocumentation" Width="1.5" PointX="18.75" PointY="3.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.MiceProgramAttachment" Width="1.5" PointX="12.75" PointY="9.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.MiceProgramLink" Width="1.5" PointX="2.75" PointY="13.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.MICETicketingApproval" Width="1.5" PointX="10.75" PointY="13.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.OtherAir" Width="1.5" PointX="12.75" PointY="13.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.OtherMice" Width="1.5" PointX="14.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.OtherPricingAndFinancial" Width="1.5" PointX="14.75" PointY="3.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.PreferredAirlines" Width="1.5" PointX="14.75" PointY="6.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.PricingModel" Width="1.5" PointX="14.75" PointY="10.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.ProfileManagement" Width="1.5" PointX="14.75" PointY="14.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.ProfileTemplateAttachment" Width="1.5" PointX="4.75" PointY="15.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.ProfileTemplateLink" Width="1.5" PointX="6.75" PointY="15.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.RailCorporateCode" Width="1.5" PointX="16.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.RailPolicy" Width="1.5" PointX="0.75" PointY="16.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.RailProgramAttachment" Width="1.5" PointX="16.75" PointY="3.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.RailProgramLink" Width="1.5" PointX="16.75" PointY="7.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.RefundProcess" Width="1.5" PointX="8.75" PointY="16.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.ScheduleOfInvoiceReceiving" Width="1.5" PointX="16.75" PointY="10.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.SLA" Width="1.5" PointX="10.75" PointY="16.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.SMMPForMSD" Width="1.5" PointX="16.75" PointY="13.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.TableOfFees" Width="1.5" PointX="16.75" PointY="16.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.TravelPolicy" Width="1.5" PointX="18.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.TravelSecurity" Width="1.5" PointX="18.75" PointY="5.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.TripAuthorizerProcess" Width="1.5" PointX="18.75" PointY="8.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.UserAccount" Width="1.5" PointX="18.75" PointY="11.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.UserClient" Width="1.5" PointX="12.75" PointY="18.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.VIP" Width="1.5" PointX="18.75" PointY="16.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.VisaAndDocumentation" Width="1.5" PointX="0.75" PointY="19.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

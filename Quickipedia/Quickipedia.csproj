@@ -306,10 +306,19 @@
     <Compile Include="Models\MICEPricing.cs">
       <DependentUpon>QuickipediaEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MiceProgramAttachment.cs">
+      <DependentUpon>QuickipediaEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MiceProgramLink.cs">
+      <DependentUpon>QuickipediaEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MICETicketingApproval.cs">
       <DependentUpon>QuickipediaEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OtherAir.cs">
+      <DependentUpon>QuickipediaEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OtherMice.cs">
       <DependentUpon>QuickipediaEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OtherPricingAndFinancial.cs">
@@ -326,6 +335,12 @@
       <DependentUpon>QuickipediaEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProfileManagementModel.cs" />
+    <Compile Include="Models\ProfileTemplateAttachment.cs">
+      <DependentUpon>QuickipediaEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProfileTemplateLink.cs">
+      <DependentUpon>QuickipediaEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\QuickipediaEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -3026,6 +3041,9 @@
     <Content Include="Views\BookingProcess\Domestic.cshtml" />
     <Content Include="Views\BookingProcess\International.cshtml" />
     <Content Include="Views\Ancillaries\Index.cshtml" />
+    <Content Include="Views\Mice\Other.cshtml" />
+    <Content Include="Views\Mice\Program.cshtml" />
+    <Content Include="Views\ProfileManagement\ProfileTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App\Filter\" />
