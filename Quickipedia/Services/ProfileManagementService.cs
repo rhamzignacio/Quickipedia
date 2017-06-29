@@ -158,6 +158,8 @@ namespace Quickipedia.Services
                             db.Entry(file).State = EntityState.Deleted;
                         }
                     }
+
+                    db.SaveChanges();
                 }
             }
             catch(Exception error)
