@@ -514,7 +514,7 @@
           </Key>
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ClientCode" Type="varchar" MaxLength="30" />
-          <Property Name="Category" Type="varchar" MaxLength="100" />
+          <Property Name="CategoryID" Type="uniqueidentifier" />
           <Property Name="PHPTraditionalGDS" Type="decimal" Precision="18" Scale="2" />
           <Property Name="PHPNonGDS" Type="decimal" Precision="18" Scale="2" />
           <Property Name="PHPMice" Type="decimal" Precision="18" Scale="2" />
@@ -526,6 +526,16 @@
           <Property Name="Description" Type="varchar(max)" />
           <Property Name="ModifiedBy" Type="uniqueidentifier" />
           <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TableOfFeesCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CategoryName" Type="varchar" MaxLength="500" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ArrangeBy" Type="int" />
         </EntityType>
         <EntityType Name="TravelPolicy">
           <Key>
@@ -664,6 +674,7 @@
           <EntitySet Name="SLA" EntityType="Self.SLA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SMMPForMSD" EntityType="Self.SMMPForMSD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TableOfFees" EntityType="Self.TableOfFees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableOfFeesCategory" EntityType="Self.TableOfFeesCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TravelPolicy" EntityType="Self.TravelPolicy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TravelSecurity" EntityType="Self.TravelSecurity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TripAuthorizerProcess" EntityType="Self.TripAuthorizerProcess" Schema="dbo" store:Type="Tables" />
@@ -722,6 +733,7 @@
           <EntitySet Name="SLA" EntityType="QuickipediaModel.SLA" />
           <EntitySet Name="SMMPForMSD" EntityType="QuickipediaModel.SMMPForMSD" />
           <EntitySet Name="TableOfFees" EntityType="QuickipediaModel.TableOfFees" />
+          <EntitySet Name="TableOfFeesCategory" EntityType="QuickipediaModel.TableOfFeesCategory" />
           <EntitySet Name="TravelPolicy" EntityType="QuickipediaModel.TravelPolicy" />
           <EntitySet Name="TravelSecurity" EntityType="QuickipediaModel.TravelSecurity" />
           <EntitySet Name="TripAuthorizerProcess" EntityType="QuickipediaModel.TripAuthorizerProcess" />
@@ -1239,7 +1251,7 @@
           </Key>
           <Property Name="ID" Type="Guid" Nullable="false" />
           <Property Name="ClientCode" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryID" Type="Guid" />
           <Property Name="PHPTraditionalGDS" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="PHPNonGDS" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="PHPMice" Type="Decimal" Precision="18" Scale="2" />
@@ -1251,6 +1263,16 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedBy" Type="Guid" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TableOfFeesCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="CategoryName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ArrangeBy" Type="Int32" />
         </EntityType>
         <EntityType Name="TravelPolicy">
           <Key>
@@ -1910,8 +1932,19 @@
                 <ScalarProperty Name="PHPMice" ColumnName="PHPMice" />
                 <ScalarProperty Name="PHPNonGDS" ColumnName="PHPNonGDS" />
                 <ScalarProperty Name="PHPTraditionalGDS" ColumnName="PHPTraditionalGDS" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableOfFeesCategory">
+            <EntityTypeMapping TypeName="QuickipediaModel.TableOfFeesCategory">
+              <MappingFragment StoreEntitySet="TableOfFeesCategory">
+                <ScalarProperty Name="ArrangeBy" ColumnName="ArrangeBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

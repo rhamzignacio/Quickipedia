@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "TableOfFeesCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="" role="main" ng-controller="pricingAndFinancialController as vm" ng-init="InitCategory()">
+    <div class="x_content">
+        <h3>Table of Fees Category</h3>
+
+        <a class="btn btn-default" href="/PricingAndFinancial/TableOfFees">Back to Table of Fees</a>
+        <div class="form-group">
+            <table id="feesCategory" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th width="100px">
+                            <button type="button" class="btn btn-success btn-xs" data-toggle="modal"
+                                    data-target="#categoryModal" ng-click="NewCategory()"><i class="fa fa-plus"></i></button>
+                        </th>
+                        <th width="60px"></th>
+                        <th>Category</th>
+                        <th>Time Stamp</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="cat in vm.Category | filter: {Status: '!X'}">
+                        <td>
+                            <button class="btn btn-primary btn-xs" ng-click="AssignCatEdit(cat)" data-target="#categoryModal"
+                                    data-toggle="modal">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                            <button class="btn btn-danger btn-xs" ng-click="AssignCatDelete(cat)" data-target="#deleteModal"
+                                    data-toggle="modal"><i class="fa fa-trash"></i></button>
+                        </td>
+                        <td>{{cat.ArrangeBy}}</td>
+                        <td>{{cat.CategoryName}}</td>
+                        <td>{{cat.ShowModifiedDate}} - {{cat.ShowModifiedBy}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div><!--./form-group-->
+
+        <div class="modal fade" id="deleteModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Are you sure you want to Delete?</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <button class="btn btn-warning" ng-click="DeleteCategory()">Yes</button>
+                        <button class="btn btn-default" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div><!--./Delete Modal-->
+
+        <div class="modal fade" id="categoryModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Table of Fees Category</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>View No</label>
+                            <input type="number" class="form-control" ng-model="vm.Modal.ArrangeBy" />
+                        </div>
+
+                        <div class="form-group">
+                           <label>Category</label>
+                            <input type="text" class="form-control" ng-model="vm.Modal.CategoryName"/>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" ng-click="SaveCategory(vm.Modal)">Save</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!--/Modal-->
+
+    </div>
+</div>

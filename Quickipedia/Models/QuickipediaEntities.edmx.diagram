@@ -50,12 +50,13 @@
         <EntityTypeShape EntityType="QuickipediaModel.SLA" Width="1.5" PointX="10.75" PointY="16.75" />
         <EntityTypeShape EntityType="QuickipediaModel.SMMPForMSD" Width="1.5" PointX="16.75" PointY="13.75" />
         <EntityTypeShape EntityType="QuickipediaModel.TableOfFees" Width="1.5" PointX="16.75" PointY="16.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.TravelPolicy" Width="1.5" PointX="18.75" PointY="0.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.TravelSecurity" Width="1.5" PointX="18.75" PointY="5.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.TripAuthorizerProcess" Width="1.5" PointX="18.75" PointY="8.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.UserAccount" Width="1.5" PointX="18.75" PointY="11.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.UserClient" Width="1.5" PointX="12.75" PointY="18.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.VIP" Width="1.5" PointX="18.75" PointY="16.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.TableOfFeesCategory" Width="1.5" PointX="18.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.TravelPolicy" Width="1.5" PointX="18.75" PointY="3.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.TravelSecurity" Width="1.5" PointX="18.75" PointY="8.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.TripAuthorizerProcess" Width="1.5" PointX="18.75" PointY="11.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.UserAccount" Width="1.5" PointX="12.75" PointY="18.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.UserClient" Width="1.5" PointX="18.75" PointY="14.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.VIP" Width="1.5" PointX="18.75" PointY="17.75" />
         <EntityTypeShape EntityType="QuickipediaModel.VisaAndDocumentation" Width="1.5" PointX="0.75" PointY="19.75" />
       </Diagram>
     </edmx:Diagrams>

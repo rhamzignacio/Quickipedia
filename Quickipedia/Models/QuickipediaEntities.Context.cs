@@ -70,6 +70,7 @@ namespace Quickipedia.Models
         public virtual DbSet<SLA> SLA { get; set; }
         public virtual DbSet<SMMPForMSD> SMMPForMSD { get; set; }
         public virtual DbSet<TableOfFees> TableOfFees { get; set; }
+        public virtual DbSet<TableOfFeesCategory> TableOfFeesCategory { get; set; }
         public virtual DbSet<TravelPolicy> TravelPolicy { get; set; }
         public virtual DbSet<TravelSecurity> TravelSecurity { get; set; }
         public virtual DbSet<TripAuthorizerProcess> TripAuthorizerProcess { get; set; }

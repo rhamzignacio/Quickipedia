@@ -11,6 +11,11 @@ namespace Quickipedia.Controllers
     public class PricingAndFinancialController : Controller
     {
         #region Views
+        public ActionResult TableOfFeesCategory()
+        {
+            return View();
+        }
+
         public ActionResult PricingModel()
         {
             return View();
@@ -54,7 +59,6 @@ namespace Quickipedia.Controllers
         #endregion
 
         #region Functions
-
         //=================OTHERS====================
         [HttpPost]
         public JsonResult GetOthers()
@@ -79,7 +83,55 @@ namespace Quickipedia.Controllers
             return Json(serverResponse);
         }
 
+        //=================TABLE OF FEES CATEGORY===============
+        [HttpPost]
+        public JsonResult GetTableOfFeesCategory()
+        {
+            string serverResponse = "";
+
+            var category = PricingAndFinancialService.GetTableOfFeesCategory(out serverResponse);
+
+            return Json(new { category = category, errorMessage = serverResponse });
+        }
+
+        [HttpPost]
+        public JsonResult SaveCategory(TableOfFeesCategoryModel category)
+        {
+            string serverResponse = "";
+
+            PricingAndFinancialService.SaveTableOfFeesCategory(category, out serverResponse);
+
+            return Json(serverResponse);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteCategory(TableOfFeesCategoryModel category)
+        {
+            string serverResponse = "";
+
+            if (category != null)
+            {
+                category.Status = "X";
+
+                PricingAndFinancialService.SaveTableOfFeesCategory(category, out serverResponse);
+            }
+
+            return Json(serverResponse);
+        }
+
         //=================TABLE OF FEES====================
+        [HttpPost]
+        public JsonResult GetCategoryDropDown()
+        {
+            string serverReponse = "";
+
+            var dropdown = PricingAndFinancialService.GetCategoryDropDown(out serverReponse);
+
+            var category = PricingAndFinancialService.GetTableOfFeesCategory(out serverReponse);
+
+            return Json(new { dropdown = dropdown, category = category,
+                errorMessage = serverReponse });
+        }
 
         [HttpPost]
         public JsonResult GetInvoiceAttachment()

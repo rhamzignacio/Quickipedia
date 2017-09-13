@@ -384,6 +384,9 @@
     <Compile Include="Models\TableOfFees.cs">
       <DependentUpon>QuickipediaEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TableOfFeesCategory.cs">
+      <DependentUpon>QuickipediaEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TravelConsultantModel.cs" />
     <Compile Include="Models\TravelPolicy.cs">
       <DependentUpon>QuickipediaEntities.tt</DependentUpon>
@@ -3044,6 +3047,7 @@
     <Content Include="Views\Mice\Other.cshtml" />
     <Content Include="Views\Mice\Program.cshtml" />
     <Content Include="Views\ProfileManagement\ProfileTemplate.cshtml" />
+    <Content Include="Views\PricingAndFinancial\TableOfFeesCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App\Filter\" />

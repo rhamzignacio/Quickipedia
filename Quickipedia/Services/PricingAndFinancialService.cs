@@ -9,6 +9,134 @@ namespace Quickipedia.Services
 {
     public class PricingAndFinancialService
     {
+        public static List<TableOfFeesCategoryDropDown> GetCategoryDropDown(out string message)
+        {
+            try
+            {
+                message = "";
+
+                using (var db = new QuickipediaEntities())
+                {
+                    var query = from c in db.TableOfFeesCategory
+                                orderby c.CategoryName
+                                select new TableOfFeesCategoryDropDown
+                                {
+                                    ID = c.ID,
+                                    Category = c.CategoryName
+                                };
+
+                    return query.ToList();
+                }
+            }
+            catch(Exception error)
+            {
+                message = error.Message;
+
+                return null;
+            }
+        }
+
+        public static List<TableOfFeesCategoryModel> GetTableOfFeesCategory(out string message)
+        {
+            try
+            {
+                message = "";
+
+                using (var db = new QuickipediaEntities())
+                {
+                    var query = from c in db.TableOfFeesCategory
+                                join u in db.UserAccount on c.ModifiedBy equals u.ID
+                                orderby c.ArrangeBy, c.CategoryName ascending
+                                select new TableOfFeesCategoryModel
+                                {
+                                    ID = c.ID,
+                                    CategoryName = c.CategoryName,
+                                    ModifiedBy = u.ModifiedBy,
+                                    ShowModifiedBy = u.FirstName + " " + u.LastName,
+                                    ModifiedDate = c.ModifiedDate,
+                                    ArrangeBy = c.ArrangeBy
+                                };
+
+                    return query.ToList();
+                }
+            }
+            catch(Exception error)
+            {
+                message = error.Message;
+
+                return null;
+            }
+        }
+
+        public static void SaveTableOfFeesCategory(TableOfFeesCategoryModel model, out string message)
+        {
+            try
+            {
+                message = "";
+
+                using (var db = new QuickipediaEntities())
+                {
+                    var category = db.TableOfFeesCategory.FirstOrDefault(r => r.ID == model.ID);
+
+                    if(category != null)//UPDATE
+                    {
+
+                        if(category != null)
+                        {
+                            if (model.Status == "X")
+                            {
+                                message = "Deleted";
+
+                                db.Entry(category).State = EntityState.Deleted;
+                            }
+                            else
+                            {
+                                message = "Updated";
+
+                                category.CategoryName = model.CategoryName;
+
+                                category.ModifiedBy = UniversalHelpers.CurrentUser.ID;
+
+                                category.ModifiedDate = DateTime.Now;
+
+                                category.ArrangeBy = model.ArrangeBy;
+
+                                db.Entry(category).State = EntityState.Modified;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        message = "Saved";
+
+                        var ifExist = db.TableOfFeesCategory.FirstOrDefault(r => r.CategoryName.ToLower() == model.CategoryName.ToLower());
+
+                        if (ifExist != null)
+                            message = "Category already exist";
+                        else
+                        {
+                            TableOfFeesCategory newCategory = new TableOfFeesCategory
+                            {
+                                ID = Guid.NewGuid(),
+                                CategoryName = model.CategoryName,
+                                ModifiedBy = UniversalHelpers.CurrentUser.ID,
+                                ModifiedDate = DateTime.Now,
+                                ArrangeBy = model.ArrangeBy
+                            };
+
+                            db.Entry(newCategory).State = EntityState.Added;
+                        }
+                    }
+
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception error)
+            {
+                message = error.Message;
+            }
+        }
+
         public static void SaveOther(OtherPricingAndFinancialModel model, out string message)
         {
             try
@@ -121,7 +249,7 @@ namespace Quickipedia.Services
                             {
                                 message = "Updated";
 
-                                fee.Category = model.Category;
+                                fee.CategoryID = model.CategoryID;
 
                                 fee.Description = model.Description;
 
@@ -163,7 +291,7 @@ namespace Quickipedia.Services
                             {
                                 ID = Guid.NewGuid(),
                                 ClientCode = UniversalHelpers.SelectedClient,
-                                Category = model.Category,
+                                CategoryID = model.CategoryID,
                                 Description = model.Description,
                                 PHPMice = model.PHPMice,
                                 PHPNonGDS = model.PHPNonGDS,
@@ -236,11 +364,14 @@ namespace Quickipedia.Services
                     var fees = from f in db.TableOfFees
                                join u in db.UserAccount on f.ModifiedBy equals u.ID into qU
                                from user in qU.DefaultIfEmpty()
+                               join c in db.TableOfFeesCategory on f.CategoryID equals c.ID into qC
+                               from cat in qC.DefaultIfEmpty()
                                where f.ClientCode == UniversalHelpers.SelectedClient
                                select new TableOfFeesModels
                                {
                                    ID = f.ID,
-                                   Category = f.Category,
+                                   CategoryID = f.CategoryID,
+                                   Category = cat.CategoryName,
                                    ClientCode = f.ClientCode,
                                    Description = f.Description,
                                    PHPMice = f.PHPMice,

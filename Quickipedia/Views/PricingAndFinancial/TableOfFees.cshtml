@@ -15,7 +15,7 @@
 
                 <div class="modal-body">
                     <div class="form-group">
-                       <label>{{vm.Time.ShowModifiedBy}} - {{vm.Time.ShowModifiedDate}}</label>
+                        <label>{{vm.Time.ShowModifiedBy}} - {{vm.Time.ShowModifiedDate}}</label>
                     </div>
                 </div>
             </div>
@@ -58,8 +58,8 @@
 
                     <div class="form-group">
                         <label>Category</label>
-                        <select class="select2_single form-control" style="width:100%" ng-model="vm.Modal.Category"
-                                ng-options="item.value as item.label for item in FeesCategory"></select>
+                        <select class="select2_single form-control" style="width:100%" ng-model="vm.Modal.CategoryID"
+                                ng-options="item.ID as item.Category for item in vm.CategoryDropDown"></select>
                     </div>
 
                     <div class="form-group">
@@ -112,619 +112,68 @@
 
     <h3>Table Of Service Fees</h3>
 
+    <a class="btn btn-primary" ng-show="main.CurrentUser.AccessLevel == 'A'" a href="/PricingAndFinancial/TableOfFeesCategory">Categories</a>
+
+    <div style="padding-bottom:95px;"></div>
+
     <div class="x_content">
         <div class="form-group">
             <table id="feesTable" class="table table-striped table-bordered">
-                <thead>
+                <thead style="position:fixed; top:150px; background-color:lightgray">
                     <tr>
-                        <th ng-show="main.CurrentUser.AccessLevel == 'A'" style="width:77px;">
+                        <th style="width:75px;">
                             <button type="button" class="btn btn-success btn-xs" data-toggle="modal"
-                                    data-target="#feesModal" ng-click="ClearModal()"><i class="fa fa-plus"></i></button>
+                                    data-target="#feesModal" ng-click="ClearModal()" ng-show="main.CurrentUser.AccessLevel == 'A'">
+                                <i class="fa fa-plus"></i>
+                            </button>
                         </th>
-                        <th>Description</th>
+                        <th style="width:222px;">Description</th>
                         <th style="width:80px;">(PHP) GDS</th>
                         <th style="width:80px;">(PHP) Non-GDS</th>
                         <th style="width:80px;">(PHP) Mice</th>
-                        <th style="width:80px;">(PHP) Online</th>
+                        <th style="width:80px;">(PHP) OBT</th>
                         <th style="width:80px;">(USD) GDS</th>
                         <th style="width:80px;">(USD) Non-GDS</th>
                         <th style="width:80px;">(USD) Mice</th>
-                        <th style="width:80px;">(USD) Online</th>
-                        <th></th>
+                        <th style="width:80px;">(USD) OBT</th>
+                        <th style="width:43px;"></th>
                     </tr>
                 </thead>
 
-                <tbody style="overflow:auto">
-                    <tr>
-                        <th ng-show="main.CurrentUser.AccessLevel == 'A'"></th>
-                        <th style="font-style:italic; color:palevioletred">Ticket Issuance Fee</th>
+                <tbody ng-repeat="cat in vm.TableCategory">
+                    <tr ng-show="IfNotNull(cat.ID)">
+                        <td style="font-weight:bold; color:crimson;"
+                            colspan="11">{{cat.CategoryName}}</td>
+                    </tr>
 
-                    </tr>
-                    <tr ng-repeat="fees in vm.TableOfFees | filter: {Category: 'Ticket Issuance Fees'} | filter: {Status: '!X'} | orderBy: 'Description'">
-                        <th ng-show="main.CurrentUser.AccessLevel == 'A'"> 
-                            <button type="button" class="btn btn-info btn-xs"  ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                    data-target="#feesModal">
-                                <i class="fa fa-pencil"></i>
+                    <tr ng-repeat="item in vm.TableOfFees | filter: { CategoryID: cat.ID } | filter: {Status: '!X'}">
+                        <td style="width:77px;">
+                            <button class="btn btn-primary btn-xs" ng-show="main.CurrentUser.AccessLevel == 'A'"
+                                    ng-click="OpenTableFees(item)" data-target="#feesModal" data-toggle="modal">
+                                    <i class="fa fa-pencil"></i>
                             </button>
-                            <button type="button" class="btn btn-danger btn-xs" ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                    data-target="#deleteModal">
-                                <i class="fa fa-close"></i>
+                            <button class="btn btn-danger btn-xs" ng-show="main.CurrentUser.AccessLevel == 'A'"
+                                    ng-click="OpenTableFees(item)" data-target="#deleteModal" data-toggle="modal">
+                                    <i class="fa fa-trash"></i>
                             </button>
-                        </th>
-                        <th>{{fees.Description}}</th>
-                        <th>{{fees.ShowPHPTraditionalGDS}}</th>
-                        <th>{{fees.ShowPHPNonGDS}}</th>
-                        <th>{{fees.ShowPHPMice}}</th>
-                        <th>{{fees.ShowPHPOnline}}</th>
-                        <th>{{fees.ShowUSDTraditionalGDS}}</th>
-                        <th>{{fees.ShowUSDNonGDS}}</th>
-                        <th>{{fees.ShowUSDMice}}</th>
-                        <th>{{fees.ShowUSDOnline}}</th>
-                        <th><button type="button" class="btn btn-default btn-xs" ng-click="AssignTime(fees)"
-                                    data-toggle="modal" data-target="#timeModal"><i class="fa fa-clock-o"></i></button></th>
+                        </td>
+                        <td style="width:225px;">{{item.Description}}</td>
+                        <!--PHP Pricing-->
+                        <td style="width:80px;">{{item.PHPTraditionalGDS | number: 2}}</td>
+                        <td style="width:80px;">{{item.PHPNonGDS | number: 2}}</td>
+                        <td style="width:80px;">{{item.PHPMice | number: 2}}</td>
+                        <td style="width:80px;">{{item.PHPOnline | number: 2}}</td>
+                        <!--USD Pricing-->
+                        <td style="width:80px;">{{item.USDTraditionalGDS | number: 2}}</td>
+                        <td style="width:80px;">{{item.USDNonGDS | number: 2}}</td>
+                        <td style="width:80px;">{{item.USDMice | number: 2}}</td>
+                        <td style="width:80px;">{{item.USDOnline | number: 2}}</td>
+                        <td style="width:40px;">
+                            <button class="btn btn-default btn-xs"><i class="fa fa-clock-o"></i></button>
+                        </td>
                     </tr>
+                </tbody>
                  
-                    <tr>
-                        <th ng-show="main.CurrentUser.AccessLevel == 'A'"></th>
-                        <th class="tablecategory">Re-Issuance Fees</th>
-                    </tr>
-
-                    <tr ng-repeat="fees in vm.TableOfFees | filter: {Category: 'Re-Issuance Fees'} | filter: {Status: '!X'} | orderBy: 'Description'">
-                        <th ng-show="main.CurrentUser.AccessLevel == 'A'">
-                            <button type="button" class="btn btn-info btn-xs"  ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                    data-target="#feesModal">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                            <button type="button" class="btn btn-danger btn-xs" ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                    data-target="#deleteModal">
-                                <i class="fa fa-close"></i>
-                            </button>
-                        </th>
-                        <th>{{fees.Description}}</th>
-                        <th>{{fees.ShowPHPTraditionalGDS}}</th>
-                        <th>{{fees.ShowPHPNonGDS}}</th>
-                        <th>{{fees.ShowPHPMice}}</th>
-                        <th>{{fees.ShowPHPOnline}}</th>
-                        <th>{{fees.ShowUSDTraditionalGDS}}</th>
-                        <th>{{fees.ShowUSDNonGDS}}</th>
-                        <th>{{fees.ShowUSDMice}}</th>
-                        <th>{{fees.ShowUSDOnline}}</th>
-                        <th>
-                            <button type="button" class="btn btn-default btn-xs" ng-click="AssignTime(fees)"
-                                    data-toggle="modal" data-target="#timeModal">
-                                <i class="fa fa-clock-o"></i>
-                            </button>
-                        </th>
-                    </tr>
-
-                    <tr>
-                        <th ng-show="main.CurrentUser.AccessLevel == 'A'"></th>
-                        <th class="tablecategory">Revalidation Fees</th>
-                    </tr>
-
-                    <tr ng-repeat="fees in vm.TableOfFees | filter: {Category: 'Revalidation Fees'} | filter: {Status: '!X'} | orderBy: 'Description'">
-                        <th ng-show="main.CurrentUser.AccessLevel == 'A'">
-                            <button type="button" class="btn btn-info btn-xs"  ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                    data-target="#feesModal">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                            <button type="button" class="btn btn-danger btn-xs" ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                    data-target="#deleteModal">
-                                <i class="fa fa-close"></i>
-                            </button>
-                        </th>
-                        <th>{{fees.Description}}</th>
-                        <th>{{fees.ShowPHPTraditionalGDS}}</th>
-                        <th>{{fees.ShowPHPNonGDS}}</th>
-                        <th>{{fees.ShowPHPMice}}</th>
-                        <th>{{fees.ShowPHPOnline}}</th>
-                        <th>{{fees.ShowUSDTraditionalGDS}}</th>
-                        <th>{{fees.ShowUSDNonGDS}}</th>
-                        <th>{{fees.ShowUSDMice}}</th>
-                        <th>{{fees.ShowUSDOnline}}</th>
-                        <th>
-                            <button type="button" class="btn btn-default btn-xs" ng-click="AssignTime(fees)"
-                                    data-toggle="modal" data-target="#timeModal">
-                                <i class="fa fa-clock-o"></i>
-                            </button>
-                        </th>
-                    </tr>
-
-                    <tr>
-                        <th ng-show="main.CurrentUser.AccessLevel == 'A'"></th>
-                        <th class="tablecategory">Refund Fees</th>
-                    </tr>
-
-                    <tr ng-repeat="fees in vm.TableOfFees | filter: {Category: 'Refund Fees'} | filter: {Status: '!X'} | orderBy: 'Description'">
-                        <th ng-show="main.CurrentUser.AccessLevel == 'A'">
-                            <button type="button" class="btn btn-info btn-xs"  ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                    data-target="#feesModal">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                            <button type="button" class="btn btn-danger btn-xs" ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                    data-target="#deleteModal">
-                                <i class="fa fa-close"></i>
-                            </button>
-                        </th>
-                        <th>{{fees.Description}}</th>
-                        <th>{{fees.ShowPHPTraditionalGDS}}</th>
-                        <th>{{fees.ShowPHPNonGDS}}</th>
-                        <th>{{fees.ShowPHPMice}}</th>
-                        <th>{{fees.ShowPHPOnline}}</th>
-                        <th>{{fees.ShowUSDTraditionalGDS}}</th>
-                        <th>{{fees.ShowUSDNonGDS}}</th>
-                        <th>{{fees.ShowUSDMice}}</th>
-                        <th>{{fees.ShowUSDOnline}}</th>
-                        <th>
-                            <button type="button" class="btn btn-default btn-xs" ng-click="AssignTime(fees)"
-                                    data-toggle="modal" data-target="#timeModal">
-                                <i class="fa fa-clock-o"></i>
-                            </button>
-                        </th>
-                    </tr>
-
-                    <tr>
-                        <th ng-show="main.CurrentUser.AccessLevel == 'A'"></th>
-                        <th class="tablecategory">Other Air Fees</th>
-                    </tr>
-
-                    <tr ng-repeat="fees in vm.TableOfFees | filter: {Category: 'Other Air Fees'} | filter: {Status: '!X'} | orderBy: 'Description'">
-                        <th ng-show="main.CurrentUser.AccessLevel == 'A'">
-                            <button type="button" class="btn btn-info btn-xs"  ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                    data-target="#feesModal">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                            <button type="button" class="btn btn-danger btn-xs" ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                    data-target="#deleteModal">
-                                <i class="fa fa-close"></i>
-                            </button>
-                        </th>
-                        <th>{{fees.Description}}</th>
-                        <th>{{fees.ShowPHPTraditionalGDS}}</th>
-                        <th>{{fees.ShowPHPNonGDS}}</th>
-                        <th>{{fees.ShowPHPMice}}</th>
-                        <th>{{fees.ShowPHPOnline}}</th>
-                        <th>{{fees.ShowUSDTraditionalGDS}}</th>
-                        <th>{{fees.ShowUSDNonGDS}}</th>
-                        <th>{{fees.ShowUSDMice}}</th>
-                        <th>{{fees.ShowUSDOnline}}</th>
-                        <th>
-                            <button type="button" class="btn btn-default btn-xs" ng-click="AssignTime(fees)"
-                                    data-toggle="modal" data-target="#timeModal">
-                                <i class="fa fa-clock-o"></i>
-                            </button>
-                        </th>
-                    </tr>
-
-                    <tr>
-                        <th ng-show="main.CurrentUser.AccessLevel == 'A'"></th>
-                        <th class="tablecategory">Travel Insurance</th>
-                    </tr>
-
-                    <tr ng-repeat="fees in vm.TableOfFees | filter: {Category: 'Travel Insurance'} | filter: {Status: '!X'} | orderBy: 'Description'">
-                        <th ng-show="main.CurrentUser.AccessLevel == 'A'">
-                            <button type="button" class="btn btn-info btn-xs"  ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                    data-target="#feesModal">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                            <button type="button" class="btn btn-danger btn-xs" ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                    data-target="#deleteModal">
-                                <i class="fa fa-close"></i>
-                            </button>
-                        </th>
-                        <th>{{fees.Description}}</th>
-                        <th>{{fees.ShowPHPTraditionalGDS}}</th>
-                        <th>{{fees.ShowPHPNonGDS}}</th>
-                        <th>{{fees.ShowPHPMice}}</th>
-                        <th>{{fees.ShowPHPOnline}}</th>
-                        <th>{{fees.ShowUSDTraditionalGDS}}</th>
-                        <th>{{fees.ShowUSDNonGDS}}</th>
-                        <th>{{fees.ShowUSDMice}}</th>
-                        <th>{{fees.ShowUSDOnline}}</th>
-                        <th>
-                            <button type="button" class="btn btn-default btn-xs" ng-click="AssignTime(fees)"
-                                    data-toggle="modal" data-target="#timeModal">
-                                <i class="fa fa-clock-o"></i>
-                            </button>
-                        </th>
-                    </tr>
-
-                
-                </tbody>    <tr>
-                        <th ng-show="main.CurrentUser.AccessLevel == 'A'"></th>
-                        <th class="tablecategory">After Office Hours Fees</th>
-                    </tr>
-
-                    <tr ng-repeat="fees in vm.TableOfFees | filter: {Category: 'After Office Hours Fees'} | filter: {Status: '!X'} | orderBy: 'Description'">
-                        <th ng-show="main.CurrentUser.AccessLevel == 'A'">
-                            <button type="button" class="btn btn-info btn-xs"  ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                    data-target="#feesModal">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                            <button type="button" class="btn btn-danger btn-xs" ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                    data-target="#deleteModal">
-                                <i class="fa fa-close"></i>
-                            </button>
-                        </th>
-                        <th>{{fees.Description}}</th>
-                        <th>{{fees.ShowPHPTraditionalGDS}}</th>
-                        <th>{{fees.ShowPHPNonGDS}}</th>
-                        <th>{{fees.ShowPHPMice}}</th>
-                        <th>{{fees.ShowPHPOnline}}</th>
-                        <th>{{fees.ShowUSDTraditionalGDS}}</th>
-                        <th>{{fees.ShowUSDNonGDS}}</th>
-                        <th>{{fees.ShowUSDMice}}</th>
-                        <th>{{fees.ShowUSDOnline}}</th>
-                        <th>
-                            <button type="button" class="btn btn-default btn-xs" ng-click="AssignTime(fees)"
-                                    data-toggle="modal" data-target="#timeModal">
-                                <i class="fa fa-clock-o"></i>
-                            </button>
-                        </th>
-                    </tr>
-
-                <tr>
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'"></th>
-                    <th class="tablecategory">GDS Hotel, Car, Rail, Ferry Only: Booked after ticket issuance</th>
-                </tr>
-
-                <tr ng-repeat="fees in vm.TableOfFees | filter: {Category: 'GDS Hotel, Car, Rail Ferry Only'} | filter: {Status: '!X'} | orderBy: 'Description'">
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'">
-                        <button type="button" class="btn btn-info btn-xs"  ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#feesModal">
-                            <i class="fa fa-pencil"></i>
-                        </button>
-                        <button type="button" class="btn btn-danger btn-xs" ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#deleteModal">
-                            <i class="fa fa-close"></i>
-                        </button>
-                    </th>
-                    <th>{{fees.Description}}</th>
-                    <th>{{fees.ShowPHPTraditionalGDS}}</th>
-                    <th>{{fees.ShowPHPNonGDS}}</th>
-                    <th>{{fees.ShowPHPMice}}</th>
-                    <th>{{fees.ShowPHPOnline}}</th>
-                    <th>{{fees.ShowUSDTraditionalGDS}}</th>
-                    <th>{{fees.ShowUSDNonGDS}}</th>
-                    <th>{{fees.ShowUSDMice}}</th>
-                    <th>{{fees.ShowUSDOnline}}</th>
-                    <th>
-                        <button type="button" class="btn btn-default btn-xs" ng-click="AssignTime(fees)"
-                                data-toggle="modal" data-target="#timeModal">
-                            <i class="fa fa-clock-o"></i>
-                        </button>
-                    </th>
-                </tr>
-
-                <tr>
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'"></th>
-                    <th class="tablecategory">Service Voucher / Payment billback (hotel, car, others)</th>
-                </tr>
-
-                <tr ng-repeat="fees in vm.TableOfFees | filter: {Category: 'Service Voucher'} | filter: {Status: '!X'} | orderBy: 'Description'">
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'">
-                        <button type="button" class="btn btn-info btn-xs"  ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#feesModal">
-                            <i class="fa fa-pencil"></i>
-                        </button>
-                        <button type="button" class="btn btn-danger btn-xs" ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#deleteModal">
-                            <i class="fa fa-close"></i>
-                        </button>
-                    </th>
-                    <th>{{fees.Description}}</th>
-                    <th>{{fees.ShowPHPTraditionalGDS}}</th>
-                    <th>{{fees.ShowPHPNonGDS}}</th>
-                    <th>{{fees.ShowPHPMice}}</th>
-                    <th>{{fees.ShowPHPOnline}}</th>
-                    <th>{{fees.ShowUSDTraditionalGDS}}</th>
-                    <th>{{fees.ShowUSDNonGDS}}</th>
-                    <th>{{fees.ShowUSDMice}}</th>
-                    <th>{{fees.ShowUSDOnline}}</th>
-                    <th>
-                        <button type="button" class="btn btn-default btn-xs" ng-click="AssignTime(fees)"
-                                data-toggle="modal" data-target="#timeModal">
-                            <i class="fa fa-clock-o"></i>
-                        </button>
-                    </th>
-                </tr>
-
-                <tr>
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'"></th>
-                    <th class="tablecategory">Local Transfer</th>
-                </tr>
-
-                <tr ng-repeat="fees in vm.TableOfFees | filter: {Category: 'Local Transfer'} | filter: {Status: '!X'} | orderBy: 'Description'">
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'">
-                        <button type="button" class="btn btn-info btn-xs"  ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#feesModal">
-                            <i class="fa fa-pencil"></i>
-                        </button>
-                        <button type="button" class="btn btn-danger btn-xs" ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#deleteModal">
-                            <i class="fa fa-close"></i>
-                        </button>
-                    </th>
-                    <th>{{fees.Description}}</th>
-                    <th>{{fees.ShowPHPTraditionalGDS}}</th>
-                    <th>{{fees.ShowPHPNonGDS}}</th>
-                    <th>{{fees.ShowPHPMice}}</th>
-                    <th>{{fees.ShowPHPOnline}}</th>
-                    <th>{{fees.ShowUSDTraditionalGDS}}</th>
-                    <th>{{fees.ShowUSDNonGDS}}</th>
-                    <th>{{fees.ShowUSDMice}}</th>
-                    <th>{{fees.ShowUSDOnline}}</th>
-                    <th>
-                        <button type="button" class="btn btn-default btn-xs" ng-click="AssignTime(fees)"
-                                data-toggle="modal" data-target="#timeModal">
-                            <i class="fa fa-clock-o"></i>
-                        </button>
-                    </th>
-                </tr>
-
-                <tr>
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'"></th>
-                    <th class="tablecategory">Other MICE Service fees</th>
-                </tr>
-
-                <tr ng-repeat="fees in vm.TableOfFees | filter: {Category: 'Other MICE Service fees'} | filter: {Status: '!X'} | orderBy: 'Description'">
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'">
-                        <button type="button" class="btn btn-info btn-xs"  ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#feesModal">
-                            <i class="fa fa-pencil"></i>
-                        </button>
-                        <button type="button" class="btn btn-danger btn-xs" ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#deleteModal">
-                            <i class="fa fa-close"></i>
-                        </button>
-                    </th>
-                    <th>{{fees.Description}}</th>
-                    <th>{{fees.ShowPHPTraditionalGDS}}</th>
-                    <th>{{fees.ShowPHPNonGDS}}</th>
-                    <th>{{fees.ShowPHPMice}}</th>
-                    <th>{{fees.ShowPHPOnline}}</th>
-                    <th>{{fees.ShowUSDTraditionalGDS}}</th>
-                    <th>{{fees.ShowUSDNonGDS}}</th>
-                    <th>{{fees.ShowUSDMice}}</th>
-                    <th>{{fees.ShowUSDOnline}}</th>
-                    <th>
-                        <button type="button" class="btn btn-default btn-xs" ng-click="AssignTime(fees)"
-                                data-toggle="modal" data-target="#timeModal">
-                            <i class="fa fa-clock-o"></i>
-                        </button>
-                    </th>
-                </tr>
-
-                <tr>
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'"></th>
-                    <th class="tablecategory">Online Booking Tool</th>
-                </tr>
-
-                <tr ng-repeat="fees in vm.TableOfFees | filter: {Category: 'Online Booking Tool'} | filter: {Status: '!X'} | orderBy: 'Description'">
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'">
-                        <button type="button" class="btn btn-info btn-xs"  ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#feesModal">
-                            <i class="fa fa-pencil"></i>
-                        </button>
-                        <button type="button" class="btn btn-danger btn-xs" ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#deleteModal">
-                            <i class="fa fa-close"></i>
-                        </button>
-                    </th>
-                    <th>{{fees.Description}}</th>
-                    <th>{{fees.ShowPHPTraditionalGDS}}</th>
-                    <th>{{fees.ShowPHPNonGDS}}</th>
-                    <th>{{fees.ShowPHPMice}}</th>
-                    <th>{{fees.ShowPHPOnline}}</th>
-                    <th>{{fees.ShowUSDTraditionalGDS}}</th>
-                    <th>{{fees.ShowUSDNonGDS}}</th>
-                    <th>{{fees.ShowUSDMice}}</th>
-                    <th>{{fees.ShowUSDOnline}}</th>
-                    <th>
-                        <button type="button" class="btn btn-default btn-xs" ng-click="AssignTime(fees)"
-                                data-toggle="modal" data-target="#timeModal">
-                            <i class="fa fa-clock-o"></i>
-                        </button>
-                    </th>
-                </tr>
-
-                <tr>
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'"></th>
-                    <th class="tablecategory">Visa / Passport / Others</th>
-                </tr>
-
-                <tr ng-repeat="fees in vm.TableOfFees | filter: {Category: 'Visa/Passport/Others'} | filter: {Status: '!X'} | orderBy: 'Description'">
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'">
-                        <button type="button" class="btn btn-info btn-xs"  ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#feesModal">
-                            <i class="fa fa-pencil"></i>
-                        </button>
-                        <button type="button" class="btn btn-danger btn-xs" ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#deleteModal">
-                            <i class="fa fa-close"></i>
-                        </button>
-                    </th>
-                    <th>{{fees.Description}}</th>
-                    <th>{{fees.ShowPHPTraditionalGDS}}</th>
-                    <th>{{fees.ShowPHPNonGDS}}</th>
-                    <th>{{fees.ShowPHPMice}}</th>
-                    <th>{{fees.ShowPHPOnline}}</th>
-                    <th>{{fees.ShowUSDTraditionalGDS}}</th>
-                    <th>{{fees.ShowUSDNonGDS}}</th>
-                    <th>{{fees.ShowUSDMice}}</th>
-                    <th>{{fees.ShowUSDOnline}}</th>
-                    <th>
-                        <button type="button" class="btn btn-default btn-xs" ng-click="AssignTime(fees)"
-                                data-toggle="modal" data-target="#timeModal">
-                            <i class="fa fa-clock-o"></i>
-                        </button>
-                    </th>
-                </tr>
-
-                <tr>
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'"></th>
-                    <th class="tablecategory">Pickup and Delivery (During office hours)</th>
-                </tr>
-
-                <tr ng-repeat="fees in vm.TableOfFees | filter: {Category: 'Pickup and Delivery'} | filter: {Status: '!X'} | orderBy: 'Description'">
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'">
-                        <button type="button" class="btn btn-info btn-xs"  ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#feesModal">
-                            <i class="fa fa-pencil"></i>
-                        </button>
-                        <button type="button" class="btn btn-danger btn-xs" ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#deleteModal">
-                            <i class="fa fa-close"></i>
-                        </button>
-                    </th>
-                    <th>{{fees.Description}}</th>
-                    <th>{{fees.ShowPHPTraditionalGDS}}</th>
-                    <th>{{fees.ShowPHPNonGDS}}</th>
-                    <th>{{fees.ShowPHPMice}}</th>
-                    <th>{{fees.ShowPHPOnline}}</th>
-                    <th>{{fees.ShowUSDTraditionalGDS}}</th>
-                    <th>{{fees.ShowUSDNonGDS}}</th>
-                    <th>{{fees.ShowUSDMice}}</th>
-                    <th>{{fees.ShowUSDOnline}}</th>
-                    <th>
-                        <button type="button" class="btn btn-default btn-xs" ng-click="AssignTime(fees)"
-                                data-toggle="modal" data-target="#timeModal">
-                            <i class="fa fa-clock-o"></i>
-                        </button>
-                    </th>
-                </tr>
-
-                <tr>
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'"></th>
-                    <th class="tablecategory">Loyalty Programme Booking</th>
-                </tr>
-
-                <tr ng-repeat="fees in vm.TableOfFees | filter: {Category: 'Loyalty Programme Booking'} | filter: {Status: '!X'} | orderBy: 'Description'">
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'">
-                        <button type="button" class="btn btn-info btn-xs"  ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#feesModal">
-                            <i class="fa fa-pencil"></i>
-                        </button>
-                        <button type="button" class="btn btn-danger btn-xs" ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#deleteModal">
-                            <i class="fa fa-close"></i>
-                        </button>
-                    </th>
-                    <th>{{fees.Description}}</th>
-                    <th>{{fees.ShowPHPTraditionalGDS}}</th>
-                    <th>{{fees.ShowPHPNonGDS}}</th>
-                    <th>{{fees.ShowPHPMice}}</th>
-                    <th>{{fees.ShowPHPOnline}}</th>
-                    <th>{{fees.ShowUSDTraditionalGDS}}</th>
-                    <th>{{fees.ShowUSDNonGDS}}</th>
-                    <th>{{fees.ShowUSDMice}}</th>
-                    <th>{{fees.ShowUSDOnline}}</th>
-                    <th>
-                        <button type="button" class="btn btn-default btn-xs" ng-click="AssignTime(fees)"
-                                data-toggle="modal" data-target="#timeModal">
-                            <i class="fa fa-clock-o"></i>
-                        </button>
-                    </th>
-                </tr>
-
-                <tr>
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'"></th>
-                    <th class="tablecategory">Airport Assistance</th>
-                </tr>
-
-                <tr ng-repeat="fees in vm.TableOfFees | filter: {Category: 'Airport Assistance'} | filter: {Status: '!X'} | orderBy: 'Description'">
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'">
-                        <button type="button" class="btn btn-info btn-xs"  ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#feesModal">
-                            <i class="fa fa-pencil"></i>
-                        </button>
-                        <button type="button" class="btn btn-danger btn-xs" ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#deleteModal">
-                            <i class="fa fa-close"></i>
-                        </button>
-                    </th>
-                    <th>{{fees.Description}}</th>
-                    <th>{{fees.ShowPHPTraditionalGDS}}</th>
-                    <th>{{fees.ShowPHPNonGDS}}</th>
-                    <th>{{fees.ShowPHPMice}}</th>
-                    <th>{{fees.ShowPHPOnline}}</th>
-                    <th>{{fees.ShowUSDTraditionalGDS}}</th>
-                    <th>{{fees.ShowUSDNonGDS}}</th>
-                    <th>{{fees.ShowUSDMice}}</th>
-                    <th>{{fees.ShowUSDOnline}}</th>
-                    <th>
-                        <button type="button" class="btn btn-default btn-xs" ng-click="AssignTime(fees)"
-                                data-toggle="modal" data-target="#timeModal">
-                            <i class="fa fa-clock-o"></i>
-                        </button>
-                    </th>
-                </tr>
-
-                <tr>
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'"></th>
-                    <th class="tablecategory">Accounting</th>
-                </tr>
-
-                <tr ng-repeat="fees in vm.TableOfFees | filter: {Category: 'Accounting'} | filter: {Status: '!X'} | orderBy: 'Description'">
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'">
-                        <button type="button" class="btn btn-info btn-xs"  ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#feesModal">
-                            <i class="fa fa-pencil"></i>
-                        </button>
-                        <button type="button" class="btn btn-danger btn-xs" ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#deleteModal">
-                            <i class="fa fa-close"></i>
-                        </button>
-                    </th>
-                    <th>{{fees.Description}}</th>
-                    <th>{{fees.ShowPHPTraditionalGDS}}</th>
-                    <th>{{fees.ShowPHPNonGDS}}</th>
-                    <th>{{fees.ShowPHPMice}}</th>
-                    <th>{{fees.ShowPHPOnline}}</th>
-                    <th>{{fees.ShowUSDTraditionalGDS}}</th>
-                    <th>{{fees.ShowUSDNonGDS}}</th>
-                    <th>{{fees.ShowUSDMice}}</th>
-                    <th>{{fees.ShowUSDOnline}}</th>
-                    <th>
-                        <button type="button" class="btn btn-default btn-xs" ng-click="AssignTime(fees)"
-                                data-toggle="modal" data-target="#timeModal">
-                            <i class="fa fa-clock-o"></i>
-                        </button>
-                    </th>
-                </tr>
-
-                <tr>
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'"></th>
-                    <th class="tablecategory">Account Management</th>
-                </tr>
-
-                <tr ng-repeat="fees in vm.TableOfFees | filter: {Category: 'Account Management'} | filter: {Status: '!X'} | orderBy: 'Description'">
-                    <th ng-show="main.CurrentUser.AccessLevel == 'A'">
-                        <button type="button" class="btn btn-info btn-xs"  ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#feesModal">
-                            <i class="fa fa-pencil"></i>
-                        </button>
-                        <button type="button" class="btn btn-danger btn-xs" ng-click="OpenTableFees(fees)" data-toggle="modal"
-                                data-target="#deleteModal">
-                            <i class="fa fa-close"></i>
-                        </button>
-                    </th>
-                    <th>{{fees.Description}}</th>
-                    <th>{{fees.ShowPHPTraditionalGDS}}</th>
-                    <th>{{fees.ShowPHPNonGDS}}</th>
-                    <th>{{fees.ShowPHPMice}}</th>
-                    <th>{{fees.ShowPHPOnline}}</th>
-                    <th>{{fees.ShowUSDTraditionalGDS}}</th>
-                    <th>{{fees.ShowUSDNonGDS}}</th>
-                    <th>{{fees.ShowUSDMice}}</th>
-                    <th>{{fees.ShowUSDOnline}}</th>
-                    <th>
-                        <button type="button" class="btn btn-default btn-xs" ng-click="AssignTime(fees)"
-                                data-toggle="modal" data-target="#timeModal">
-                            <i class="fa fa-clock-o"></i>
-                        </button>
-                    </th>
-                </tr>
             </table>
         </div>
     </div>

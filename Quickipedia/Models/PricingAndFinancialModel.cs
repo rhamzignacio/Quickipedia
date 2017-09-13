@@ -7,6 +7,33 @@ namespace Quickipedia.Models
 {
     public class PricingAndFinancialModel { }
 
+    public class TableOfFeesCategoryDropDown
+    {
+        public Guid ID { get; set; }
+        public string Category { get; set; }
+    }
+
+    public class TableOfFeesCategoryModel
+    {
+        public Guid ID { get; set; }
+        public string CategoryName { get; set; }
+        public Guid? ModifiedBy { get; set; }
+        public string ShowModifiedBy { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public string ShowModifiedDate
+        {
+            get
+            {
+                if (ModifiedDate != null)
+                    return DateTime.Parse(ModifiedDate.ToString()).ToShortDateString();
+                else
+                    return "";
+            }  
+        }
+        public int? ArrangeBy { get; set; }
+        public string Status { get; set; }
+    }
+
     public class OtherPricingAndFinancialModel
     {
         public Guid ID { get; set; }
@@ -55,6 +82,7 @@ namespace Quickipedia.Models
 
         public Guid ID { get; set; }
         public string ClientCode { get; set; }
+        public Guid? CategoryID { get; set; }
         public string Description { get; set; }
         public string Category { get; set; }
         public decimal? PHPTraditionalGDS { get; set; }

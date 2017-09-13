@@ -12,21 +12,12 @@ namespace Quickipedia.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TableOfFees
+    public partial class TableOfFeesCategory
     {
         public System.Guid ID { get; set; }
-        public string ClientCode { get; set; }
-        public Nullable<System.Guid> CategoryID { get; set; }
-        public Nullable<decimal> PHPTraditionalGDS { get; set; }
-        public Nullable<decimal> PHPNonGDS { get; set; }
-        public Nullable<decimal> PHPMice { get; set; }
-        public Nullable<decimal> PHPOnline { get; set; }
-        public Nullable<decimal> USDTraditionalGDS { get; set; }
-        public Nullable<decimal> USDNonGDS { get; set; }
-        public Nullable<decimal> USDMice { get; set; }
-        public Nullable<decimal> USDOnline { get; set; }
-        public string Description { get; set; }
+        public string CategoryName { get; set; }
         public Nullable<System.Guid> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public Nullable<int> ArrangeBy { get; set; }
     }
 }

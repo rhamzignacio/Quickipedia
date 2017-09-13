@@ -7,6 +7,9 @@
         if (message == "Saved" || message == "Updated") {
             growl.success("Successfully " + message, { ttl: 2000 });
         }
+        else if (message == "Deleted") {
+            growl.success("Successfully Deleted", { ttl: 2000 });
+        }
         else {
             growl.error(message, { title: "Error!", ttl: 3000 });
         }
@@ -159,6 +162,17 @@
         });
     }
 
+    $scope.Filter = function (value) {
+        var list = vm.TableOfFees.filter(x=>x.CategoryID == value);
+
+        if (list.length > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     $scope.initTableOfFees = function () {
         $http({
             method: "POST",
@@ -166,6 +180,16 @@
             arguments: { "Content-Type": "application/json" }
         }).then(function (data) {
             vm.TableOfFees = data.data;
+        });
+
+        $http({
+            method: "POST",
+            url: "/PricingAndFinancial/GetCategoryDropDown",
+            arguments: { "Content-Type": "application/json" }
+        }).then(function(data){
+            vm.CategoryDropDown = data.data.dropdown;
+
+            vm.TableCategory = data.data.category;
         });
     }
 
@@ -313,7 +337,7 @@
         }
         else{
             var person = {
-                IDNo: vm.BillingCollectionFinances.length + 1,
+                IDNo: vm.BillingCoinitTableOfFeesllectionFinances.length + 1,
                 ID: null,
                 Name: value.Name,
                 Position: value.Position,
@@ -330,4 +354,72 @@
         value.Status = "X"; 
     }
 
+    //===========Table of Fees Category===========
+    $scope.SaveCategory = function (value) {
+        if (value.CategoryName === "") {
+            PopUpMessage("Category is required");
+        }
+        else {
+            $http({
+                method: "POST",
+                url: "/PricingAndFinancial/SaveCategory",
+                data: { category: value }
+            }).then(function (data) {
+                PopUpMessage(data.data);
+
+                if (data.data === "Saved" || data.data === "Updated") {
+                    $("#categoryModal").modal('hide');
+
+                    $scope.InitCategory();
+                }
+            })
+        }
+    }
+
+    $scope.InitCategory = function () {
+        $http({
+            method: "POST",
+            url: "/PricingAndFinancial/GetTableOfFeesCategory",
+            arguments: { "Content-Type": "application/json" }
+        }).then(function (data) {
+            vm.Category = data.data.category;
+        });
+    }
+
+    $scope.AssignCatDelete = function (value) {
+        vm.CategoryDelete = value;
+    }
+
+    $scope.AssignCatEdit = function (value) {
+        vm.Modal = value;
+    }
+
+
+    $scope.DeleteCategory = function () {
+        $http({
+            method: "POST",
+            url: "/PricingAndFinancial/DeleteCategory",
+            data: { category: vm.CategoryDelete }
+        }).then(function (data) {
+            PopUpMessage(data.data);
+
+            if (data.data === "Deleted") {
+                $("#deleteModal").modal('hide');
+            }
+        0})
+    }
+
+    $scope.NewCategory = function () {
+        vm.Modal.ArrangeBy = '';
+
+        vm.Modal.CategoryName = '';
+    }
+
+    $scope.IfNotNull = function (value) {
+        for (var i = 0; i < vm.TableOfFees.length; i++) {
+            if (vm.TableOfFees[i].CategoryID == value) {
+                return true;
+            }
+        }
+    }
 });
