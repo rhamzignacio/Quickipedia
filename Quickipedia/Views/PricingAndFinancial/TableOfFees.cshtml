@@ -169,7 +169,9 @@
                         <td style="width:80px;">{{item.USDMice | number: 2}}</td>
                         <td style="width:80px;">{{item.USDOnline | number: 2}}</td>
                         <td style="width:40px;">
-                            <button class="btn btn-default btn-xs"><i class="fa fa-clock-o"></i></button>
+                            <button class="btn btn-default btn-xs" ng-click="AssignTime(item)" data-target="#timeModal" data-toggle="modal">
+                                <i class="fa fa-clock-o"></i>
+                            </button>
                         </td>
                     </tr>
                 </tbody>

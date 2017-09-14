@@ -406,7 +406,7 @@
             if (data.data === "Deleted") {
                 $("#deleteModal").modal('hide');
             }
-        0})
+         })
     }
 
     $scope.NewCategory = function () {
