@@ -30,6 +30,11 @@
                         <select type="text" class="form-control select2_single" ng-options="item.value as item.label for item in ClientType" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-model="vm.BasicInfo.ClientType">
                         </select>
                     </div>      
+
+                    <div class="form-group">
+                        <label>Global Customer No</label>
+                        <input type="text" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-model="vm.BasicInfo.GlobalCustomerNo" />
+                    </div>
                     
                     <div class="form-group">
                         <label class="control-label">Contract Start Date</label>

@@ -92,7 +92,8 @@ namespace Quickipedia.Services
                                 ModifiedDate  = DateTime.Now,
                                 BillerID = basicInfo.BillerID,
                                 ContractEndDate = basicInfo.ContractEndDate,
-                                ContractStartDate = basicInfo.ContractStartDate
+                                ContractStartDate = basicInfo.ContractStartDate,
+                                GlobalCustomerNo = basicInfo.GlobalCustomerNo
                             };
 
                             db.Entry(newClientProfile).State = EntityState.Added;
@@ -122,6 +123,8 @@ namespace Quickipedia.Services
                                 ifExist.ContractStartDate = basicInfo.ContractStartDate;
 
                                 ifExist.ContractEndDate = basicInfo.ContractEndDate;
+
+                                ifExist.GlobalCustomerNo = basicInfo.GlobalCustomerNo;
 
                                 db.Entry(ifExist).State = EntityState.Modified;
                             }
@@ -297,6 +300,8 @@ namespace Quickipedia.Services
                         basicInfo.ContractEndDate = clientProfile.ContractEndDate;
 
                         basicInfo.ContractStartDate = clientProfile.ContractStartDate;
+
+                        basicInfo.GlobalCustomerNo = clientProfile.GlobalCustomerNo;
 
                         var userProf = db.UserAccount.FirstOrDefault(r => r.ID == clientProfile.ModifiedBy);
 

@@ -9,6 +9,110 @@ namespace Quickipedia.Services
 {
     public class PricingAndFinancialService
     {
+        //FareComparison
+        public static FareComparisonModel GetFareComparison(out string message)
+        {
+            try
+            {
+                message = "";
+
+                using (var db = new QuickipediaEntities())
+                {
+                    var query = from f in db.FareComparison
+                                join u in db.UserAccount on f.ModifiedBy equals u.ID into qU
+                                from us in qU.DefaultIfEmpty()
+                                where f.ClientCode == UniversalHelpers.SelectedClient
+                                select new FareComparisonModel
+                                {
+                                    ID = f.ID,
+                                    ClientCode = f.ClientCode,
+                                    CarStandardFare = f.CarStandardFare,
+                                    HotelStandardFare = f.HotelStandardFare,
+                                    LF = f.LF,
+                                    LowFare = f.LowFare,
+                                    RF = f.RF,
+                                    ReferenceFare = f.ReferenceFare,
+                                    ModifiedBy = f.ModifiedBy,
+                                    ShowModifiedBy = us.FirstName + " " + us.LastName,
+                                    ModifiedDate = f.ModifiedDate
+                                };
+
+                    if (query.FirstOrDefault() != null)
+                        return query.FirstOrDefault();
+                    else
+                        return new FareComparisonModel();
+                }
+            }
+            catch(Exception error)
+            {
+                message = error.Message;
+
+                return null;
+            }
+        }
+
+        public static void SaveFareComparison(FareComparisonModel _fare, out string message)
+        {
+            try
+            {
+                message = "";
+
+                using (var db = new QuickipediaEntities())
+                {
+                    var fare = db.FareComparison.FirstOrDefault(r => r.ClientCode == UniversalHelpers.SelectedClient);
+
+                    if(fare != null)
+                    {
+                        fare.LF = _fare.LF;
+
+                        fare.LowFare = _fare.LowFare;
+
+                        fare.RF = _fare.RF;
+
+                        fare.ReferenceFare = _fare.ReferenceFare;
+
+                        fare.HotelStandardFare = _fare.HotelStandardFare;
+
+                        fare.CarStandardFare = _fare.CarStandardFare;
+
+                        fare.ModifiedDate = DateTime.Now;
+
+                        fare.ModifiedBy = UniversalHelpers.CurrentUser.ID;
+
+                        db.Entry(fare).State = EntityState.Modified;
+
+                        message = "Updated";
+                    }
+                    else
+                    {
+                        FareComparison newFare = new FareComparison
+                        {
+                            ID = Guid.NewGuid(),
+                            ClientCode = UniversalHelpers.SelectedClient,
+                            LF = _fare.LF,
+                            LowFare = _fare.LowFare,
+                            RF = _fare.RF,
+                            ReferenceFare = _fare.ReferenceFare,
+                            CarStandardFare = _fare.CarStandardFare,
+                            HotelStandardFare = _fare.HotelStandardFare,
+                            ModifiedBy = UniversalHelpers.CurrentUser.ID,
+                            ModifiedDate = DateTime.Now
+                        };
+
+                        db.Entry(newFare).State = EntityState.Added;
+
+                        message = "Saved";
+                    }
+
+                    db.SaveChanges();
+                }
+            }
+            catch(Exception error)
+            {
+                message = error.Message;
+            }
+        }
+
         public static List<TableOfFeesCategoryDropDown> GetCategoryDropDown(out string message)
         {
             try
@@ -446,7 +550,7 @@ namespace Quickipedia.Services
             }
         }
 
-        public static void SaveBillingCollection(List<BillingCollectionFinanceModel> billingCollections, out string message)
+        public static void SaveBillingCollection(BillingCollectionFinanceModel item, out string message)
         {
             try
             {
@@ -456,57 +560,53 @@ namespace Quickipedia.Services
                 {
                     var temp = db.BillingCollectionFinanceManager.Where(r => r.ClientCode == UniversalHelpers.SelectedClient).ToList();
 
-                    if (temp != null)
-                        message = "Updated";
-                    else
-                        message = "Saved";
-
-                    if (billingCollections != null)
+                    if (item.ID != Guid.Empty)
                     {
-                        billingCollections.ForEach(item =>
+                        var ifExist = db.BillingCollectionFinanceManager.FirstOrDefault(r => r.ID == item.ID);
+
+                        if (ifExist != null) //UPDATE
                         {
-                            if (item.Status != "N")
+                            if (item.Status == "U")
                             {
-                                var ifExist = db.BillingCollectionFinanceManager.FirstOrDefault(r => r.ID == item.ID);
+                                ifExist.ContactNo = item.ContactNo;
+                                ifExist.Email = item.Email;
+                                ifExist.Name = item.Name;
+                                ifExist.Position = item.Position;
+                                ifExist.ModifiedDate = DateTime.Now;
+                                ifExist.ModifiedBy = UniversalHelpers.CurrentUser.ID;
 
-                                if (ifExist != null) //UPDATE
-                                {
-                                    if (item.Status == "U")
-                                    {
-                                        ifExist.ContactNo = item.ContactNo;
-                                        ifExist.Email = item.Email;
-                                        ifExist.Name = item.Name;
-                                        ifExist.Position = item.Position;
-                                        ifExist.ModifiedDate = DateTime.Now;
-                                        ifExist.ModifiedBy = UniversalHelpers.CurrentUser.ID;
+                                db.Entry(ifExist).State = EntityState.Modified;
 
-                                        db.Entry(ifExist).State = EntityState.Modified;
-                                    }
-                                    else
-                                        db.Entry(ifExist).State = EntityState.Deleted;
-                                }
+                                message = "Updated";
                             }
-                            else//NEW
+                            else
                             {
-                                BillingCollectionFinanceManager newBilling = new BillingCollectionFinanceManager
-                                {
-                                    ID = Guid.NewGuid(),
-                                    ClientCode = UniversalHelpers.SelectedClient,
-                                    ContactNo = item.ContactNo,
-                                    Email = item.Email,
-                                    Name = item.Name,
-                                    Position = item.Position,
-                                    ModifiedBy = UniversalHelpers.CurrentUser.ID,
-                                    ModifiedDate = DateTime.Now
-                                };
+                                db.Entry(ifExist).State = EntityState.Deleted;
 
-                                db.Entry(newBilling).State = EntityState.Added;
+                                message = "Deleted";
                             }
-                            
-                        });
+                        }
+                    }
+                    else//NEW
+                    {
+                        BillingCollectionFinanceManager newBilling = new BillingCollectionFinanceManager
+                        {
+                            ID = Guid.NewGuid(),
+                            ClientCode = UniversalHelpers.SelectedClient,
+                            ContactNo = item.ContactNo,
+                            Email = item.Email,
+                            Name = item.Name,
+                            Position = item.Position,
+                            ModifiedBy = UniversalHelpers.CurrentUser.ID,
+                            ModifiedDate = DateTime.Now
+                        };
+
+                        db.Entry(newBilling).State = EntityState.Added;
+
+                        message = "Saved";
+                    }
                     
                         db.SaveChanges();
-                    }
                 }
             }
             catch(Exception error)

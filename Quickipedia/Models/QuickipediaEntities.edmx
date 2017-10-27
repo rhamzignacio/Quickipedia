@@ -14,6 +14,7 @@
           <Property Name="Title" Type="varchar" MaxLength="300" />
           <Property Name="ModifiedBy" Type="uniqueidentifier" />
           <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
           <Property Name="Status" Type="varchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="Airlines">
@@ -152,6 +153,7 @@
           <Property Name="BillerID" Type="uniqueidentifier" />
           <Property Name="ContractStartDate" Type="date" />
           <Property Name="ContractEndDate" Type="date" />
+          <Property Name="GlobalCustomerNo" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="DisallowedAirlines">
           <Key>
@@ -176,6 +178,21 @@
           <Property Name="ModifiedBy" Type="uniqueidentifier" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="FareComparison">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="LF" Type="varchar" MaxLength="1" />
+          <Property Name="LowFare" Type="varchar" MaxLength="500" />
+          <Property Name="RF" Type="varchar" MaxLength="1" />
+          <Property Name="ReferenceFare" Type="varchar" MaxLength="500" />
+          <Property Name="HotelStandardFare" Type="varchar" MaxLength="1" />
+          <Property Name="CarStandardFare" Type="varchar" MaxLength="1" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="FormOfPayment">
           <Key>
             <PropertyRef Name="ID" />
@@ -193,7 +210,7 @@
           <Property Name="CCLiquidation_Others" Type="varchar(max)" />
           <Property Name="MerchantFee" Type="varchar" MaxLength="100" />
           <Property Name="Currency" Type="varchar" MaxLength="3" />
-          <Property Name="Other_Currency" Type="varchar" MaxLength="500" />
+          <Property Name="Other_Currency" Type="varchar" MaxLength="3" />
         </EntityType>
         <EntityType Name="HotelCorporateCode">
           <Key>
@@ -486,9 +503,9 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="ResponseTime" Type="varchar" MaxLength="200" />
-          <Property Name="NoOfQuotationOptions" Type="varchar" MaxLength="500" />
+          <Property Name="NoOfQuotationOptions" Type="varchar(max)" />
           <Property Name="QuotationFormat" Type="varchar" MaxLength="150" />
           <Property Name="AuthorityToTicket" Type="varchar" MaxLength="100" />
           <Property Name="FareAudit" Type="varchar" MaxLength="100" />
@@ -644,6 +661,7 @@
           <EntitySet Name="ClientProfile" EntityType="Self.ClientProfile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DisallowedAirlines" EntityType="Self.DisallowedAirlines" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DomesticBookingProcess" EntityType="Self.DomesticBookingProcess" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FareComparison" EntityType="Self.FareComparison" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FormOfPayment" EntityType="Self.FormOfPayment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HotelCorporateCode" EntityType="Self.HotelCorporateCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HotelPolicy" EntityType="Self.HotelPolicy" Schema="dbo" store:Type="Tables" />
@@ -741,6 +759,7 @@
           <EntitySet Name="UserClient" EntityType="QuickipediaModel.UserClient" />
           <EntitySet Name="VIP" EntityType="QuickipediaModel.VIP" />
           <EntitySet Name="VisaAndDocumentation" EntityType="QuickipediaModel.VisaAndDocumentation" />
+          <EntitySet Name="FareComparison" EntityType="QuickipediaModel.FareComparison" />
         </EntityContainer>
         <EntityType Name="Advisory">
           <Key>
@@ -752,6 +771,7 @@
           <Property Name="ModifiedBy" Type="Guid" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Airlines">
           <Key>
@@ -889,6 +909,7 @@
           <Property Name="BillerID" Type="Guid" />
           <Property Name="ContractStartDate" Type="DateTime" Precision="0" />
           <Property Name="ContractEndDate" Type="DateTime" Precision="0" />
+          <Property Name="GlobalCustomerNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="DisallowedAirlines">
           <Key>
@@ -930,7 +951,7 @@
           <Property Name="CCLiquidation_Others" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="MerchantFee" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Currency" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="Other_Currency" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Other_Currency" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="HotelCorporateCode">
           <Key>
@@ -1223,9 +1244,9 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Guid" Nullable="false" />
-          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ResponseTime" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="NoOfQuotationOptions" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="NoOfQuotationOptions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="QuotationFormat" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="AuthorityToTicket" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="FareAudit" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -1365,6 +1386,21 @@
           <Property Name="ModifiedBy" Type="Guid" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="FareComparison">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LF" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="LowFare" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="RF" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ReferenceFare" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="HotelStandardFare" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="CarStandardFare" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1374,6 +1410,7 @@
           <EntitySetMapping Name="Advisory">
             <EntityTypeMapping TypeName="QuickipediaModel.Advisory">
               <MappingFragment StoreEntitySet="Advisory">
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -1517,6 +1554,7 @@
           <EntitySetMapping Name="ClientProfile">
             <EntityTypeMapping TypeName="QuickipediaModel.ClientProfile">
               <MappingFragment StoreEntitySet="ClientProfile">
+                <ScalarProperty Name="GlobalCustomerNo" ColumnName="GlobalCustomerNo" />
                 <ScalarProperty Name="ContractEndDate" ColumnName="ContractEndDate" />
                 <ScalarProperty Name="ContractStartDate" ColumnName="ContractStartDate" />
                 <ScalarProperty Name="BillerID" ColumnName="BillerID" />
@@ -2043,6 +2081,22 @@
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
                 <ScalarProperty Name="ProcessFlow" ColumnName="ProcessFlow" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FareComparison">
+            <EntityTypeMapping TypeName="QuickipediaModel.FareComparison">
+              <MappingFragment StoreEntitySet="FareComparison">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CarStandardFare" ColumnName="CarStandardFare" />
+                <ScalarProperty Name="HotelStandardFare" ColumnName="HotelStandardFare" />
+                <ScalarProperty Name="ReferenceFare" ColumnName="ReferenceFare" />
+                <ScalarProperty Name="RF" ColumnName="RF" />
+                <ScalarProperty Name="LowFare" ColumnName="LowFare" />
+                <ScalarProperty Name="LF" ColumnName="LF" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

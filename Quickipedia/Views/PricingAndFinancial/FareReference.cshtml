@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "FareReference";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div role="main" ng-controller="pricingAndFinancialController as vm" ng-init="InitFareRef()">
+    <div class="x_content">
+        <h3>Fare Reference</h3>
+
+        <form name="fareRefForm">
+            <input type="hidden" ng-model="vm.FareRef.ID" />
+
+            <div class="form-group">
+                <label>Low Fare</label>
+                <select class="select2_single form-control" ng-model="vm.FareRef.LF"
+                        ng-options="item.value as item.label for item in YesNo"></select>
+            </div>
+
+            <div class="form-group">
+                <label>Low Fare Description</label>
+                <textarea rows="5" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'"
+                          ng-model="vm.FareRef.LowFare"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Reference Fare / High Fare</label>
+                <select class="select2_single form-control" ng-model="vm.FareRef.RF"
+                        ng-options="item.value as item.label for item in YesNo"></select>
+            </div>
+
+            <div class="form-group">
+                <label>Reference Fare / High Fare Description</label>
+                <textarea rows="5" class="form-control" ng-disabled="main.CurrentUser.AccessLevel == 'U'"
+                         ng-model="vm.FareRef.ReferenceFare"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Hotel Standard Fee</label>
+                <select class="select2_single form-control" ng-model="vm.FareRef.HotelStandardFare"
+                        ng-options="item.value as item.label for item in YesNo"></select>
+            </div>
+
+            <div class="form-group">
+                <label>Car Standard Fee</label>
+                <select class="select2_single form-control" ng-model="vm.FareRef.CarStandardFare"
+                        ng-options="item.value as item.label for item in YesNo"></select>
+            </div>
+
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" ng-click="SaveFareRef(vm.FareRef)">
+                    <span ng-show="main.CurrentClient.ClientCode == 'NewClient' || vm.FareRef.ClientCode == null">Save</span>
+                    <span ng-show="main.CurrentClient.ClientCode != 'NewClient' && vm.FareRef.ClientCode != null">Update</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -78,5 +78,6 @@ namespace Quickipedia.Models
         public virtual DbSet<UserClient> UserClient { get; set; }
         public virtual DbSet<VIP> VIP { get; set; }
         public virtual DbSet<VisaAndDocumentation> VisaAndDocumentation { get; set; }
+        public virtual DbSet<FareComparison> FareComparison { get; set; }
     }
 }

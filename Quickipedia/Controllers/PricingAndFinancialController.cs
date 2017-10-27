@@ -56,9 +56,36 @@ namespace Quickipedia.Controllers
             return View();
         }
 
+        public ActionResult FareReference()
+        {
+            return View();
+        }
+
         #endregion
 
         #region Functions
+        //==============FARE COMPARISON==============
+        [HttpPost]
+        public JsonResult GetFareRef()
+        {
+            string serverResponse = "";
+
+            var fare = PricingAndFinancialService.GetFareComparison(out serverResponse);
+
+            return Json(new { errorMessage = serverResponse, fare = fare });
+        }
+
+        [HttpPost]
+        public JsonResult SaveFareRef(FareComparisonModel fare)
+        {
+            string serverResponse = "";
+
+            if (fare != null)
+                PricingAndFinancialService.SaveFareComparison(fare, out serverResponse);
+
+            return Json(serverResponse);
+        }
+
         //=================OTHERS====================
         [HttpPost]
         public JsonResult GetOthers()
@@ -220,12 +247,27 @@ namespace Quickipedia.Controllers
         }
 
         [HttpPost]
-        public JsonResult AddUpdateBillingCollectionFinance(List<BillingCollectionFinanceModel> billingCollections)
+        public JsonResult AddUpdateBillingCollectionFinance(BillingCollectionFinanceModel billingCollections)
         {
             string serverResponse = "";
 
             if(billingCollections != null)
                 PricingAndFinancialService.SaveBillingCollection(billingCollections, out serverResponse);
+
+            return Json(serverResponse);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteBillingCollectionFinance(BillingCollectionFinanceModel billing)
+        {
+            string serverResponse = "";
+
+            if(billing != null)
+            {
+                billing.Status = "X";
+
+                PricingAndFinancialService.SaveBillingCollection(billing, out serverResponse);
+            }
 
             return Json(serverResponse);
         }

@@ -12,20 +12,17 @@ namespace Quickipedia.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ClientProfile
+    public partial class FareComparison
     {
         public System.Guid ID { get; set; }
         public string ClientCode { get; set; }
-        public string ClientType { get; set; }
-        public string ClientName { get; set; }
-        public string Address { get; set; }
-        public string Biller { get; set; }
-        public string AccountOfficer { get; set; }
+        public string LF { get; set; }
+        public string LowFare { get; set; }
+        public string RF { get; set; }
+        public string ReferenceFare { get; set; }
+        public string HotelStandardFare { get; set; }
+        public string CarStandardFare { get; set; }
         public Nullable<System.Guid> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public Nullable<System.Guid> BillerID { get; set; }
-        public Nullable<System.DateTime> ContractStartDate { get; set; }
-        public Nullable<System.DateTime> ContractEndDate { get; set; }
-        public string GlobalCustomerNo { get; set; }
     }
 }

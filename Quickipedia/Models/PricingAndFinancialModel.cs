@@ -7,6 +7,31 @@ namespace Quickipedia.Models
 {
     public class PricingAndFinancialModel { }
 
+    public class FareComparisonModel
+    {
+        public Guid ID { get; set; }
+        public string ClientCode { get; set; }
+        public string LF { get; set; }
+        public string LowFare { get; set; }
+        public string RF { get; set; }
+        public string ReferenceFare { get; set; }
+        public string CarStandardFare { get; set; }
+        public string HotelStandardFare { get; set; }
+        public Guid? ModifiedBy { get; set; }
+        public string ShowModifiedBy { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public string ShowModifiedDate
+        {
+            get
+            {
+                if (ModifiedDate != null)
+                    return DateTime.Parse(ModifiedDate.ToString()).ToShortDateString();
+                else
+                    return "";
+            }
+        }
+    }
+
     public class TableOfFeesCategoryDropDown
     {
         public Guid ID { get; set; }

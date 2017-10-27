@@ -16,6 +16,7 @@ namespace Quickipedia.Models
         public List<ClientContactPersonModel> ClientContactPersons { get; set; }
         public string Biller { get; set; }
         public string AccountOfficerManager { get; set; }
+        public string GlobalCustomerNo { get; set; }
         public Guid? ModifiedBy { get; set; }
         public string ShowModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }

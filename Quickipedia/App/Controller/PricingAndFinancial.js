@@ -21,6 +21,11 @@
         { value: "OTH", label: "Other" }
     ];
 
+    $scope.YesNo = [
+        { value: "Y", label: "Yes" },
+        { value: "N", label: "No" }
+    ];
+
     $scope.FOPDropdown = [
         { value: "Credit Card (Airplus)", label: "Credit Card (Airplus)" },
         { value: "Credit Card (Amex)", label: "Credit Card (Amex)" },
@@ -84,6 +89,33 @@
         { value: "Account Management", label: "Account Management" }
     ];
 
+    //======FARE REF===========
+    $scope.InitFareRef = function () {
+        $http({
+            method: "POST",
+            url: "/PricingAndFinancial/GetFareRef",
+            arguments: { "Content-Type": "application/json" }
+        }).then(function (data) {
+            if (data.data.errorMessage != "") {
+                growl.error(data.data.errorMessage, { title: "Error!", ttl: 3000 });
+            }
+            else {
+                vm.FareRef = data.data.fare;
+            }
+        });
+    }
+
+    $scope.SaveFareRef = function (value) {
+        $http({
+            method: "POST",
+            url: "/PricingAndFinancial/SaveFareRef",
+            data: { fare: value }
+        }).then(function (data) {
+            PopUpMessage(data.data);
+        });
+    }
+
+    //=======END OF FARE REF==========
     $scope.CheckIfCreditCard = function (value) {
         if(value == "Credit Card (Airplus)" || value == "Credit Card (Amex)" || value == "Credit Card (Diners)"
             || value == "Credit Card (JCB)" || value == "Credit Card (MasterCard)" || value == "Credit Card (Visa)") {
@@ -303,6 +335,8 @@
             data: { billingCollections: value }
         }).then(function(data){
             PopUpMessage(data.data);
+
+            $scope.initBillingCollectionFinance();
         });
     }
 
@@ -350,8 +384,24 @@
         }
     }
 
-    $scope.Remove = function (value) {
-        value.Status = "X"; 
+    $scope.RemoveBilling = function (value) {
+        vm.DeleteBilling = value;
+    }
+
+    $scope.DeleteBilling = function () {
+        $http({
+            method: "POST",
+            url: "/PricingAndFinancial/DeleteBillingCollectionFinance",
+            data: { billing: vm.DeleteBilling }
+        }).then(function (data) {
+            PopUpMessage(data.data);
+
+            if (data.data == "Deleted") {
+                $("#deleteBilling").modal('hide');
+            }
+
+            $scope.initBillingCollectionFinance();
+        });
     }
 
     //===========Table of Fees Category===========
