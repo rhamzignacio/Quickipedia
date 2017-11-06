@@ -370,6 +370,7 @@
             temp.ContactNo = value.ContactNo;
         }
         else{
+
             var person = {
                 IDNo: vm.BillingCoinitTableOfFeesllectionFinances.length + 1,
                 ID: null,
