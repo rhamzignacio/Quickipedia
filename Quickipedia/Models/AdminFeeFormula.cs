@@ -12,14 +12,8 @@ namespace Quickipedia.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Advisory
+    public partial class AdminFeeFormula
     {
         public System.Guid ID { get; set; }
-        public string Message { get; set; }
-        public string Title { get; set; }
-        public Nullable<System.Guid> ModifiedBy { get; set; }
-        public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public string ClientCode { get; set; }
-        public string Status { get; set; }
     }
 }

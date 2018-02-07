@@ -12,6 +12,8 @@ namespace Quickipedia.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class QuickipediaEntities : DbContext
     {
@@ -25,6 +27,7 @@ namespace Quickipedia.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AdminFeeFormula> AdminFeeFormula { get; set; }
         public virtual DbSet<Advisory> Advisory { get; set; }
         public virtual DbSet<Airlines> Airlines { get; set; }
         public virtual DbSet<AncillariesFees> AncillariesFees { get; set; }
@@ -40,6 +43,7 @@ namespace Quickipedia.Models
         public virtual DbSet<ClientProfile> ClientProfile { get; set; }
         public virtual DbSet<DisallowedAirlines> DisallowedAirlines { get; set; }
         public virtual DbSet<DomesticBookingProcess> DomesticBookingProcess { get; set; }
+        public virtual DbSet<FareComparison> FareComparison { get; set; }
         public virtual DbSet<FormOfPayment> FormOfPayment { get; set; }
         public virtual DbSet<HotelCorporateCode> HotelCorporateCode { get; set; }
         public virtual DbSet<HotelPolicy> HotelPolicy { get; set; }
@@ -78,6 +82,19 @@ namespace Quickipedia.Models
         public virtual DbSet<UserClient> UserClient { get; set; }
         public virtual DbSet<VIP> VIP { get; set; }
         public virtual DbSet<VisaAndDocumentation> VisaAndDocumentation { get; set; }
-        public virtual DbSet<FareComparison> FareComparison { get; set; }
+        public virtual DbSet<vw_FareComparison> vw_FareComparison { get; set; }
+    
+        public virtual int ChangeClientCode(string clientCode, string newClientCode)
+        {
+            var clientCodeParameter = clientCode != null ?
+                new ObjectParameter("ClientCode", clientCode) :
+                new ObjectParameter("ClientCode", typeof(string));
+    
+            var newClientCodeParameter = newClientCode != null ?
+                new ObjectParameter("NewClientCode", newClientCode) :
+                new ObjectParameter("NewClientCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ChangeClientCode", clientCodeParameter, newClientCodeParameter);
+        }
     }
 }

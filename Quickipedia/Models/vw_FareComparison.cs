@@ -12,14 +12,18 @@ namespace Quickipedia.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Advisory
+    public partial class vw_FareComparison
     {
         public System.Guid ID { get; set; }
-        public string Message { get; set; }
-        public string Title { get; set; }
+        public string ClientCode { get; set; }
+        public string ClientName { get; set; }
+        public string LF { get; set; }
+        public string LowFare { get; set; }
+        public string RF { get; set; }
+        public string ReferenceFare { get; set; }
+        public string HotelStandardFare { get; set; }
+        public string CarStandardFare { get; set; }
         public Nullable<System.Guid> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public string ClientCode { get; set; }
-        public string Status { get; set; }
     }
 }

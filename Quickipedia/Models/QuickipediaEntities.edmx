@@ -5,6 +5,12 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="QuickipediaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdminFeeFormula">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
         <EntityType Name="Advisory">
           <Key>
             <PropertyRef Name="ID" />
@@ -210,7 +216,7 @@
           <Property Name="CCLiquidation_Others" Type="varchar(max)" />
           <Property Name="MerchantFee" Type="varchar" MaxLength="100" />
           <Property Name="Currency" Type="varchar" MaxLength="3" />
-          <Property Name="Other_Currency" Type="varchar" MaxLength="3" />
+          <Property Name="Other_Currency" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="HotelCorporateCode">
           <Key>
@@ -645,7 +651,30 @@
           <Property Name="ModifiedBy" Type="uniqueidentifier" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Quickipedia.dbo.vw_FareComparison' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_FareComparison">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCode" Type="varchar" MaxLength="20" />
+          <Property Name="ClientName" Type="varchar" MaxLength="250" />
+          <Property Name="LF" Type="varchar" MaxLength="1" />
+          <Property Name="LowFare" Type="varchar" MaxLength="500" />
+          <Property Name="RF" Type="varchar" MaxLength="1" />
+          <Property Name="ReferenceFare" Type="varchar" MaxLength="500" />
+          <Property Name="HotelStandardFare" Type="varchar" MaxLength="1" />
+          <Property Name="CarStandardFare" Type="varchar" MaxLength="1" />
+          <Property Name="ModifiedBy" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <Function Name="ChangeClientCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClientCode" Type="varchar" Mode="In" />
+          <Parameter Name="NewClientCode" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="QuickipediaModelStoreContainer">
+          <EntitySet Name="AdminFeeFormula" EntityType="Self.AdminFeeFormula" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Advisory" EntityType="Self.Advisory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Airlines" EntityType="Self.Airlines" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AncillariesFees" EntityType="Self.AncillariesFees" Schema="dbo" store:Type="Tables" />
@@ -700,12 +729,28 @@
           <EntitySet Name="UserClient" EntityType="Self.UserClient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VIP" EntityType="Self.VIP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VisaAndDocumentation" EntityType="Self.VisaAndDocumentation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_FareComparison" EntityType="Self.vw_FareComparison" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_FareComparison].[ID] AS [ID], 
+    [vw_FareComparison].[ClientCode] AS [ClientCode], 
+    [vw_FareComparison].[ClientName] AS [ClientName], 
+    [vw_FareComparison].[LF] AS [LF], 
+    [vw_FareComparison].[LowFare] AS [LowFare], 
+    [vw_FareComparison].[RF] AS [RF], 
+    [vw_FareComparison].[ReferenceFare] AS [ReferenceFare], 
+    [vw_FareComparison].[HotelStandardFare] AS [HotelStandardFare], 
+    [vw_FareComparison].[CarStandardFare] AS [CarStandardFare], 
+    [vw_FareComparison].[ModifiedBy] AS [ModifiedBy], 
+    [vw_FareComparison].[ModifiedDate] AS [ModifiedDate]
+    FROM [dbo].[vw_FareComparison] AS [vw_FareComparison]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QuickipediaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="QuickipediaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AdminFeeFormula" EntityType="QuickipediaModel.AdminFeeFormula" />
           <EntitySet Name="Advisory" EntityType="QuickipediaModel.Advisory" />
           <EntitySet Name="Airlines" EntityType="QuickipediaModel.Airlines" />
           <EntitySet Name="AncillariesFees" EntityType="QuickipediaModel.AncillariesFees" />
@@ -721,6 +766,7 @@
           <EntitySet Name="ClientProfile" EntityType="QuickipediaModel.ClientProfile" />
           <EntitySet Name="DisallowedAirlines" EntityType="QuickipediaModel.DisallowedAirlines" />
           <EntitySet Name="DomesticBookingProcess" EntityType="QuickipediaModel.DomesticBookingProcess" />
+          <EntitySet Name="FareComparison" EntityType="QuickipediaModel.FareComparison" />
           <EntitySet Name="FormOfPayment" EntityType="QuickipediaModel.FormOfPayment" />
           <EntitySet Name="HotelCorporateCode" EntityType="QuickipediaModel.HotelCorporateCode" />
           <EntitySet Name="HotelPolicy" EntityType="QuickipediaModel.HotelPolicy" />
@@ -759,8 +805,18 @@
           <EntitySet Name="UserClient" EntityType="QuickipediaModel.UserClient" />
           <EntitySet Name="VIP" EntityType="QuickipediaModel.VIP" />
           <EntitySet Name="VisaAndDocumentation" EntityType="QuickipediaModel.VisaAndDocumentation" />
-          <EntitySet Name="FareComparison" EntityType="QuickipediaModel.FareComparison" />
+          <EntitySet Name="vw_FareComparison" EntityType="QuickipediaModel.vw_FareComparison" />
+          <FunctionImport Name="ChangeClientCode">
+            <Parameter Name="ClientCode" Mode="In" Type="String" />
+            <Parameter Name="NewClientCode" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <EntityType Name="AdminFeeFormula">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+        </EntityType>
         <EntityType Name="Advisory">
           <Key>
             <PropertyRef Name="ID" />
@@ -770,8 +826,8 @@
           <Property Name="Title" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedBy" Type="Guid" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="Status" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Airlines">
           <Key>
@@ -934,6 +990,21 @@
           <Property Name="ModifiedBy" Type="Guid" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="FareComparison">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LF" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="LowFare" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="RF" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ReferenceFare" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="HotelStandardFare" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="CarStandardFare" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="Guid" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="FormOfPayment">
           <Key>
             <PropertyRef Name="ID" />
@@ -951,7 +1022,7 @@
           <Property Name="CCLiquidation_Others" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="MerchantFee" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Currency" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="Other_Currency" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Other_Currency" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="HotelCorporateCode">
           <Key>
@@ -1244,7 +1315,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Guid" Nullable="false" />
-          <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClientCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ResponseTime" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="NoOfQuotationOptions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="QuotationFormat" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
@@ -1386,12 +1457,13 @@
           <Property Name="ModifiedBy" Type="Guid" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="FareComparison">
+        <EntityType Name="vw_FareComparison">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Guid" Nullable="false" />
           <Property Name="ClientCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ClientName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="LF" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="LowFare" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="RF" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
@@ -1407,11 +1479,18 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="QuickipediaModelStoreContainer" CdmEntityContainer="QuickipediaEntities">
+          <EntitySetMapping Name="AdminFeeFormula">
+            <EntityTypeMapping TypeName="QuickipediaModel.AdminFeeFormula">
+              <MappingFragment StoreEntitySet="AdminFeeFormula">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Advisory">
             <EntityTypeMapping TypeName="QuickipediaModel.Advisory">
               <MappingFragment StoreEntitySet="Advisory">
-                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -1590,6 +1669,22 @@
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FareComparison">
+            <EntityTypeMapping TypeName="QuickipediaModel.FareComparison">
+              <MappingFragment StoreEntitySet="FareComparison">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CarStandardFare" ColumnName="CarStandardFare" />
+                <ScalarProperty Name="HotelStandardFare" ColumnName="HotelStandardFare" />
+                <ScalarProperty Name="ReferenceFare" ColumnName="ReferenceFare" />
+                <ScalarProperty Name="RF" ColumnName="RF" />
+                <ScalarProperty Name="LowFare" ColumnName="LowFare" />
+                <ScalarProperty Name="LF" ColumnName="LF" />
                 <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
@@ -2085,9 +2180,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FareComparison">
-            <EntityTypeMapping TypeName="QuickipediaModel.FareComparison">
-              <MappingFragment StoreEntitySet="FareComparison">
+          <EntitySetMapping Name="vw_FareComparison">
+            <EntityTypeMapping TypeName="QuickipediaModel.vw_FareComparison">
+              <MappingFragment StoreEntitySet="vw_FareComparison">
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CarStandardFare" ColumnName="CarStandardFare" />
@@ -2096,11 +2191,13 @@
                 <ScalarProperty Name="RF" ColumnName="RF" />
                 <ScalarProperty Name="LowFare" ColumnName="LowFare" />
                 <ScalarProperty Name="LF" ColumnName="LF" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
                 <ScalarProperty Name="ClientCode" ColumnName="ClientCode" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ChangeClientCode" FunctionName="QuickipediaModel.Store.ChangeClientCode" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
