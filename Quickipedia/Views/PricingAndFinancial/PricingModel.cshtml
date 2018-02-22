@@ -28,7 +28,7 @@
                 <input type="checkbox" class="" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-model="vm.PricingModel.ReturnFlag" /><label>Return</label>
             </div>
             
-            <div class="form-group">
+            <div class="form-group" ng-show="main.CurrentUser.AccessLevel == 'A'">
                 <button type="button" class="btn btn-primary" ng-click="savePricingModel(vm.PricingModel, main.CurrentClient.ClientCode)">
                     <span ng-show="main.CurrentClient.ClientCode == 'NewClient' || vm.PricingModel.ClientCode == null">Save</span>
                     <span ng-show="main.CurrentClient.ClientCode != 'NewClient' && vm.PricingModel.ClientCode != null">Update</span>

@@ -17,7 +17,7 @@
             </textarea>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" ng-show="main.CurrentUser.AccessLevel == 'A'">
             <button type="button" class="btn btn-primary" ng-click="saveCarPolicy(vm.CarPolicy)">
                 <span ng-show="main.CurrentClient.ClientCode == 'NewClient' || vm.CarPolicy.ClientCode == null">Save</span>
                 <span ng-show="main.CurrentClient.ClientCode != 'NewClient' && vm.CarPolicy.ClientCode != null">Update</span>

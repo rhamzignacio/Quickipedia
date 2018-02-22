@@ -48,7 +48,7 @@
 
         <div class="x_panel">
             <div class="x_title">
-                <h2><i class="fa fa-link"></i> Link(s)</h2>
+                <h2><i class="fa fa-link"></i> Link(s) <span ng-show="main.CurrentUser.AccessLevel == 'A'">[Please include 'https://' at the start of the link]</span></h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <a class="" data-toggle="modal" data-target="#linkModal"><i class="fa fa-plus" ng-click="ClearModal()"></i></a>
@@ -72,7 +72,7 @@
                             ng-click="AssignDeleteLink(item)" data-toggle="modal" data-target="#deleteLinkModal">
                         <i class="fa fa-close"></i>
                     </button>
-                    <a href="http://{{item.Link}}">{{item.Title}} <small>Modified By: {{item.ShowModifiedBy}} - {{item.ShowModifiedDate}}</small></a>
+                    <a href="#" ng-click="OpenInNewTab(item.Link)">{{item.Title}} <small>Modified By: {{item.ShowModifiedBy}} - {{item.ShowModifiedDate}}</small></a>
                 </div>
             </div><!--./x-content-->
         </div><!--./x_panel-->

@@ -39,7 +39,6 @@
     }
 
     $scope.uploadFiles = function (files, errFiles) {
-        $scope.files = files;
         $scope.errFiles = errFiles;
 
         angular.forEach(files, function (file) {
@@ -85,6 +84,12 @@
             }
         });
 
+    }
+
+    $scope.OpenTab = function (value) {
+        var win = window.open(value, '_blank');
+
+        win.focus();
     }
 
     $scope.AssignDeleteLink = function (value) {
@@ -169,6 +174,12 @@
 
     $scope.delete = function (value) {
         value.Status = "X";
+    }
+
+    $scope.OpenInNewTab = function (value) {
+        var win = window.open(value, '_blank');
+
+        win.focus();
     }
 
     //=================HOTEL COPORATE CODE=========================

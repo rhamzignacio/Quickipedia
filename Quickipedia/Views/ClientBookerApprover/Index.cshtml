@@ -17,7 +17,7 @@
                       ng-model="vm.ClientBookerApprover.Value"></textarea>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" ng-show="main.CurrentUser.AccessLevel == 'A'">
             <button  type="button" class="btn btn-primary" ng-click="saveClientBooker(vm.ClientBookerApprover)">
                 <span ng-show="main.CurrentClientCode == 'NewClient' || vm.ClientBookerApprover.ClientCode == null">Save</span>
                 <span ng-show="main.CurrentClientCode != 'NewClient' && vm.ClientBookerApprover.ClientCode != null">Update</span>

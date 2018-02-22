@@ -219,4 +219,10 @@
             PopUpMessage(data.data);
         });
     }
+
+    $scope.OpenInNewTab = function (value) {
+        var win = window.open(value, '_blank');
+
+        win.focus();
+    }
 });

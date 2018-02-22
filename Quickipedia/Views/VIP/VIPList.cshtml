@@ -28,7 +28,7 @@
 
                 <tbody>
                     <tr ng-repeat="vip in vm.VIP | filter: {Status: '!X'}">
-                        <td>
+                        <td ng-show="main.CurrentUser.AccessLevel == 'A'">
                             <button class="btn btn-primary btn-xs" ng-click="editVIP(vip)" ng-show="main.CurrentUser.AccessLevel=='A'"
                                     data-toggle="modal" data-target="#vipModal">
                                 <i class="fa fa-pencil" ng-show="main.CurrentUser.AccessLevel=='A'"></i>
