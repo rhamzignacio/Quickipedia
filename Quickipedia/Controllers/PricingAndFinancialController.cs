@@ -11,6 +11,11 @@ namespace Quickipedia.Controllers
     public class PricingAndFinancialController : Controller
     {
         #region Views
+        public ActionResult ECardAdminFee()
+        {
+            return View();
+        }
+
         public ActionResult TableOfFeesCategory()
         {
             return View();
@@ -163,8 +168,6 @@ namespace Quickipedia.Controllers
         [HttpPost]
         public JsonResult GetInvoiceAttachment()
         {
-            string serverResponse = "";
-
             var inv = PricingAndFinancialService.GetInvoiceAttachment();
 
             return Json(inv);
@@ -307,7 +310,37 @@ namespace Quickipedia.Controllers
 
             return Json(serverResponse);
         }
-       
-        #endregion
-    }
+
+        //================ADMIN FEE==============
+
+        [HttpPost]
+        public JsonResult AddUpdateAdminFee(EcardAdminFeeModel adminFee)
+        {
+            string error = "";
+
+            if (adminFee != null)
+            {
+                if (adminFee.ShowDivide != null)
+                    adminFee.Divide = adminFee.ShowDivide / 100;
+
+                if (adminFee.ShowMultiply != null)
+                    adminFee.Multiply = adminFee.ShowMultiply / 100;
+
+                PricingAndFinancialService.SaveAdminFee(adminFee, out error);
+            }
+
+            return Json(error);
+        }
+
+        [HttpPost]
+        public JsonResult GetAdminFee()
+        {
+            string error = "";
+
+            var adminFee = PricingAndFinancialService.GetAdminFee(out error);
+
+            return Json(new { adminFee, error });
+        }
+            #endregion
+        }
 }

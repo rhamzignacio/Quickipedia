@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "ECardAdminFee";
+}
+
+<div role="main" ng-controller="pricingAndFinancialController as vm" ng-init="InitAdminFee()">
+    <div class="x_content">
+        <h3>E-Card Admin Fee</h3>
+
+        <div class="form-group">
+            <input type="checkbox" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-model="vm.AdminFee.AirFare" />
+            <label>Include AirFare in Total</label>
+        </div>
+
+        <div class="form-group">
+            <input type="checkbox" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-model="vm.AdminFee.ServiceFee" />
+            <label>Include ServiceFee in Total</label>
+        </div>
+
+        <div class="form-group">
+            <input type="checkbox" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-model="vm.AdminFee.Others" />
+            <label> Include OtherFee in Total</label>
+        </div>
+
+        <div class="form-group">
+            <label>Divide By</label>
+            <input type="number"  ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-model="vm.AdminFee.ShowDivide" />
+            <span>%</span>
+        </div>
+
+        <div class="form-group">
+            <label>Multiply By</label>
+            <input type="number" ng-disabled="main.CurrentUser.AccessLevel == 'U'" ng-model="vm.AdminFee.ShowMultiply" />
+            <span>%</span>
+        </div>
+
+        <div class="form-group" ng-show="main.CurrentUser.AccessLevel == 'A'">
+            <button class="btn btn-primary" ng-click="SaveAdminFee(vm.AdminFee)">
+                <span ng-show="main.CurrentClient.ClientCode == 'NewClient' || vm.PricingModel.ClientCode == null">Save</span>
+                <span ng-show="main.CurrentClient.ClientCode != 'NewClient' && vm.PricingModel.ClientCode != null">Update</span>
+            </button>
+        </div>
+    </div>
+</div>  

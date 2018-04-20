@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a05914c9770a4a1587f82fe47a843643" Name="Diagram1">
-        <EntityTypeShape EntityType="QuickipediaModel.AdminFeeFormula" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="QuickipediaModel.Advisory" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="QuickipediaModel.Airlines" Width="1.5" PointX="4.75" PointY="0.75" />
         <EntityTypeShape EntityType="QuickipediaModel.AncillariesFees" Width="1.5" PointX="0.75" PointY="4.75" />
@@ -60,7 +59,7 @@
         <EntityTypeShape EntityType="QuickipediaModel.UserClient" Width="1.5" PointX="8.75" PointY="19.75" />
         <EntityTypeShape EntityType="QuickipediaModel.VIP" Width="1.5" PointX="18.75" PointY="19.75" />
         <EntityTypeShape EntityType="QuickipediaModel.VisaAndDocumentation" Width="1.5" PointX="20.75" PointY="0.75" />
-        <EntityTypeShape EntityType="QuickipediaModel.vw_FareComparison" Width="1.5" PointX="20.75" PointY="3.75" />
+        <EntityTypeShape EntityType="QuickipediaModel.EcardAdminFee" Width="1.5" PointX="5.375" PointY="20.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -7,6 +7,55 @@ namespace Quickipedia.Models
 {
     public class PricingAndFinancialModel { }
 
+    public class EcardAdminFeeModel
+    {
+        public string ClientCode { get; set; }
+        public bool AirFare { get; set; }
+        public bool ServiceFee { get; set; }
+        public bool Others { get; set; }
+        public decimal? Divide { get; set; }
+        public decimal? Multiply { get; set; }
+        public Guid? ModifiedBy { get; set; }
+        public string ShowModifiedBy { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public string ShowModifiedDate
+        {
+            get
+            {
+                if (ModifiedDate != null)
+                    return DateTime.Parse(ModifiedDate.ToString()).ToShortDateString();
+                else
+                    return "";
+            }
+        }
+
+        private decimal? _showDivide;
+        public decimal? ShowDivide
+        {
+            get
+            {
+                if (Divide != null)
+                    return Divide * 100;
+                else
+                    return null;
+            }
+            set { _showDivide = value; }
+        }
+
+        private decimal? _showMultiply;
+        public decimal? ShowMultiply
+        {
+            get
+            {
+                if (Multiply != null)
+                    return Multiply * 100;
+                else
+                    return null;
+            }
+            set { _showMultiply = value; }
+        }
+    }
+
     public class FareComparisonModel
     {
         public Guid ID { get; set; }

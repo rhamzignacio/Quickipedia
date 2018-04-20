@@ -9,6 +9,100 @@ namespace Quickipedia.Services
 {
     public class PricingAndFinancialService
     {
+        //AdminFee
+        public static EcardAdminFeeModel GetAdminFee(out string message)
+        {
+            try
+            {
+                message = "";
+
+                using (var db = new QuickipediaEntities())
+                {
+                    var query = from a in db.EcardAdminFee
+                                join u in db.UserAccount on a.ModifiedBy equals u.ID into qU
+                                from us in qU.DefaultIfEmpty()
+                                where a.ClientCode == UniversalHelpers.SelectedClient
+                                select new EcardAdminFeeModel
+                                {
+                                    ClientCode = a.ClientCode,
+                                    AirFare = a.AirFareFlag,
+                                    Divide  = a.Divide,
+                                    ModifiedBy  = a.ModifiedBy,
+                                    ModifiedDate = a.ModifiedDate,
+                                    Multiply = a.Multiply,
+                                    Others = a.OtherFeeFlag,
+                                    ServiceFee = a.ServiceFeeFlag,
+                                    ShowModifiedBy = us.FirstName + " " + us.LastName
+                                };
+
+                    if (query.FirstOrDefault() != null)
+                        return query.FirstOrDefault();
+                    else
+                        return new EcardAdminFeeModel();
+                }
+            }
+            catch (Exception error)
+            {
+                message = error.Message;
+
+                return new EcardAdminFeeModel(); ;
+            }
+        }
+
+        public static void SaveAdminFee(EcardAdminFeeModel _model, out string message)
+        {
+            try
+            {
+                message = "Saved";
+
+                using (var db = new QuickipediaEntities())
+                {
+                    var admin = db.EcardAdminFee.FirstOrDefault(r => r.ClientCode == UniversalHelpers.SelectedClient);
+
+                    if (admin == null)//new
+                    {
+                        EcardAdminFee newAdmin = new EcardAdminFee
+                        {
+                            ClientCode = UniversalHelpers.SelectedClient,
+                            AirFareFlag = _model.AirFare,
+                            Divide = _model.Divide,
+                            ModifiedBy = UniversalHelpers.CurrentUser.ID,
+                            ModifiedDate = DateTime.Now,
+                            Multiply = _model.Multiply,
+                            OtherFeeFlag = _model.Others,
+                            ServiceFeeFlag = _model.ServiceFee
+                        };
+
+                        db.Entry(newAdmin).State = EntityState.Added;
+                    }
+                    else//update
+                    {
+                        admin.AirFareFlag = _model.AirFare;
+
+                        admin.Divide = _model.Divide;
+
+                        admin.ModifiedBy = UniversalHelpers.CurrentUser.ID;
+
+                        admin.ModifiedDate = DateTime.Now;
+
+                        admin.Multiply = _model.Multiply;
+
+                        admin.OtherFeeFlag = _model.Others;
+
+                        admin.ServiceFeeFlag = _model.ServiceFee;
+
+                        db.Entry(admin).State = EntityState.Modified;
+                    }
+
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception error)
+            {
+                message = error.Message;
+            }
+        }
+
         //FareComparison
         public static FareComparisonModel GetFareComparison(out string message)
         {

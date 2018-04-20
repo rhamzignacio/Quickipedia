@@ -27,7 +27,6 @@ namespace Quickipedia.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<AdminFeeFormula> AdminFeeFormula { get; set; }
         public virtual DbSet<Advisory> Advisory { get; set; }
         public virtual DbSet<Airlines> Airlines { get; set; }
         public virtual DbSet<AncillariesFees> AncillariesFees { get; set; }
@@ -82,7 +81,7 @@ namespace Quickipedia.Models
         public virtual DbSet<UserClient> UserClient { get; set; }
         public virtual DbSet<VIP> VIP { get; set; }
         public virtual DbSet<VisaAndDocumentation> VisaAndDocumentation { get; set; }
-        public virtual DbSet<vw_FareComparison> vw_FareComparison { get; set; }
+        public virtual DbSet<EcardAdminFee> EcardAdminFee { get; set; }
     
         public virtual int ChangeClientCode(string clientCode, string newClientCode)
         {

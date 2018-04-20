@@ -4,16 +4,16 @@
     var vm = this;
 
     PopUpMessage = function (message) {
-        if (message == "Saved" || message == "Updated") {
+        if (message === "Saved" || message === "Updated") {
             growl.success("Successfully " + message, { ttl: 2000 });
         }
-        else if (message == "Deleted") {
+        else if (message === "Deleted") {
             growl.success("Successfully Deleted", { ttl: 2000 });
         }
         else {
             growl.error(message, { title: "Error!", ttl: 3000 });
         }
-    }
+    };
 
     $scope.BillingCurrency = [
         { value: "PHP", label: "(PHP) Philippine Peso" },
@@ -96,14 +96,14 @@
             url: "/PricingAndFinancial/GetFareRef",
             arguments: { "Content-Type": "application/json" }
         }).then(function (data) {
-            if (data.data.errorMessage != "") {
+            if (data.data.errorMessage !== "") {
                 growl.error(data.data.errorMessage, { title: "Error!", ttl: 3000 });
             }
             else {
                 vm.FareRef = data.data.fare;
             }
         });
-    }
+    };
 
     $scope.SaveFareRef = function (value) {
         $http({
@@ -113,32 +113,32 @@
         }).then(function (data) {
             PopUpMessage(data.data);
         });
-    }
+    };
 
     //=======END OF FARE REF==========
     $scope.CheckIfCreditCard = function (value) {
-        if(value == "Credit Card (Airplus)" || value == "Credit Card (Amex)" || value == "Credit Card (Diners)"
-            || value == "Credit Card (JCB)" || value == "Credit Card (MasterCard)" || value == "Credit Card (Visa)") {
+        if (value === "Credit Card (Airplus)" || value === "Credit Card (Amex)" || value === "Credit Card (Diners)"
+            || value === "Credit Card (JCB)" || value === "Credit Card (MasterCard)" || value === "Credit Card (Visa)") {
             return true;
         }
         else {
             return false;
         }
-    }
+    };
 
     $scope.ClearModal = function () {
         vm.Modal = {};
-    }
+    };
 
     $scope.AssignTime = function (value) {
         vm.Time = value;
-    }
+    };
 
     $scope.OpenTableFees = function (value) {
         value.Status = "U";
 
         vm.Modal = value;
-    }
+    };
 
     $scope.DeleteTableFees = function () {
         vm.Modal.Status = "X";
@@ -150,11 +150,11 @@
         }).then(function (data) {
             PopUpMessage(data.data);
 
-            if (data.data == "Saved" || data.data == "Updated") {
+            if (data.data === "Saved" || data.data === "Updated") {
                 $("#deleteModal").modal('hide');
             }
         });
-    }
+    };
 
     $scope.SaveTableOfFees = function (value) {
         $http({
@@ -164,7 +164,7 @@
         }).then(function (data) {
             PopUpMessage(data.data);
 
-            if (data.data == "Saved" || data.data == "Updated") {
+            if (data.data === "Saved" || data.data === "Updated") {
                 //vm.TableOfFees.push(value)
 
                 $scope.initTableOfFees();
@@ -172,7 +172,7 @@
                 $("#feesModal").modal('hide');
             }
         });
-    }
+    };
 
     $scope.SaveOther = function (value) {
         $http({
@@ -182,7 +182,7 @@
         }).then(function (data) {
             PopUpMessage(data.data);
         });
-    }
+    };
 
     $scope.initOther = function () {
         $http({
@@ -192,10 +192,10 @@
         }).then(function (data) {
             vm.Other = data.data;
         });
-    }
+    };
 
     $scope.Filter = function (value) {
-        var list = vm.TableOfFees.filter(x=>x.CategoryID == value);
+        var list = vm.TableOfFees.filter(x => x.CategoryID === value);
 
         if (list.length > 0) {
             return true;
@@ -203,7 +203,7 @@
         else {
             return false;
         }
-    }
+    };
 
     $scope.initTableOfFees = function () {
         $http({
@@ -218,12 +218,12 @@
             method: "POST",
             url: "/PricingAndFinancial/GetCategoryDropDown",
             arguments: { "Content-Type": "application/json" }
-        }).then(function(data){
+        }).then(function (data) {
             vm.CategoryDropDown = data.data.dropdown;
 
             vm.TableCategory = data.data.category;
         });
-    }
+    };
 
     $scope.initSchedule = function () {
         $http({
@@ -233,7 +233,7 @@
         }).then(function (data) {
             vm.ScheduleOfInvoice = data.data;
         });
-    }
+    };
 
     $scope.saveSchedule = function (value) {
         $http({
@@ -243,7 +243,7 @@
         }).then(function (data) {
             PopUpMessage(data.data);
         });
-    }
+    };
 
     $scope.saveInvoiceAttachment = function (value) {
         $http({
@@ -253,29 +253,29 @@
         }).then(function (data) {
             PopUpMessage(data.data);
         });
-    }
+    };
 
-    $scope.initInvoiceAttachment = function(){
+    $scope.initInvoiceAttachment = function () {
         $http({
             method: "POST",
             url: "/PricingAndFinancial/GetInvoiceAttachment",
             arguments: { "Content-Type": "application/json" }
-        }).then(function(data){
-            vm.InvoiceAttachment = data.data;  
+        }).then(function (data) {
+            vm.InvoiceAttachment = data.data;
         });
-    }
+    };
 
-    $scope.initPricingModel = function(){
+    $scope.initPricingModel = function () {
         $http({
             method: "POST",
             url: "/PricingAndFinancial/GetPricingModel",
             arguments: { "Content-Type": "application/json" }
-        }).then(function(data){
+        }).then(function (data) {
             vm.PricingModel = data.data;
         });
-    }
+    };
 
-    $scope.initFormOfPayment = function(){
+    $scope.initFormOfPayment = function () {
         $http({
             method: "POST",
             url: "/PricingAndFinancial/GetFormOfPayment",
@@ -283,8 +283,8 @@
         }).then(function (data) {
             vm.FormOfPayment = data.data;
         });
-    }
-
+    };
+    
     $scope.initBillingCollectionFinance = function () {
         $http({
             method: "POST",
@@ -293,19 +293,19 @@
         }).then(function (data) {
             vm.BillingCollectionFinances = data.data;
         });
-    }
+    };
 
     $scope.initRefundProcess = function () {
         $http({
             method: "POST",
             url: "/PricingAndFinancial/GetRefundProcess",
-            arguments: {"Content-Type": "application/json"}
-        }).then(function(data){
+            arguments: { "Content-Type": "application/json" }
+        }).then(function (data) {
             vm.RefundProcess = data.data;
         });
-    }
+    };
 
-    $scope.savePricingModel = function (value, type){
+    $scope.savePricingModel = function (value, type) {
         $http({
             method: "POST",
             url: "/PricingAndFinancial/AddUpdatePricingModel",
@@ -313,63 +313,63 @@
                 pricingModel: value,
                 type: type
             }
-        }).then(function(data){
+        }).then(function (data) {
             PopUpMessage(data.data);
         });
-    }
+    };
 
     $scope.saveFormOfPayment = function (value) {
         $http({
             method: "POST",
             url: "/PricingAndFinancial/AddUpdateFormOfPayment",
             data: { fop: value }
-        }).then(function(data){
+        }).then(function (data) {
             PopUpMessage(data.data);
         });
-    }
+    };
 
     $scope.saveBillingCollection = function (value) {
         $http({
             method: "POST",
             url: "/PricingAndFinancial/AddUpdateBillingCollectionFinance",
             data: { billingCollections: value }
-        }).then(function(data){
+        }).then(function (data) {
             PopUpMessage(data.data);
 
             $scope.initBillingCollectionFinance();
         });
-    }
+    };
 
     $scope.saveRefundProcess = function (value) {
         $http({
             method: "POST",
             url: "/PricingAndFinancial/AddUpdateRefundProcess",
             data: { refundProcess: value }
-        }).then(function(data){
+        }).then(function (data) {
             PopUpMessage(data.data);
         });
-    }
+    };
 
     $scope.editBilling = function (value) {
         value.Status = "U";
 
         vm.Modal = value;
-    }
+    };
 
     $scope.addBilling = function (value) {
-        if (vm.BillingCollectionFinances == null) {
+        if (vm.BillingCollectionFinances === null) {
             vm.BillingCollectionFinances = new Array();
         }
 
-        var temp = vm.BillingCollectionFinances.filter(function(o){return o.IDNo == value.IDNo});
+        var temp = vm.BillingCollectionFinances.filter(function (o) { return o.IDNo === value.IDNo });
 
-        if(temp.length != 0){
+        if (temp.length !== 0) {
             temp.Name = value.Name;
             temp.Position = value.Position;
             temp.Email = value.Email;
             temp.ContactNo = value.ContactNo;
         }
-        else{
+        else {
 
             var person = {
                 IDNo: vm.BillingCoinitTableOfFeesllectionFinances.length + 1,
@@ -383,11 +383,11 @@
 
             vm.BillingCollectionFinances.push(person);
         }
-    }
+    };
 
     $scope.RemoveBilling = function (value) {
         vm.DeleteBilling = value;
-    }
+    };
 
     $scope.DeleteBilling = function () {
         $http({
@@ -397,13 +397,13 @@
         }).then(function (data) {
             PopUpMessage(data.data);
 
-            if (data.data == "Deleted") {
+            if (data.data === "Deleted") {
                 $("#deleteBilling").modal('hide');
             }
 
             $scope.initBillingCollectionFinance();
         });
-    }
+    };
 
     //===========Table of Fees Category===========
     $scope.SaveCategory = function (value) {
@@ -425,7 +425,7 @@
                 }
             })
         }
-    }
+    };
 
     $scope.InitCategory = function () {
         $http({
@@ -435,15 +435,15 @@
         }).then(function (data) {
             vm.Category = data.data.category;
         });
-    }
+    };
 
     $scope.AssignCatDelete = function (value) {
         vm.CategoryDelete = value;
-    }
+    };
 
     $scope.AssignCatEdit = function (value) {
         vm.Modal = value;
-    }
+    };
 
 
     $scope.DeleteCategory = function () {
@@ -457,20 +457,47 @@
             if (data.data === "Deleted") {
                 $("#deleteModal").modal('hide');
             }
-         })
-    }
+        });
+    };
 
     $scope.NewCategory = function () {
         vm.Modal.ArrangeBy = '';
 
         vm.Modal.CategoryName = '';
-    }
+    };
 
     $scope.IfNotNull = function (value) {
         for (var i = 0; i < vm.TableOfFees.length; i++) {
-            if (vm.TableOfFees[i].CategoryID == value) {
+            if (vm.TableOfFees[i].CategoryID === value) {
                 return true;
             }
         }
-    }
+    };
+    //=============ECard Admin Fee===============
+    $scope.InitAdminFee = function () {
+        $http({
+            method: "POST",
+            url: "/PricingAndFinancial/GetAdminFee",
+            arguments: { "Content-Type": "application/json" }
+        }).then(function (data) {
+            if (data.data.error !== "") {
+                ErrorMessage(data.data.error);
+            }
+            else {
+                vm.AdminFee = data.data.adminFee;
+            }
+        });
+    };
+
+    $scope.SaveAdminFee = function (value) {
+        $http({
+            method: "POST",
+            url: "/PricingAndFinancial/AddUpdateAdminFee",
+            data: {
+                adminFee: value
+            }
+        }).then(function (data) {
+            PopUpMessage(data.data);
+        });
+    };
 });

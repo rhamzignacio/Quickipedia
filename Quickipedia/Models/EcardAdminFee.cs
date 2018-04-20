@@ -12,18 +12,18 @@ namespace Quickipedia.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class vw_FareComparison
+    public partial class EcardAdminFee
     {
-        public System.Guid ID { get; set; }
         public string ClientCode { get; set; }
-        public string ClientName { get; set; }
-        public string LF { get; set; }
-        public string LowFare { get; set; }
-        public string RF { get; set; }
-        public string ReferenceFare { get; set; }
-        public string HotelStandardFare { get; set; }
-        public string CarStandardFare { get; set; }
+        public string AirFare { get; set; }
+        public string ServiceFee { get; set; }
+        public string Others { get; set; }
+        public Nullable<decimal> Divide { get; set; }
+        public Nullable<decimal> Multiply { get; set; }
         public Nullable<System.Guid> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public bool AirFareFlag { get; set; }
+        public bool ServiceFeeFlag { get; set; }
+        public bool OtherFeeFlag { get; set; }
     }
 }
