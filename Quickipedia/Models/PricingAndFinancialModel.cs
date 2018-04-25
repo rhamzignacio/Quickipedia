@@ -29,7 +29,7 @@ namespace Quickipedia.Models
             }
         }
 
-        private decimal? _showDivide;
+        public decimal? _showDivide;
         public decimal? ShowDivide
         {
             get
@@ -42,7 +42,7 @@ namespace Quickipedia.Models
             set { _showDivide = value; }
         }
 
-        private decimal? _showMultiply;
+        public decimal? _showMultiply;
         public decimal? ShowMultiply
         {
             get
@@ -53,6 +53,37 @@ namespace Quickipedia.Models
                     return null;
             }
             set { _showMultiply = value; }
+        }
+
+        //*****USD*******
+        public bool AirFareUSD { get; set; }
+        public bool ServiceFeeUSD { get; set; }
+        public bool OtherUSD { get; set; }
+        public decimal? DivideUSD { get; set; }
+        public decimal? MultiplyUSD { get; set; }
+        public decimal? _showDivideUSD { get; set; }
+        public decimal? ShowDivideUSD
+        {
+            get
+            {
+                if (DivideUSD != null)
+                    return DivideUSD * 100;
+                else
+                    return null;
+            }
+            set { _showDivideUSD = value; }
+        }
+        public decimal? _showMultiplyUSD { get; set; }
+        public decimal? ShowMultiplyUSD
+        {
+            get
+            {
+                if (MultiplyUSD != null)
+                    return MultiplyUSD * 100;
+                else
+                    return null;
+            }
+            set { _showMultiplyUSD = value; }
         }
     }
 

@@ -193,6 +193,11 @@
           <Property Name="AirFareFlag" Type="bit" Nullable="false" />
           <Property Name="ServiceFeeFlag" Type="bit" Nullable="false" />
           <Property Name="OtherFeeFlag" Type="bit" Nullable="false" />
+          <Property Name="AirFareUSD" Type="bit" Nullable="false" />
+          <Property Name="ServiceFeeUSD" Type="bit" Nullable="false" />
+          <Property Name="OthersUSD" Type="bit" Nullable="false" />
+          <Property Name="DivideUSD" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="MultiplyUSD" Type="decimal" Precision="18" Scale="6" />
         </EntityType>
         <EntityType Name="FareComparison">
           <Key>
@@ -661,8 +666,6 @@
           <Property Name="ModifiedBy" Type="uniqueidentifier" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Quickipedia.dbo.vw_FareComparison' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <Function Name="ChangeClientCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ClientCode" Type="varchar" Mode="In" />
           <Parameter Name="NewClientCode" Type="varchar" Mode="In" />
@@ -1444,6 +1447,11 @@ warning 6002: The table/view 'Quickipedia.dbo.vw_FareComparison' does not have a
           <Property Name="AirFareFlag" Type="Boolean" Nullable="false" />
           <Property Name="ServiceFeeFlag" Type="Boolean" Nullable="false" />
           <Property Name="OtherFeeFlag" Type="Boolean" Nullable="false" />
+          <Property Name="AirFareUSD" Type="Boolean" Nullable="false" />
+          <Property Name="ServiceFeeUSD" Type="Boolean" Nullable="false" />
+          <Property Name="OthersUSD" Type="Boolean" Nullable="false" />
+          <Property Name="DivideUSD" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="MultiplyUSD" Type="Decimal" Precision="18" Scale="6" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2149,6 +2157,11 @@ warning 6002: The table/view 'Quickipedia.dbo.vw_FareComparison' does not have a
           <EntitySetMapping Name="EcardAdminFee">
             <EntityTypeMapping TypeName="QuickipediaModel.EcardAdminFee">
               <MappingFragment StoreEntitySet="EcardAdminFee">
+                <ScalarProperty Name="MultiplyUSD" ColumnName="MultiplyUSD" />
+                <ScalarProperty Name="DivideUSD" ColumnName="DivideUSD" />
+                <ScalarProperty Name="OthersUSD" ColumnName="OthersUSD" />
+                <ScalarProperty Name="ServiceFeeUSD" ColumnName="ServiceFeeUSD" />
+                <ScalarProperty Name="AirFareUSD" ColumnName="AirFareUSD" />
                 <ScalarProperty Name="OtherFeeFlag" ColumnName="OtherFeeFlag" />
                 <ScalarProperty Name="ServiceFeeFlag" ColumnName="ServiceFeeFlag" />
                 <ScalarProperty Name="AirFareFlag" ColumnName="AirFareFlag" />

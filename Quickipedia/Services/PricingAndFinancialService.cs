@@ -32,7 +32,12 @@ namespace Quickipedia.Services
                                     Multiply = a.Multiply,
                                     Others = a.OtherFeeFlag,
                                     ServiceFee = a.ServiceFeeFlag,
-                                    ShowModifiedBy = us.FirstName + " " + us.LastName
+                                    ShowModifiedBy = us.FirstName + " " + us.LastName,
+                                    AirFareUSD = a.AirFareUSD,
+                                    DivideUSD = a.DivideUSD,
+                                    MultiplyUSD = a.MultiplyUSD,
+                                    OtherUSD = a.OthersUSD,
+                                    ServiceFeeUSD = a.ServiceFeeUSD
                                 };
 
                     if (query.FirstOrDefault() != null)
@@ -70,7 +75,12 @@ namespace Quickipedia.Services
                             ModifiedDate = DateTime.Now,
                             Multiply = _model.Multiply,
                             OtherFeeFlag = _model.Others,
-                            ServiceFeeFlag = _model.ServiceFee
+                            ServiceFeeFlag = _model.ServiceFee,
+                            AirFareUSD = _model.AirFareUSD,
+                            OthersUSD = _model.OtherUSD,
+                            ServiceFeeUSD = _model.ServiceFeeUSD,
+                            DivideUSD = _model.DivideUSD,
+                            MultiplyUSD = _model.MultiplyUSD
                         };
 
                         db.Entry(newAdmin).State = EntityState.Added;
@@ -90,6 +100,18 @@ namespace Quickipedia.Services
                         admin.OtherFeeFlag = _model.Others;
 
                         admin.ServiceFeeFlag = _model.ServiceFee;
+
+                        admin.ServiceFeeUSD = _model.ServiceFeeUSD;
+
+                        admin.OthersUSD = _model.OtherUSD;
+
+                        admin.AirFareUSD = _model.AirFareUSD;
+
+                        admin.ServiceFeeUSD = _model.ServiceFeeUSD;
+
+                        admin.DivideUSD = _model.DivideUSD;
+
+                        admin.MultiplyUSD = _model.MultiplyUSD;
 
                         db.Entry(admin).State = EntityState.Modified;
                     }

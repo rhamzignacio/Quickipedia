@@ -320,11 +320,17 @@ namespace Quickipedia.Controllers
 
             if (adminFee != null)
             {
-                if (adminFee.ShowDivide != null)
-                    adminFee.Divide = adminFee.ShowDivide / 100;
+                if (adminFee._showDivide != null)
+                    adminFee.Divide = adminFee._showDivide / 100;
 
-                if (adminFee.ShowMultiply != null)
-                    adminFee.Multiply = adminFee.ShowMultiply / 100;
+                if (adminFee._showMultiply != null)
+                    adminFee.Multiply = adminFee._showMultiply / 100;
+
+                if (adminFee._showMultiplyUSD != null)
+                    adminFee.MultiplyUSD = adminFee._showMultiplyUSD / 100;
+
+                if (adminFee._showDivideUSD != null)
+                    adminFee.DivideUSD = adminFee._showDivideUSD / 100;
 
                 PricingAndFinancialService.SaveAdminFee(adminFee, out error);
             }
